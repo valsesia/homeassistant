@@ -1,0 +1,1436 @@
+#   __  __             _ _                                       _        
+#  |  \/  |           (_) |                                     | |       
+#  | \  / | ___  _ __  _| |_ ___  _ __ __ _ _ __ ___   ___ _ __ | |_ ___  
+#  | |\/| |/ _ \| '_ \| | __/ _ \| '__/ _` | '_ ` _ \ / _ \ '_ \| __/ _ \ 
+#  | |  | | (_) | | | | | || (_) | | | (_| | | | | | |  __/ | | | || (_) |
+#  |_|  |_|\___/|_| |_|_|\__\___/|_|  \__,_|_| |_| |_|\___|_| |_|\__\___/ 
+                                                                        
+                                                                        
+title: Monitoramento
+path: monitora
+icon: 'mdi:account-clock'
+panel: false
+badges: []
+
+cards:
+  - entities:
+      - custom_fields:
+          wc_casal_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_casal_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_casal_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_casal_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_casal_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          wc_social_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_social_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_social_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_social_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_social_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          casal_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          casal_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_casal_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            casal_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            casal_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          corredor_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          corredor_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_corredor_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            corredor_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            corredor_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          cozinha_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          cozinha_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_cozinha_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            cozinha_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            cozinha_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          tv_casal_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          tv_casal_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_escritorio_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            tv_casal_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            tv_casal_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          sala_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          sala_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_sala_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            sala_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            sala_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+ 
+      - custom_fields:
+          jantar_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          jantar_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_jantar_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            jantar_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            jantar_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+        
+      - custom_fields:
+          vazio_ontem: |
+            [[[
+              return ` `
+            ]]]
+          vazio_ontem_value: |
+            [[[
+                return ` `
+            ]]]
+        #entity: sensor.total_luzes_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 12px
+          custom_fields:
+            vazio_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            vazio_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+        type: 'custom:button-card'
+        
+      - custom_fields:
+          total_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          total_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.total_luzes_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            total_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            total_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+              - color: >
+                 [[[ 
+                   if (entity.state < 6)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 12)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+        
+    show_header_toggle: false
+    title: Tempo Luzes Ligadas (Ontem)
+    type: entities
+
+  - entities:
+      - custom_fields:
+          wc_casal_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_casal_hoje_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_casal_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_casal_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_casal_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          wc_social_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_social_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_social_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_social_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_social_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          casal_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          casal_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_casal_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            casal_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            casal_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          corredor_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          corredor_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_corredor_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            corredor_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            corredor_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 0.50)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 2)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          cozinha_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          cozinha_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_cozinha_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            cozinha_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            cozinha_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          tv_casal_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          tv_casal_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_escritorio_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            tv_casal_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            tv_casal_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          sala_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          sala_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_sala_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            sala_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            sala_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+ 
+      - custom_fields:
+          jantar_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          jantar_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_jantar_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            jantar_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            jantar_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          vazio_hoje: |
+            [[[
+              return ` `
+            ]]]
+          vazio_hoje_value: |
+            [[[
+                return ` `
+            ]]]
+        #entity: sensor.total_luzes_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 12px
+          custom_fields:
+            vazio_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            vazio_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+        type: 'custom:button-card'
+        
+      - custom_fields:
+          total_hoje: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          total_hoje_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.total_luzes_ligada_hoje
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            total_hoje:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            total_hoje_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+              - color: >
+                 [[[ 
+                   if (entity.state < 6)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 12)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+    show_header_toggle: false
+    title: Tempo Luzes Ligadas (Dia)
+    type: entities      
+
+  - entities:
+      - custom_fields:
+          wc_casal_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_casal_mes_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_casal_ligada_mes  
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_casal_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_casal_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          wc_social_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          wc_social_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_banheiro_social_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            wc_social_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            wc_social_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          casal_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          casal_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_casal_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            casal_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            casal_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          corredor_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          corredor_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_corredor_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            corredor_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            corredor_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 15)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 120)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          cozinha_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          cozinha_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_cozinha_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            cozinha_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            cozinha_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 90)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 150)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          tv_casal_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          tv_casal_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_escritorio_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            tv_casal_mes:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            tv_casal_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 90)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 150)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          sala_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          sala_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_sala_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            sala_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            sala_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+ 
+      - custom_fields:
+          jantar_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          jantar_ontem_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.luz_jantar_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            jantar_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            jantar_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+              - color: >
+                 [[[ 
+                   if (entity.state < 3)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 5)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+
+      - custom_fields:
+          total_ontem: |
+            [[[
+              return ` `
+            ]]]
+          total_ontem_value: |
+            [[[
+                return ` `
+            ]]]
+        #entity: sensor.total_luzes_ligada_ontem
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 12px
+          custom_fields:
+            total_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            total_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+        type: 'custom:button-card'
+        
+      - custom_fields:
+          total_mes: |
+            [[[
+              return `<ha-icon
+                icon="mdi:lightbulb-on"
+                style="width: 22px; height: 22px; color: #DCCC1C;">
+                </ha-icon>&nbsp;<span style="color: var(--text-color-sensor);"> ${entity.attributes.friendly_name} </span>`
+            ]]]
+          total_mes_value: |
+            [[[
+                return `<span> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.total_luzes_ligada_mes
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            total_mes:
+              - position: absolute
+              - left: 2%
+              - top: 25%
+            total_mes_value:
+              - position: absolute
+              - left: 82%
+              - top: 25%
+              - color: >
+                 [[[ 
+                   if (entity.state < 180)
+                     return '#00DD00';
+                   else
+                     if (entity.state > 360)
+                       return '#DD0000';
+                     else
+                       return 'var(--text-color-sensor)';
+                  ]]]
+        type: 'custom:button-card'
+    show_header_toggle: false
+    title: Tempo Luzes Ligadas (Mês)
+    type: entities  
+    
+  - entities:
+      - custom_fields:
+          cadu_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:account"
+                style="width: 22px; height: 22px; color: #5DB5F9;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Cadu </span>`
+            ]]]
+          cadu_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.cadu_em_casa_semana_tempo
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            cadu_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            cadu_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+
+      - custom_fields:
+          fer_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:account"
+                style="width: 22px; height: 22px; color: #F95DD2;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Fernanda </span>`
+            ]]]
+          fer_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${entity.state}</b> </span>`
+            ]]]
+        entity: sensor.fernanda_em_casa_semana_tempo
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            fer_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            fer_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+    show_header_toggle: false
+    title: Tempo Total em Casa (Semana)
+    type: entities  
+
+
+  - entities:
+      - custom_fields:
+          cadu_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:door-open"
+                style="width: 22px; height: 22px; color: #FFA500;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Porta da Sala </span>`
+            ]]]
+          cadu_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${states['sensor.porta_sala_contador'].state}</b> </span>`
+            ]]]
+        entity: sensor.porta_sala_contador
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            cadu_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            cadu_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+
+      - custom_fields:
+          fer_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:door-open"
+                style="width: 22px; height: 22px; color: #FFA500;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Porta da Sacada </span>`
+            ]]]
+          fer_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${states['sensor.porta_sacada_contador'].state}</b> </span>`
+            ]]]
+        entity: sensor.porta_sacada_contador
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            fer_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            fer_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+
+      - custom_fields:
+          fer_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:door-open"
+                style="width: 22px; height: 22px; color: #FFA500;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Porta do BWC Social </span>`
+            ]]]
+          fer_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${states['sensor.porta_bwc_social_contador'].state}</b> </span>`
+            ]]]
+        entity: sensor.porta_bwc_social_contador
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            fer_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            fer_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+
+
+      - custom_fields:
+          fer_ontem: |
+            [[[
+              return `<ha-icon
+                icon="mdi:door-open"
+                style="width: 22px; height: 22px; color: #FFA500;">
+                </ha-icon> &nbsp;<span style="color: var(--text-color-sensor);"> Porta do BWC Casal </span>`
+            ]]]
+          fer_ontem_value: |
+            [[[
+              return `<span style="color: var(--text-color-sensor);"> <b>${states['sensor.porta_bwc_casal_contador'].state}</b> </span>`
+            ]]]
+        entity: sensor.porta_bwc_casal_contador
+        layout: icon_state_name2nd
+        show_icon: false
+        show_state: false
+        show_name: false
+        styles:
+          card:
+            - font-size: 15px
+          custom_fields:
+            fer_ontem:
+              - position: absolute
+              - left: 2%
+              - top: 35%
+            fer_ontem_value:
+              - position: absolute
+              - left: 82%
+              - top: 35%
+        type: 'custom:button-card'
+        
+    show_header_toggle: false
+    title: Portas Abertas (Dia)
+    type: entities  
+    
+    
+#   - entities:
+#       - entity: sensor.luz_banheiro_casal_ligada_hoje
+#         name: |
+#           [[[
+#               return `<ha-icon
+#                 icon="mdi:lightbulb-on"
+#                 style="width: 22px; height: 22px; color: #DCCC1C;">
+#                 </ha-icon><span> &nbsp;&nbsp; ${entity.attributes.friendly_name} <span style="color: var(--text-color-sensor);"> - <b>${entity.state}</b> </span></span>`
+#             ]]]
+
+#         show_icon: false
+#         show_state: false
+#         styles:
+#           name:
+#             - padding: 0px 10px
+#             - justify-self: start
+#             - padding-left: 3px
+#         type: 'custom:button-card'
+    

@@ -1,0 +1,1258 @@
+
+ #  ______                      _       
+ # |  ____|                    (_)      
+ # | |__   _ __   ___ _ __ __ _ _  __ _ 
+ # |  __| | '_ \ / _ \ '__/ _` | |/ _` |
+ # | |____| | | |  __/ | | (_| | | (_| |
+ # |______|_| |_|\___|_|  \__, |_|\__,_|
+ #                         __/ |        
+ #                        |___/                 
+                                                     
+title: Energia
+path: energia
+icon: 'mdi:atom-variant'
+cards:
+  - cards:
+      - cards:
+        entity: switch.tomadageladeira
+            # icon: 'mdi:power-plug'
+            # name: Energia
+        name: Geladeira
+        lock:
+          enabled: true
+          duration: 10
+          unlock: hold
+        show_state: false
+        show_icon: false
+        tap_action:
+          action: ''
+        custom_fields:
+          energia: &energia >        
+            [[[ if (entity.state === 'on') {
+                const cor_linha = '#008800';
+                const cor_fundo = '#2a2a2a'; 
+                const brightness = 100;            
+                const radius = 17.5; const circumference = radius * 2 * Math.PI; 
+                return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="${radius}" stroke="${cor_linha}" stroke-width="2.5" fill="${cor_fundo}" style="
+                transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference - brightness / 100 * circumference};" />
+                <text x="50%" y="54%" fill="#008800" font-size="14" text-anchor="middle" alignment-baseline="middle">ON</text></svg>`;            
+            }
+            if (entity.state === 'off') {
+                const cor_linha = '#990000';
+                const cor_fundo = '#2a2a2a';
+                const brightness = 100;            
+                const radius = 17.5; const circumference = radius * 2 * Math.PI; 
+                return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="${radius}" stroke="${cor_linha}" stroke-width="2.5" fill="${cor_fundo}" style="
+                transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference - brightness / 100 * circumference};" />
+                <text x="50%" y="54%" fill="#990000" font-size="14" text-anchor="middle" alignment-baseline="middle">OFF</text></svg>`;            
+            }
+            ]]]
+          icon_energia: &icon_energia >
+            [[[ if (entity.state === 'on' ) {
+                return `<svg viewBox="0 0 50 50"> <polygon  fill="var(--button-card-light-color)" opacity="0.5" points="8 13.65 11.5 17.17 11.5 19 12.5 19 12.5 17.17 16 13.66 16 9 8 9"/>
+                <path d="m16,7l0,-4l-2,0l0,4l-4,0l0,-4l-2,0l0,4l-0.01,0c-1.1,0 -1.99,0.89 -1.99,1.98l0,5.52l3.5,3.5l0,3l5,0l0,-3l3.5,-3.5l0,-5.5c0,-1.1 -0.9,-2 -2,-2zm0,6.66l-3.5,3.51l0,1.83l-1,0l0,-1.83l-3.5,-3.52l0,-4.65l8,0l0,4.66z" fill="var(--button-card-light-color)" /></svg>`; }
+                else {
+                return `<svg viewBox="0 0 50 50"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="#ffc700" d="M12.12 9L16 12.88V9zm-.62 8.17V19h1v-1.83l1.07-1.06L8 10.54v3.11z" opacity=".5"/><path fill="#ffc700" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25 6 8.54v5.96L9.5 18v3h5v-3l.48-.48 4.47 4.47 1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57-1.07 1.06z"/></svg>`; } ]]]
+
+        styles:
+          card: &card_style
+            [height: 80px, font-family: Sf Display, letter-spacing: 1.15px, text-rendering: optimizeLegibility, font-weight: 600, color: 'rgba(255, 255, 255, 0.3)', font-size: 15px, 
+            background-color: 'rgba(115, 115, 115, 0.4)', border-radius: 10px, box-shadow: none, transition: none] 
+          name: &name_style
+            [top: 25%, left: 10%, position: absolute, font-family: Sf Display, letter-spacing: 1.15px, font-size: 26px, color: 'rgba(255, 255, 255, 0.9)'] 
+          state: &state_style
+            [font-size: 9px, top: 40%, left: 5%, position: absolute, line-height: 46px, color: var(--secondary-text-color)]  
+          custom_fields:
+            energia: &circle_pos   
+              [top: 20%, right: 5%, width: 50px, position: absolute, letter-spacing: 0.7px]
+            icon_energia: &icon_energia_style
+              [top: 25%, left: 1%, width: 70px, position: absolute, color: 'rgba(115, 115, 0, 0.9)']
+
+        type: 'custom:button-card'
+      - cards:
+          - entity: sensor.geladeira_st
+            icon: 'mdi:fridge-outline'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                # - height: 172px
+                # - width: 130px
+                [height: 172px, width: 130px, font-family: Sf Display, letter-spacing: 1.15px, text-rendering: optimizeLegibility, font-weight: 600, color: 'rgba(255, 255, 255, 0.3)', font-size: 15px, 
+                background-color: 'rgba(115, 115, 115, 0.4)', border-radius: 10px, box-shadow: none, transition: none] 
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                [color: 'rgba(255, 255, 255, 0.6)', font-size: 12px, font-weight: 700] 
+                # - font-size: 12px
+                # - color: 'rgba(0, 0, 0, 0.6)'
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.tomadageladeira_energy_power
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.tomadageladeira_energy_voltage
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.tomadageladeira_energy_current
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasto_dia_geladeira
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.tomadageladeira_energy_yesterday
+            icon: 'mdi:water'
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasto_semana_geladeira
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_geladeira
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_geladeira
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_geladeira
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_geladeira
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_geladeira
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+  - cards:
+      - cards:
+        entity: switch.lavadora
+        name: Lavadora
+        show_state: false
+        show_icon: false
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+    #   - entities:
+    #       - entity: switch.maquinalavar
+    #         icon: 'mdi:power-plug'
+    #         name: Energia
+    #     show_header_toggle: false
+    #     title: Maquina de Lavar
+    #     type: entities
+      - cards:
+          - entity: sensor.maquina_lavar_st
+#            icon: 'mdi:washing-machine'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.lavadora_energy
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.samsung_prog_state
+            layout: vertical
+            name: Etapa
+            show_icon: false
+            show_name: true
+            show_state: true
+            
+            styles:
+              card:
+                - height: 95px
+                - width: 200px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - entity: sensor.lavadora_tempo_restante
+            layout: vertical
+            name: Tempo Restante
+            show_icon: false
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 95px
+                - width: 290px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasta_dia_maquina_lavar
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.maquinalavar_energy_yesterday
+            icon: 'mdi:water'
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasta_semana_maquina_lavar
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_maquina_lavar
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_maquina_lavar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_maquina_lavar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_maquina_lavar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_maquina_lavar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+  - cards:
+      - cards:
+        entity: switch.frigobar
+        name: Frigobar
+        show_state: false
+        show_icon: false
+
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+
+      - cards:
+          - entity: sensor.frigobar_st
+            icon: 'mdi:fridge-top'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.frigobar_energy_power  
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.frigobar_energy_voltage_2
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.frigobar_energy_current_2
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasta_dia_frigobar
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.frigobar_energy_yesterday
+            icon: 'mdi:water'
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasta_semana_frigobar
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_frigobar
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_frigobar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_frigobar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_frigobar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_frigobar
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+  - cards:
+      - cards:
+        entity: climate.arescritorio
+        name: Ar Escritório
+        show_state: false
+        show_icon: false
+        tap_action:
+          action: ''
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+
+    #   - entities:
+    #       - entity: switch.tomada_micro
+    #         icon: 'mdi:power-plug'
+    #         name: Energia
+    #     show_header_toggle: false
+    #     title: Computador (Tomada)
+        # type: entities
+      - cards:
+          - entity: sensor.ar_escritorio_st
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.arescritorio_energy_current
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.ar_escritorio_temperatura
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.arescritorio_room_temperature
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasto_dia_ar_escritorio
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.tomadamicro_energy_yesterday
+            icon: 'mdi:water'
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasto_semana_ar_escritorio
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasto_mes_ar_escritorio
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_ar_escritorio
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_ar_escritorio
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_ar_escritorio
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_ar_escritorio
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+  - cards:
+
+      - cards:
+        entity: switch.tomada_tv_sala_socket
+        name: TV Sala (Tomada)
+        show_state: false
+        show_icon: false
+        tap_action:
+          action: ''
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+        
+    #   - entities:
+    #       - entity: switch.sonoff_10009e7a57
+    #         icon: 'mdi:power-plug'
+    #         name: Energia
+    #     show_header_toggle: false
+    #     title: TV Sala (Tomada)
+    #     type: entities
+      - cards:
+          - entity: sensor.tvsala_st
+            icon: 'mdi:television-classic'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.tomada_tv_sala_power
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.tomada_tv_sala_voltage
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.tomada_tv_sala_current
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.total_kwh_dia_tvsala
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_ontem_tvsala
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_semana_tvsala
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_tvsala
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_tvsala
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_tvsala
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_tvsala
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_tvsala
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+    
+  - cards:
+
+      - cards:
+        entity: switch.microondas
+        name: Tomada MicroOndas
+        show_state: false
+        show_icon: false
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+
+
+      - cards:
+          - entity: sensor.microondas_st
+            //icon: 'mdi:power-socket-us'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.microondas_energy_power
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.microondas_energy_voltage
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.microondas_energy_current
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasta_dia_microondas
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.microondas_energy_yesterday
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasta_semana_microondas
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_microondas
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_microondas
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_microondas
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_microondas
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_microondas
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+    
+  - cards:
+      - cards:
+        entity: switch.airfryer
+        name: Air Fryer
+        show_state: false
+        show_icon: false
+
+        custom_fields:
+          energia: *energia 
+          icon_energia: *icon_energia
+        styles:
+          card: *card_style
+          name: *name_style
+          state: *state_style
+          custom_fields:
+            energia: *circle_pos   
+            icon_energia: *icon_energia_style
+        type: 'custom:button-card'
+
+      - cards:
+          - entity: sensor.airfryer_st
+            icon: 'mdi:french-fries'
+            layout: vertical
+            name: Status
+            show_icon: true
+            show_name: true
+            show_state: true
+            styles:
+              card:
+                - height: 172px
+                - width: 130px
+              icon:
+                - width: 104px
+                - height: 104px
+              name:
+                - font-size: 12px
+              state:
+                - color: var(--primary-color)
+            type: 'custom:button-card'
+          - color_thresholds:
+              - color: '#DD2C00'
+                value: 70
+              - color: '#FFAB00'
+                value: 30
+              - color: '#4CAF50'
+                value: 0
+            entities:
+              - entity: sensor.airfryer_energy_power  
+                index: 0
+            font_size: 70
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            name: Watts
+            points_per_hour: 12
+            show:
+              icon_adaptive_color: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - color_thresholds:
+              - color: '#C62828'
+                value: 240
+              - color: '#03A9F4'
+                value: 230
+              - color: '#999'
+                value: 0
+            entities:
+              - entity: sensor.airfryer_energy_voltage_2
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#F44336'
+                value: 0.5
+              - color: '#512DA8'
+                value: 0.3
+              - color: '#0288D1'
+                value: 0
+            entities:
+              - entity: sensor.airfryer_energy_current
+                index: 0
+            font_size: 60
+            height: 80
+            hours_to_show: 3
+            line_width: 2
+            points_per_hour: 12
+            show:
+              icon: false
+              name: false
+              state: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.kwh_gasta_dia_airfryer
+            name: Hoje
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.airfryer_energy_yesterday
+            icon: 'mdi:water'
+            name: Ontem
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.kwh_gasta_semana_airfryer
+            icon: 'mdi:water'
+            name: Semana
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: sensor.total_kwh_mes_airfryer
+            icon: 'mdi:water'
+            name: Mês
+            show_icon: false
+            show_state: true
+            styles:
+              name:
+                - font-weight: 500
+              state:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.custo_dia_airfryer
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_ontem_airfryer
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_semana_airfryer
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+          - entity: sensor.custo_mes_airfryer
+            show_icon: false
+            show_name: false
+            show_state: true
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack

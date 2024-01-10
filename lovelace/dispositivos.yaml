@@ -1,0 +1,310 @@
+###########################################################################################################################
+# ██████╗ ██╗███████╗██████╗  ██████╗ ███████╗██╗████████╗██╗██╗   ██╗ ██████╗ ███████╗                                   #
+# ██╔══██╗██║██╔════╝██╔══██╗██╔═══██╗██╔════╝██║╚══██╔══╝██║██║   ██║██╔═══██╗██╔════╝                                   #
+# ██║  ██║██║███████╗██████╔╝██║   ██║███████╗██║   ██║   ██║██║   ██║██║   ██║███████╗                                   #
+# ██║  ██║██║╚════██║██╔═══╝ ██║   ██║╚════██║██║   ██║   ██║╚██╗ ██╔╝██║   ██║╚════██║                                   #
+# ██████╔╝██║███████║██║     ╚██████╔╝███████║██║   ██║   ██║ ╚████╔╝ ╚██████╔╝███████║                                   #
+# ╚═════╝ ╚═╝╚══════╝╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═══╝   ╚═════╝ ╚══════╝                                   #
+###########################################################################################################################
+title: Dispositivos
+icon: 'mdi:power-plug'
+path: dispositivos
+
+cards:
+  - type: vertical-stack
+    cards:
+
+      # Cozinha ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Cozinha'
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+            
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.geladeira
+              - name: Refrigerador
+              - icon: fridge-outline
+              - lock: true
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+            
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+      
+      # Quarto Casal ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Quarto Casal'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: media_player.lg_tv_quarto
+              - name: TV LG
+              - icon: television
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+            
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1       
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+      
+      # Escritório ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Escritório'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.imac_de_cadu
+              - name: iMac de Cadu
+              - icon: desktop-mac
+              - color: DodgerBlue
+              #- spin: true
+              
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.sonoff_10009e7a8e
+              - name: Tomada Escritório
+              - icon: power-socket-us
+              - color: DodgerBlue
+              #- spin: true
+          
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Escritório Tomadas------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Tomadas Escritório'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+              
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.505420022cf4326ce3e5_1
+              - name: Computador 
+              - icon: power-socket-eu
+              - lock: true
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.505420022cf4326ce3e5_4
+              - name: Impressora
+              - icon: power-socket-eu
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.505420022cf4326ce3e5_2
+              - name: Filtro Linha
+              - icon: power-socket-eu
+          
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.505420022cf4326ce3e5_5
+              - name: USB 
+              - icon: usb
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+    
+  - type: vertical-stack
+    cards:
+
+      # Sala ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Sala'
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.sonoff_10009e7a57
+              - name: Servidor
+              - icon: power-socket-eu
+              - lock: true
+
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+      
+      # Outras Áreas ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Sala de Jantar'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: media_player.sala_de_jantar
+              - name: Google Home
+              - icon: google-home
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: media_player.echo_show_de_carlos
+              - name: Echo Show Cadu
+              - icon: amazon-alexa
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+# Lavanderia ------------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Lavanderia'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: switch_button_card
+            variables:
+              - entity: switch.maquinalavar
+              - name: Máquina de Lavar
+              - icon: washing-machine
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+            
+      - type: 'custom:button-card'
+        color_type: blank-card
+        styles:
+          card:
+            - height: 10px
+

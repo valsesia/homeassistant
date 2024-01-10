@@ -1,0 +1,476 @@
+###########################################################################################################################
+# ██╗     ██╗   ██╗███████╗███████╗███████╗                                                                               #
+# ██║     ██║   ██║╚══███╔╝██╔════╝██╔════╝                                                                               #
+# ██║     ██║   ██║  ███╔╝ █████╗  ███████╗                                                                               #
+# ██║     ██║   ██║ ███╔╝  ██╔══╝  ╚════██║                                                                               #
+# ███████╗╚██████╔╝███████╗███████╗███████║                                                                               #
+# ╚══════╝ ╚═════╝ ╚══════╝╚══════╝╚══════╝                                                                               #
+###########################################################################################################################
+title: Luzes
+icon: 'mdi:lamp'
+path: 'luzes'
+
+popup_cards:
+  !include popup-cards/light-popup.yaml
+
+cards:
+  - type: vertical-stack
+    cards:
+
+      # Escritório -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Escritório'
+
+      - type: horizontal-stack
+        cards:
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000956b97_1
+              - name: Principal
+              - icon: lightbulb-on
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000b57440
+              - name: Interruptor
+              - icon: string-lights
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000956b97_2
+              - name: Led
+              - icon: led-strip-variant
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+      
+      # Quarto Casal-----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Quarto Casal'
+      
+      - type: horizontal-stack
+        cards:
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_100095093e_3
+              - name: Principal
+              - icon: lightbulb-on
+              - lock: false
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_100095093e_1
+              - name: Abajour
+              - icon: ceiling-light
+              - lock: false
+              
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_100095093e_2
+              - name: Spot
+              - icon: wall-sconce-flat
+              - lock: false
+              
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+     # Quarto Lara-----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Quarto Lara'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.quartolara
+              - name: Principal
+              - icon: lightbulb-on
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.abajourlara
+              - name: Abajour Lara
+              - icon: floor-lamp
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+      
+      # Sala de Estar -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Sala de Estar'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000950ecd_1
+              - name: Principal
+              - icon: lightbulb-on
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000951276_2
+              - name: Spot Sofá
+              - icon: wall-sconce-flat
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000951276_1
+              - name: Spot TV
+              - icon: wall-sconce-flat
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: light.ledtv
+              - name: LED TV
+              - icon: led-strip-variant
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Sala de Jantar -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Sala de Jantar'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000950ecd_3
+              - name: Principal
+              - icon: lightbulb-on
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000951276_3
+              - name: Spot Jantar
+              - icon: wall-sconce-flat
+    
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: light.ledjantar
+              - name: Led Jantar
+              - icon: led-strip-variant
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+                
+  - type: vertical-stack
+    cards:
+
+      # Cozinha -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Cozinha'
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000ad1dc8_1
+              - name: Principal
+              - icon: lightbulb-outline
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000ad1dc8_2
+              - name: Spot Cozinha
+              - icon: globe-light
+
+        #   - type: custom:decluttering-card
+        #     template: light_button_card
+        #     variables:
+        #       - entity: switch.sonoff_1000aca60e
+        #       - name: Led Cozinha
+        #       - icon: led-strip-variant
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Sacada -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Sacada'
+
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000ad2773_1
+              - name: Principal
+              - icon: vanity-light
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000ad2773_2
+              - name: Spot Sacada
+              - icon: wall-sconce-flat
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000ad2773_3
+              - name: Enfeite Sacada
+              - icon: string-lights
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Corredor -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Corredor e Hall'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_10009570a8_2
+              - name: Corredor
+              - icon: lightbulb
+              - size: 30%
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000956d0c_1
+              - name: Hall
+              - icon: lightbulb
+              - size: 30%
+
+                        
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Banheiros -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Banheiros'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000b57904
+              - name: BWC Social
+              - icon: lightbulb
+              - size: 30%
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_1000b5bf8b
+              - name: BWC Casal
+              - icon: lightbulb
+              - size: 30%
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      # Lavanderia -----------------------------------# 
+      - type: custom:decluttering-card
+        template: header_text
+        variables:
+          - content: '##### Lavanderia'
+      
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+          - type: custom:decluttering-card
+            template: light_button_card
+            variables:
+              - entity: switch.sonoff_10009585a3
+              - name: Lavanderia
+              - icon: lightbulb
+              - size: 30%
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: custom:button-card
+            color_type: blank-card
+            aspect_ratio: 1/1
+                        
+          - type: 'custom:button-card'
+            color_type: blank-card
+            styles:
+              card:
+                - width: 10px
+
+      - type: 'custom:button-card'
+        color_type: blank-card
+        styles:
+          card:
+            - height: 10px

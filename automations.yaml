@@ -1,0 +1,3428 @@
+- id: handle_tag_scan_esc
+  alias: Escutar Tag Scan
+  mode: single
+  max_exceeded: silent
+  variables:
+    media_players:
+      cf043f631685ed0a58316abf3bf258e2: media_player.echo_dot_escritorio
+      3d40dbe4d327ad4df255d1a63c3280c9: media_player.echo_studio_de_carlos
+    tags:
+      73-8C-BF-18:
+        media_content_id: playlist barbearia farrapos
+        media_content_type: SPOTIFY
+      84-51-E9-14:
+        media_content_id: playlist anos 80 internacional
+        media_content_type: SPOTIFY
+      A3-9F-77-05:
+        media_content_id: playlist barbearia corleone
+        media_content_type: SPOTIFY
+      53-3E-D4-18:
+        media_content_id: playlist harley davidson motorcycle road songs.
+        media_content_type: SPOTIFY
+  trigger:
+    platform: event
+    event_type: tag_scanned
+  condition:
+  - '{{ trigger.event.data.tag_id in tags }}'
+  - '{{ trigger.event.data.device_id in media_players }}'
+  action:
+  - variables:
+      media_player_entity_id: '{{ media_players[trigger.event.data.device_id] }}'
+      media_content_id: '{{ tags[trigger.event.data.tag_id].media_content_id }}'
+      media_content_type: '{{ tags[trigger.event.data.tag_id].media_content_type }}'
+  - service: media_player.play_media
+    target:
+      entity_id: '{{ media_player_entity_id }}'
+    data:
+      media_content_id: '{{ media_content_id }}'
+      media_content_type: '{{ media_content_type }}'
+  - delay: 2
+- id: handle_tag_scan_stop
+  alias: Tag Scan Stop
+  mode: single
+  max_exceeded: silent
+  variables:
+    media_players:
+      cf043f631685ed0a58316abf3bf258e2: media_player.echo_dot_escritorio
+      3d40dbe4d327ad4df255d1a63c3280c9: media_player.echo_studio_de_carlos
+    tags:
+      AC-51-55-33:
+      04-E2-0D-32-14-6F-80:
+  trigger:
+    platform: event
+    event_type: tag_scanned
+  condition:
+  - '{{ trigger.event.data.tag_id in tags }}'
+  - '{{ trigger.event.data.device_id in media_players }}'
+  action:
+  - variables:
+      media_player_entity_id: '{{ media_players[trigger.event.data.device_id] }}'
+  - service: media_player.media_stop
+    target:
+      entity_id: '{{ media_player_entity_id }}'
+- alias: painel rf3- Acende Led TV
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.painel_rf_3
+    from: 'off'
+    to: 'on'
+  action:
+  - data:
+      entity_id: light.sonoff_1000e3aa6c
+      brightness: 120
+      hs_color:
+      - 180
+      - 100
+      effect: Colorful
+    service: light.toggle
+  id: d1c74602ac784aa9b1d0743aa4c35dde
+- alias: painel rf2- Acende Led Jantar
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.painel_rf_2
+    from: 'off'
+    to: 'on'
+  action:
+  - data:
+      entity_id: light.ledjantar
+      brightness: 255
+      rgb_color:
+      - 0
+      - 189
+      - 255
+    service: light.toggle
+  id: d19bc7ab11b84c14b85419c0da58263a
+- alias: porta_guarda_roupa
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_guarda_roupa_dw1
+    to: 'on'
+  action:
+  - service: notify.cadutelegram
+    data:
+      message: A porta do guarda-roupas foi aberta.
+  - service: script.turn_on
+    data:
+      entity_id: script.video_escritorio_porta
+  id: f22f65e2e2ea4724990ec1548e1fd482
+- id: f6be4bfda6a0453caf5c5fe78a05f78b
+  alias: 1_cliques_botao_lavanderia
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.botao_maquina_action
+    to: single
+  action:
+  - service: switch.toggle
+    entity_id: switch.maquinalavar_2
+  initial_state: true
+- id: 8e0a3f64f7cb424496b0c2fcba4a025b
+  alias: 2_cliques_botao_lavanderia
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.botao_maquina_action
+    to: double
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.sonoff_10009585a3
+  initial_state: true
+- id: 78391c9d23e741189f26e866beb38c3a
+  alias: 1_clique_botao_meninas
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.botao_led_meninas_action
+    to: single
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.led_meninas
+  initial_state: true
+- alias: 2_cliques_botao_meninas
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.botao_led_meninas_action
+    to: double
+  action:
+  - service: light.turn_on
+    entity_id: light.led_meninas
+    data_template:
+      brightness: 255
+      rgb_color:
+      - '{{ range(0, 255)|random }}'
+      - '{{ range(0, 255)|random }}'
+      - '{{ range(0, 255)|random }}'
+  id: 7c7f08caec2d45d79d5f8e31c230e81a
+- alias: segura_sonoff
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.sonoff_a400007361
+    to: hold
+  action:
+  - service: remote.send_command
+    entity_id: remote.sala_remote
+    data:
+      device: led_tv
+      command: aumenta
+  id: 08f8489494824d3b9ba7a00069776e8e
+- id: c9ae3680f3de405ba59bacb46b33fce8
+  alias: toca_campainha
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_11
+    to: 'on'
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Tem alguém tocando a campainha! Atenda a porta.
+  - service: notify.fire_tv_avisos
+    data:
+      message: Tem alguém tocando a campainha! Atenda a porta.
+      title: Aviso
+      data:
+        color: green
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/campainha.png
+  - service: notify.fire_tv_casal
+    data:
+      message: Tem alguém tocando a campainha! Atenda a porta.
+      title: Aviso
+      data:
+        color: green
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/campainha.png
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.9
+    target:
+      entity_id: media_player.echo_show_de_cadu
+  - service: notify.alexa_media
+    data:
+      message: <audio src='https://ha.valsesia.com.br/local/mp3/campainha_al.mp3'/>
+      title: Aviso
+      target:
+      - media_player.echo_show_de_cadu
+      data:
+        type: tts
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.53
+    target:
+      entity_id: media_player.echo_show_de_cadu
+  initial_state: true
+- alias: porta_banheiro_social_aberta
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_banheiro_social
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.porta_banheiro_social_aberta
+  id: 1b9178bad05c40aba365816b4cbf7f2d
+- alias: porta_banheiro_casal_aberta
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_banheiro_casal
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.porta_banheiro_casal_aberta
+  id: f7abdecc0fb24609989e8210c9985dc8
+- alias: porta_banheiro_casal_fechada
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_banheiro_casal
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.porta_banheiro_casal_aberta
+  id: 7119b4af51dc494aa7bcc0ee8b9baaaa
+- alias: porta_banheiro_social_fechada
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_banheiro_social
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.porta_banheiro_social_aberta
+  id: 3936f8af7b444819af6c0e43d838c1ac
+- alias: porta_sacada_aberta
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_sacada
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.porta_sacada_aberta
+  id: 49f14085ff45455d8d8b83f3bea1a9d0
+- alias: porta_sacada_fechada
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_sacada
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.porta_sacada_aberta
+  id: 6a834f3ba8894e528ed3748b34840b11
+- alias: porta_sala_aberta
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_sala
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.porta_sala_aberta
+  id: a27a901854d3448ab56f696b14f58e71
+- alias: porta_sala_fechada
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_sala
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.porta_sala_aberta
+  id: 4f1becdee05f4f93be1999961e1fc052
+- alias: turn_off_loading_wheel
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.lg_webos_tv_lk615bpsb
+  action:
+  - service: input_boolean.turn_off
+    data_template:
+      entity_id: '{{ trigger.entity_id |  replace(''media_player'', ''input_boolean'')
+        }}'
+  id: 4d7943b3f076424f8fd72c0a8bf7620e
+- alias: turn_off_loading_wheel_fail_safe
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.lg_tv_2
+    to: 'on'
+    for:
+      minutes: 1
+  action:
+  - service: input_boolean.turn_off
+    data_template:
+      entity_id: '{{ trigger.entity_id }}'
+  id: 3f43692601794bfcb0154e19b0fa90c9
+- alias: turn_on_tv_fail_safe
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: call_service
+    event_data:
+      domain: media_player
+      service: turn_on
+      service_data:
+        entity_id: media_player.lg_webos_tv_lk615bpsb
+  action:
+  - data:
+      host: 192.168.5.34
+      packet:
+      - JgBYAAABJZUSExITEjcSExITEhMSEhMSEjgSNxITEjgSNxI4EjcSOBITEhITEhI4EhMSEhMSEhMSOBI3EjgSExI3EjgSNxI4EgAFLQABKEkTAAxcAAEoShIADQUAAAAAAAAAAAAAAAAAAA==
+    service: broadlink.send
+  id: b5b651afe88c43619e880649ecab4026
+- alias: turn_on_tv2_fail_safe
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: call_service
+    event_data:
+      domain: media_player
+      service: turn_on
+      service_data:
+        entity_id: media_player.samsung_un50ju6400_2
+  action:
+  - data:
+      host: 192.168.5.112
+      packet:
+      - JgBGAI2VETkRORA5ERQSExITEBUSEhM3EjgSNxITEhMSExISExITEhI4EhITEhMSEhMSExITEjcSExI3EzcSOBI3EzcSNxMADQU=
+    service: broadlink.send
+  id: 7d090b8af391430a9cb3911082afebf9
+- id: 76c302483ac048978c179d5984104ce7
+  alias: Campainha
+  trigger:
+  - platform: state
+    entity_id:
+    - automation.campainha
+    to: 'on'
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_de_cadu
+      - media_player.echo_show_cozinha
+      volume_level: '0.8'
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target:
+      - media_player.echo_show_de_cadu
+      - media_player.echo_show_cozinha
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/mp3/campainha_al.mp3'/>
+  initial_state: true
+- alias: Sensor Sala Arrancado
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sala_crash
+    to: 'on'
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Sensor da Sala caiu ou foi arrancado
+  id: 3c097eb82cb545fa812377fc8dc91590
+- alias: AvisoChuvaIntensa
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.sensor_chuva
+    to: intensa
+    for:
+      seconds: 30
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Começou a chuva Intensa, feche as janelas se ainda não fechou.
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.casa_toda
+      volume_level: '0.5'
+  - service: tts.watson_tts_say
+    entity_id: media_player.casa_toda
+    data:
+      message: Começou a chuva Intensa, feche as janelas se ainda não fechou.
+  id: 09a66127beac40f0823d38f3181c2d80
+- alias: TriggerAlarmHomeOrNight
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.porta_sala
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.porta_sacada
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: armed_home
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: armed_night
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home_alarm
+  id: a7a40de6b78f4c868214614ed26672ee
+- id: 7f5dc94d5d0e4be5899bc3d7ff5c22ee
+  alias: ArmingAlarm
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: arming
+  action:
+  - delay: 51
+  - service: media_player.volume_set
+    data:
+      volume_level: '0.3'
+    target:
+      entity_id:
+      - media_player.echo_show_de_cadu
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target: media_player.echo_show_de_cadu
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/sounds/efeitos/som_8segundos_al.mp3'/>
+  initial_state: true
+- alias: TriggerAlarmAway
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.cozinha_pir1
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.porta_sala
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.porta_sacada
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: armed_away
+  action:
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home_alarm
+  id: 43324c44a1b04daaafc3dec0f56953c4
+- alias: AlarmTriggered
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: triggered
+  action:
+  - service: script.turn_on
+    data:
+      entity_id: script.piscar_leds_alarme
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_de_cadu
+      volume_level: '0.8'
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target: media_player.echo_show_de_cadu
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/mp3/alarme_al.mp3'/>
+  - service: script.turn_on
+    data:
+      entity_id: script.video_sala
+  - delay: 15
+  - service: camera.snapshot
+    data:
+      entity_id: camera.camera_sala_home
+      filename: /config/www/cameras/snapshot1.jpg
+  - service: notify.telegramtodos
+    data:
+      message: Foto
+      data:
+        photo:
+        - file: /config/www/cameras/snapshot1.jpg
+          caption: "\U0001F6A8\U0001F6A8 ALARME ACIONADO \U0001F6A8\U0001F6A8"
+        inline_keyboard:
+        - Desligar:/alarmOff
+  - delay: 115
+  - service: script.turn_on
+    data:
+      entity_id: script.parar_piscar_leds_alarme
+  id: ee5094f9e9f048ccac6dc939f99bfb83
+- alias: NotifyAlarmDisarmed
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: disarmed
+  action:
+  - service: script.turn_on
+    data:
+      entity_id: script.parar_piscar_leds_alarme
+  - service: media_player.play_media
+    data:
+      media_content_id: Stop
+      media_content_type: custom
+    target:
+      entity_id: media_player.echo_show_de_cadu
+  - service: notify.telegramtodos
+    data_template:
+      message: O alarme foi desarmado às {{ states('sensor.time') }}
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_de_cadu
+      volume_level: '0.3'
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target: media_player.echo_show_de_cadu
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/sounds/efeitos/alarme1_al.mp3'/>
+  id: e6ae930768d24652ac7b82bc4c03cf7c
+- alias: NotifyAlarmArmedHome
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: armed_home
+  action:
+  - service: notify.telegramtodos
+    data_template:
+      message: O alarme foi armado no estado EM CASA às {{ states('sensor.time') }}
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_de_cadu
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target: media_player.echo_show_de_cadu
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/sounds/efeitos/alarme3_al.mp3'/>
+  - delay: 3
+  - service: notify.alexa_media
+    data:
+      target: media_player.echo_show_de_cadu
+      data:
+        method: all
+        type: announce
+      message: Alarme do apartamento ligado.
+      title: Aviso
+  id: f19f8d8726b84ba0a55c1d78e1bd0b06
+- alias: NotifyAlarmArmedAway
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: armed_away
+  action:
+  - service: notify.telegramtodos
+    data_template:
+      message: O alarme foi armado no estado AUSENTE às {{ states('sensor.time') }}
+  id: 9ad7b6e320114e9983f7ed5d31442d1a
+- alias: NotifyAlarmArmedNight
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.home_alarm
+    to: armed_night
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_de_cadu
+      volume_level: '0.3'
+  - service: notify.alexa_media
+    data:
+      title: aviso
+      target: media_player.echo_show_de_cadu
+      data:
+        type: tts
+      message: <audio src='https://ha.valsesia.com.br/local/sounds/efeitos/alarme3_al.mp3'/>
+  - service: notify.telegramtodos
+    data_template:
+      message: O alarme está em modo NOTURNO, à partir de agora.
+  id: 21545997d19648c9ae48fdcb202acc11
+- id: 27aed5f33e0f44babb672ffb4cf8ffe2
+  alias: AlarmNightArmed
+  trigger:
+  - platform: time
+    at: 00:30:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: disarmed
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.1000e72240_1
+      state: 'off'
+    - condition: state
+      state: 'off'
+      entity_id: binary_sensor.1000e72240_3
+  action:
+  - service: alarm_control_panel.alarm_arm_night
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+- alias: DisarmAlarmNight
+  trigger:
+  - platform: time
+    at: 06:30:05
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: armed_night
+  action:
+  - service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: 583bbe681f6947afa4425471fe961e68
+- alias: AlarmOff
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      data: /alarmOff
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Ok, alarme desativado.
+  - service: script.turn_on
+    entity_id: script.parar_piscar_leds_alarme
+  - service: media_player.play_media
+    data:
+      media_content_id: Stop
+      media_content_type: custom
+    target:
+      entity_id:
+      - media_player.echo_show_de_cadu
+  - service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: bad261407b0940549827285c54aeef0d
+- id: 07d23e32abd34e5794e8afaa32c24dcd
+  alias: controle leitura liga
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.controle_leitura
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.abajur_escritorio
+  initial_state: true
+- id: a6aaae1de3214c958b7d1f5c1a8020bb
+  alias: controle leitura desliga
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.controle_leitura
+    from: 'on'
+    to: 'off'
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.abajur_escritorio
+  initial_state: true
+- alias: aumento brilho abajur leitura
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.aumento_brilho_leitura
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 255
+    target:
+      entity_id: light.abajur_escritorio
+  initial_state: true
+  id: 023fdf167b924700a195bb566269dd87
+- alias: diminui brilho abajur leitura
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.diminui_brilho_leitura
+    from: 'off'
+    to: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 20
+    target:
+      entity_id: light.abajur_escritorio
+  initial_state: true
+  id: 863cd34124a3474db9df8773b093b335
+- alias: botao rf1- Liga Alarme - modo Home
+  initial_state: true
+  condition:
+  - condition: state
+    entity_id: binary_sensor.porta_sala
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.porta_sacada
+    state: 'off'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_2b160190041aff5f71
+    from: 'off'
+    to: 'on'
+  action:
+  - service: alarm_control_panel.alarm_arm_away
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: 7d6ec52fbe644b25907d01e457d4f8f6
+- alias: botao rf2 - Desliga Alarme - modo Home
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_2ada015e0438a34bc1
+    from: 'off'
+    to: 'on'
+  action:
+  - service: alarm_control_panel.alarm_arm_night
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: 44a32078fa55493f9bb8e1e00c1e45f0
+- alias: botao rf3- Liga Alarme - modo Ausente
+  initial_state: true
+  condition:
+  - condition: state
+    entity_id: binary_sensor.porta_sala
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.porta_sacada
+    state: 'off'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_2b0201900410ff5f72
+    from: 'off'
+    to: 'on'
+  action:
+  - service: alarm_control_panel.alarm_arm_home
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: 3496a1118794438a97c57ccd8b688d4e
+- alias: botao rf4 - Desliga Alarme - modo Home
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_2aee01900410ff5f78
+    from: 'off'
+    to: 'on'
+  action:
+  - service: alarm_control_panel.alarm_disarm
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+  id: e820f0efb8084e6d89ba4b97382411c3
+- alias: ligar alarme chegar em casa cadu
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_de_cadu_2
+    zone: zone.home
+    event: enter
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: not disarmed
+  action:
+  - service: notify.cadutelegram
+    data:
+      message: Desligue o alarme do apartamento antes de entrar em casa!
+  id: b9fc6705b54e4dffbe680d079d2b38fb
+- alias: ligar alarme chegar em casa fernanda
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.iphone_de_fernanda_patricia
+    zone: zone.home
+    event: enter
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: not disarmed
+  action:
+  - service: notify.fernandatelegram
+    data:
+      message: Desligue o alarme do apartamento antes de entrar em casa!
+  id: fe2e3c238cc74f53a15b5ed926217898
+- alias: Aviso Timer Mamá
+  trigger:
+  - entity_id: timer.mama_helena
+    from: active
+    platform: state
+    to: idle
+  condition: []
+  action:
+  - service: notify.cadutelegram
+    data:
+      message: Hora do Mamá da Helena
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.casa_toda
+      volume_level: '0.5'
+  - service: tts.watson_tts_say
+    entity_id: media_player.casa_toda
+    data:
+      message: Fernanda, hora de dar mamá para a Helena.
+  id: 6a545143694a416cbc7cdd7cd9a2d229
+- alias: Teste BT-Fernanda
+  trigger:
+  - platform: state
+    entity_id: sensor.phone_bt_fernanda
+    to: sala-estar
+  action:
+  - service: notify.cadutelegram
+    data_template:
+      message: Distância {{states.sensor.phone_bt_fernanda.attributes.distance}} .
+  id: 8b16e8fb0bb242dca620a887c12400e3
+- alias: Verifica Luzes Acessas
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.total_luzes_ligadas
+    above: 4
+    below: 20
+  action:
+  - service: notify.telegramtodos
+    data_template:
+      message: Existem {{states('sensor.total_luzes_ligadas')}} Luzes acesas. Favor
+        apagar para economizar energia.
+  - service: notify.fire_tv_avisos
+    data:
+      message: Existem {{states('sensor.total_luzes_ligadas')}} Luzes acesas. Favor
+        apagar para economizar energia.
+      title: Aviso
+      data:
+        color: red
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/aviso.png
+  - service: notify.fire_tv_casal
+    data:
+      message: Existem {{states('sensor.total_luzes_ligadas')}} Luzes acesas. Favor
+        apagar para economizar energia.
+      title: Aviso
+      data:
+        color: red
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/aviso.png
+  id: 2b9eca1db9324718a3b1fd89727a0ef8
+- alias: Lista de compras entrar mercado - Cadu
+  trigger:
+  - entity_id: device_tracker.iphone_de_cadu_2
+    event: enter
+    platform: zone
+    zone: zone.muffatocerro
+  - entity_id: device_tracker.iphone_de_cadu_2
+    event: enter
+    platform: zone
+    zone: zone.cidadecancaocerro
+  action:
+  - service: notify.cadutelegram
+    data_template:
+      message: '{{states.sensor.shopping_list.state}}'
+  id: 499d13cfac3f40a294cbb473aac0a679
+- alias: Lista de compras entrar mercado - Fernanda
+  trigger:
+  - entity_id: device_tracker.iphone_de_fernanda_patricia
+    event: enter
+    platform: zone
+    zone: zone.muffatocerro
+  - entity_id: device_tracker.iphone_de_fernanda_patricia
+    event: enter
+    platform: zone
+    zone: zone.cidadecancaocerro
+  action:
+  - service: notify.fernandatelegram
+    data_template:
+      message: '{{states.sensor.shopping_list.state}}'
+  id: 3a6339e7e6934428bb31df2a2c237b53
+- alias: Backup Total 3h - Domingo
+  trigger:
+    platform: time
+    at: 03:00:00
+  condition:
+    condition: time
+    weekday:
+    - sun
+  action:
+  - service: hassio.backup_full
+    data_template:
+      name: Backup {{ now().strftime('%Y-%m-%d') }}
+  id: d207072213234f34aecf0365c162a315
+- alias: Mensagem para Fernanda
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: tts.google_translate_say
+    entity_id: media_player.escritorio
+    data:
+      message: Fernanda, você é o amor da minha vida! Te amo pra sempre.
+  id: 9acf10e65e524ccb9e3d33692efc9269
+- alias: Start HomeKit
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: notify.valsesiarocket
+    data:
+      message: 'Seu Homekit foi iniciado! :grinning:'
+  - service: notify.caduTelegram
+    data:
+      message: Seu Homekit foi iniciado
+  - service: notify.fire_tv_avisos
+    data:
+      message: Seu Homekit foi iniciado
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/aviso.png
+  - service: notify.fire_tv_casal
+    data:
+      message: Seu Homekit foi iniciado
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/aviso.png
+  id: e27cd30844df44aca1b22ea7f38259b5
+- alias: Luz Cozinha apple watch
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      action_name: luz_cozinha
+  action:
+  - service: switch.toggle
+    entity_id: switch.luzcozinha
+  id: 2870fa61cbaf403492e7147664a32e96
+- alias: Luz Lara apple watch
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      action_name: luz_lara
+  action:
+  - service: switch.toggle
+    entity_id: switch.quartolara
+  id: 11cb18f4891647cd825885691fd1ad40
+- alias: Sincroniza o estado do Tasmota quando reiniciar - config manual
+  initial_state: true
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/tasmotas/state
+      payload: ''
+  id: 4d5b11b2ee1a410a934fe4ac151f29fb
+- id: 0a6a81fd99aa46e396245ff39f811773
+  alias: sacada2cliquesLigaInt1
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.sacadadh1'', ''TOGGLE'') %}true{% endif
+      %}'
+  condition:
+  - condition: state
+    entity_id: light.1000f89e05
+    attribute: state
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      hs_color:
+      - 180
+      - 100
+      brightness: 255
+    target:
+      entity_id: light.1000f89e05
+- alias: QuartoLara2cliquesLiga
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartolaradh2'', ''TOGGLE'') %}true{%
+      endif %}'
+  condition:
+  - condition: state
+    entity_id: switch.sonoff_1000b91f54
+    state: 'off'
+  action:
+  - data:
+      entity_id: switch.sonoff_1000b91f54
+    service: switch.toggle
+  - data:
+      entity_id: script.abajur_lara_rosa
+    service: script.turn_on
+  id: e665eab4364f4b90873c6e44bb4531f0
+- alias: QuartoLara2cliquesDesliga
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartolaradh2'', ''TOGGLE'') %}true{%
+      endif %}'
+  condition:
+  - condition: state
+    entity_id: switch.sonoff_1000b91f54
+    state: 'on'
+  action:
+  - data:
+      entity_id: switch.sonoff_1000b91f54
+    service: switch.turn_off
+  id: 5aca1916f1d741f0b5d110e8b7c3fb54
+- alias: QuartoLaraSegurar
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartolaradh1'', ''HOLD'') %}true{% endif
+      %}'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.sonoff_1000b91f54
+    service: switch.toggle
+  - data:
+      entity_id: switch.led_lara_ciano
+    service: switch.turn_on
+  - data:
+      entity_id: switch.quartolara
+    service: switch.toggle
+  id: 0eeae6fc105c430ea2fbc99f9cc60d30
+- id: cfb250124744440ca7cfadf65c6469fc
+  alias: SalaInt1Segurar
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.salaspotsdh1'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+  - condition: state
+    entity_id: light.1000e3aa6c
+    attribute: state
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
+      entity_id: light.1000e3aa6c
+      brightness: 120
+      hs_color:
+      - 180
+      - 100
+- alias: SalaInt2Segurar
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.saladh1'', ''HOLD'') %}true{% endif %}'
+  condition: []
+  action:
+  - data:
+      entity_id: light.ledjantar
+      brightness: 255
+      rgb_color:
+      - 0
+      - 189
+      - 255
+    service: light.toggle
+  id: a5ba214b329146b389db158b87aba9e8
+- alias: LavanderiaInt1Segurar
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.lavanderiadh'', ''HOLD'') %}true{% endif
+      %}'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.maquinalavar_2
+    service: switch.toggle
+  id: 3ca7b8cf707e45b6aa1ed15ddb7db1ee
+- alias: EscritorioInt3Segura
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.escritorionovodh4'', ''HOLD'') %}true{%
+      endif %}'
+  condition: []
+  action:
+  - data:
+      entity_id: light.led_prateleira
+    service: light.toggle
+  id: fdafadb021e74d5ca83076972e6e853b
+- alias: BotaoArCliqueOn
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.escritorionovodh1'', ''HOLD'') %}true{%
+      endif %}'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.som_escritorio_power
+    service: switch.toggle
+  id: 1e8c468adc8049d0ba6d46f23dd72f09
+- alias: EscritorioInt2Segurar_on
+  trigger:
+  - platform: state
+    entity_id: sensor.botao_ar_action
+    to: single
+  condition:
+  - condition: state
+    entity_id: climate.escritorio_ac
+    state: 'off'
+  action:
+  - data:
+      entity_id: climate.escritorio_ac
+    service: climate.turn_on
+  id: e628113871a74d25bc2c1a8b235ce677
+- alias: BotaoArCliqueOff
+  trigger:
+  - platform: state
+    entity_id: sensor.botao_ar_action
+    to: single
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: climate.escritorio_ac
+      state: cool
+    - condition: state
+      entity_id: climate.escritorio_ac
+      state: heat
+  action:
+  - data:
+      entity_id: climate.escritorio_ac
+    service: climate.turn_off
+  id: cfcbd978f0f74772abb89652a3415614
+- alias: EscritorioInt3Segurar
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.escritorionovodh1'', ''TOGGLE'') %}true{%
+      endif %}'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.sonoff_1000b57440
+    service: switch.toggle
+  id: 030763ff27654e4c955f322237df1cab
+- id: 7249c151c27a475a807ff2f7586beccc
+  alias: EscritorioInt2cliquesBotao1
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.escritorionovodh2'', ''TOGGLE'') %}true{%
+      endif %}'
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.zigbee_abajur
+- alias: EscritorioInt2cliquesBotao2
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.escritorionovodh3'', ''TOGGLE'') %}true{%
+      endif %}'
+  action:
+  - data:
+      entity_id: switch.sonoff_1000e4f7a5
+    service: switch.toggle
+  id: 914666abc2bb41538280dbcffa5d995d
+- alias: Quarto2cliquesInt1
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartodh2'', ''TOGGLE'') %}true{% endif
+      %}'
+  condition: []
+  action:
+  - data:
+      entity_id: light.ledCasal
+    service: light.toggle
+  id: 47302c94f08e457290ae025bdfd25fab
+- alias: QuartoSeguraInt1_on
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartodh1'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+  - condition: state
+    entity_id: climate.casal_ac
+    state: 'off'
+  action:
+  - data:
+      entity_id: climate.casal_ac
+    service: climate.turn_on
+  id: cfa6b3af0a4d429a888969ea803b580c
+- alias: QuartoSeguraInt1_off
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartodh1'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: climate.casal_ac
+      state: cool
+    - condition: state
+      entity_id: climate.casal_ac
+      state: heat
+  action:
+  - data:
+      entity_id: climate.casal_ac
+    service: climate.turn_off
+  id: 3afbca79d8ce4788b40516c13846082e
+- alias: QuartoSeguraInt2
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartodh2'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: climate.casal_ac
+      state: cool
+    - condition: state
+      entity_id: climate.casal_ac
+      state: heat
+  action:
+  - data_template:
+      entity_id: climate.casal_ac
+      temperature: '{{ state_attr(''climate.casal_ac'',''temperature'') + 1 }}
+
+        '
+    service: climate.set_temperature
+  id: 6fe279cde62c408b8cbd4893e97528bb
+- alias: QuartoSeguraInt3
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.quartodh3'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+    condition: or
+    conditions:
+    - condition: state
+      entity_id: climate.casal_ac
+      state: cool
+    - condition: state
+      entity_id: climate.casal_ac
+      state: heat
+  action:
+  - data_template:
+      entity_id: climate.casal_ac
+      temperature: '{{ state_attr(''climate.casal_ac'',''temperature'') - 1 }}'
+    service: climate.set_temperature
+  id: 0d0696b47e264df4b7ebe811388f411b
+- id: a43ea43ec7a3427996401260f6b9760a
+  alias: Cadu Chegou
+  trigger:
+  - platform: zone
+    entity_id: person.carlos_eduardo_valsesia
+    zone: zone.casasantorini
+    event: enter
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_cozinha
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      target:
+      - media_player.echo_show_cozinha
+      data:
+        method: all
+        type: announce
+      message: Olá galera! Cadu chegou em casa.
+      title: Aviso
+- alias: Bateria Cadu Fraca
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.cadu_bateria
+    below: '20'
+  condition:
+  - condition: zone
+    entity_id: device_tracker.iphone_de_cadu_2
+    zone: zone.home
+  - condition: time
+    after: 08:00:00
+    before: '22:00:00'
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_cozinha
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      target:
+      - media_player.echo_show_cozinha
+      data_template:
+        method: all
+        type: announce
+      message: A bateria do celular de Cadu está com {{states('sensor.cadu_bateria')}}%.
+      title: Aviso
+  id: 8461ee0de1554f559c0e4ed91f2625c1
+- alias: Bateria Fernanda Fraca
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.fernanda_bateria
+    below: '20'
+  condition:
+  - condition: zone
+    entity_id: device_tracker.iphone_de_fernanda_patricia
+    zone: zone.home
+  - condition: time
+    after: 08:00:00
+    before: '20:00:00'
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_cozinha
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      target:
+      - media_player.echo_show_cozinha
+      data_template:
+        method: all
+        type: announce
+      message: A bateria do celular de Fernanda está com {{states('sensor.fernanda_bateria')}}%.
+      title: Aviso
+  id: dba03963d91a489ea39bb85d39e9e4b1
+- id: fdf154b2bac44387bc157e1e32618fbe
+  alias: teste webhook
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: ligar luz lara
+    allowed_methods: []
+    local_only: true
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.quartolara
+    service: script.turn_on
+- alias: Reminder - Refresh date countdown sensors
+  initial_state: true
+  trigger:
+  - platform: time
+    at: 00:00:01
+  - platform: homeassistant
+    event: start
+  action:
+  - service: python_script.date_countdown
+    data:
+      name: Helena
+      type: nascimento
+      date: 22/06/2020
+  - service: python_script.date_countdown
+    data:
+      name: Fernanda
+      type: aniversario
+      date: 02/04/1990
+  id: 52903c5c43d249ebb643ec4118043085
+- alias: Acende Tudo
+  description: ''
+  trigger:
+  - entity_id: input_boolean.acender_luzes
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: script.on_todas_luzes
+    service: script.turn_on
+  - data: {}
+    entity_id: input_boolean.acender_luzes
+    service: input_boolean.turn_off
+  id: 99e6249052664f17b56d5fc695f7d426
+- alias: Apaga Tudo
+  description: ''
+  trigger:
+  - entity_id: input_boolean.apagar_luzes
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: script.off_todas_luzes
+    service: script.turn_on
+  - data: {}
+    entity_id: input_boolean.apagar_luzes
+    service: input_boolean.turn_off
+  id: d9b793da5b5848a09204f24c610f008b
+- alias: Evita deixar Geladeira desligada
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: switch.geladeira_2
+    to: 'off'
+    for:
+      minutes: 10
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.geladeira_2
+  - service: notify.telegramtodos
+    data:
+      message: Ops, liguei a energia da geladeira para evitar que algo estrague. <i>Se
+        deseja manter desligada sugiro desativar está automação, ou tirar da tomada!</i>
+  id: 27540fd3a77a4f5395083deb89cb7816
+- alias: Alerta Maquina de lavar (Lavando)
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.maquina_lavar_st
+    from: Standby
+    to: Lavando
+    for:
+      seconds: 30
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Máquina de lavar iniciada
+  - service: notify.fire_tv_avisos
+    data:
+      message: Máquina de lavar iniciada
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  - service: notify.fire_tv_casal
+    data:
+      message: Máquina de lavar iniciada
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  id: 6e8d7f891a0348b2acde0fae4039ee51
+- id: d524ed6918e045edb77a9677f5976c7c
+  alias: Alerta Maquina de lavar (Desligada)
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.maquina_lavar_st
+    to: Desligada
+    for:
+      seconds: 60
+    from: Lavando
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '18:00:00'
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: A máquina terminou o processo de lavagem! Sua roupa está ponta!
+  - service: notify.fire_tv_avisos
+    data:
+      message: A máquina terminou o processo de lavagem! Sua roupa está ponta!
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  - service: notify.fire_tv_casal
+    data:
+      message: A máquina terminou o processo de lavagem! Sua roupa está ponta!
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.2
+    target:
+      entity_id:
+      - media_player.echo_show_de_cadu
+  - service: notify.alexa_media
+    data:
+      target: media_player.echo_show_de_cadu
+      data:
+        method: all
+        type: announce
+      message: A máquina terminou o processo de lavagem! Sua roupa está pronta!
+      title: Aviso
+  initial_state: true
+- id: 849e3804080e48a6b5efb445c2daa10a
+  alias: Alerta Maquina de lavar (Energia Off)
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.maquina_lavar_st
+    from: Lavando
+    to: Desligada
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 180
+  condition: []
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.maquinalavar_2
+  - service: notify.telegramtodos
+    data:
+      message: Desliguei a energia da maquina de lavar. <i>Faz 3 minutos que acabou
+        a lavagem.</i>
+  - service: notify.fire_tv_avisos
+    data:
+      message: Desliguei a energia da maquina de lavar. Faz 3 minutos que acabou a
+        lavagem.
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  - service: notify.fire_tv_casal
+    data:
+      message: Desliguei a energia da maquina de lavar. Faz 3 minutos que acabou a
+        lavagem.
+      title: Aviso
+      data:
+        color: indigo
+        interruption: 1
+        position: top-right
+        fontsize: large
+        transparency: 25%
+        icon:
+          path: www/imgs/maquina_lavar.png
+  initial_state: true
+  mode: single
+- alias: Envia dados no útimo dia do mês
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '23:59:55'
+  condition:
+    condition: state
+    entity_id: binary_sensor.ultimo_dia_do_mes_energia
+    state: 'on'
+  action:
+  - service: notify.cadutelegram
+    data:
+      message: "<b>Resumo Consumo Mensal:</b>\n {{now().day|string + '/' + now().month|string
+        + '/' + now().year|string + ' - ' + now().hour|string + ':' + now().minute|string
+        + ':' + now().second|string }} \n\n  Frigobar: {{states('sensor.custo_mes_frigobar')}}
+        \n  TV Sala: {{states('sensor.custo_mes_servidor')}} \n  Máquina de Lavar:
+        {{states('sensor.custo_mes_maquina_lavar')}} \n  Computador: {{states('sensor.custo_mes_computador')}}
+        \n  Geladeira: {{states('sensor.custo_mes_geladeira')}} \n  Ferro de Passar:
+        {{states('sensor.custo_mes_ferro_passar')}} \n\n  Total: {{states('sensor.custo_mes_total')}}"
+  id: 892ae391c11443bc899e82557f241d48
+- alias: Telegram bot start
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+      command: /start
+  action:
+  - service: notify.telegramtodos
+    data:
+      message: Olá, bem-vindo ao Telegram da Família Valsesia!
+  id: 859431340a8a44e0bb4794b0eb0f1253
+- alias: Telegram imagem da cam
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /imagem
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /imagem
+  action:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.camera_sala
+      filename: /config/www/cameras/intelbras1.jpg
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: ''
+      data:
+        photo:
+        - file: /config/www/cameras/intelbras1.jpg
+          caption: CamSala
+  id: 2e696dd4a22c43b794bfecc7b44f948e
+- alias: Telegram video da cam Sala
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /video_sala
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /video_sala
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Gravando vídeo interno, aguarde...
+  - service: camera.record
+    data:
+      entity_id: camera.camera_sala
+      filename: /config/www/cameras/int.mp4
+      duration: 10
+  - delay:
+      seconds: 20
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: ''
+      data:
+        video:
+        - file: /config/www/cameras/int.mp4
+          caption: Video Sala
+  id: f3ec91ccb169419abb86cd13ed952848
+- alias: Telegram video da cam Escritorio
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /video_escritorio
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /video_escritorio
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Gravando vídeo interno, aguarde...
+  - service: camera.record
+    data:
+      entity_id: camera.camera_escritorio
+      filename: /config/www/cameras/intesc.mp4
+      duration: 10
+  - delay:
+      seconds: 20
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: ''
+      data:
+        video:
+        - file: /config/www/cameras/intesc.mp4
+          caption: Video Escritório
+  id: 2c2e8ad2e5bd43dda88f87fd3510e940
+- alias: Telegram consumo dia total
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /consumodia
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /consumodia
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Seu consumo diário total até o momento é de {{states('sensor.custo_dia_total')}}
+  id: 0d78b2ead3054d6ba5ba67aca2fc5423
+- alias: Telegram consumo mes total
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /consumomes
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /consumomes
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Seu consumo mensal total até o momento é de {{states('sensor.custo_mes_total')}}
+  id: 4cba2c1f00f449ce8e54d376dfd1c380
+- alias: Telegram nascimento helena
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /nascimentohelena
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /nascimentohelena
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram  {%
+      elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram  {%
+      endif %}
+
+      '
+    data:
+      message: Faltam {{states('sensor.nascimento_helena')}} dias para o nascimento
+        da sua filha Helena
+  id: 626f06527b35464595276deb8f5e5b6b
+- alias: Telegram ligar alarme
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /ligaralarme
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /ligaralarme
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.alarme_sala
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.alarme_sacada
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram  {%
+      elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sala e Sacada ligados. Cuidado ao abrir as portas.
+  id: 5de1284810024188835e3e7f453ab36b
+- alias: Telegram ligar alarme Sacada
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /ligarsacada
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /ligarsacada
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.alarme_sacada
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sacada ligado. Cuidado ao abrir a porta da sacada.
+  id: 9c50709348b74826a3602188405fd9cc
+- alias: Telegram ligar alarme Sala
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /ligarsala
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /ligarsala
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.alarme_sala
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sala ligado. Cuidado ao abrir a porta da sala.
+  id: 81f6c2b49eec48b2a64b7a0fd7e48b64
+- alias: Telegram desligar alarme
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /desligaralarme
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /desligaralarme
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sala
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sacada
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sala e Sacada desligados. Pode abrir as portas.
+  id: b8631014c5894b1493de41b0de9c8f16
+- alias: Telegram desligar alarme sala
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /desligarsala
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /desligarsala
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sala
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sala desligado. Pode abrir a porta da sala.
+  id: 847dad605ce041f597f0658e1fdbd587
+- alias: Telegram desligar alarme sacada
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /desligarsacada
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /desligarsacada
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sacada
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sacada desligado. Pode abrir a porta da sacada.
+  id: 7baab109c24e499f82f15e1d19b113dc
+- alias: Telegram parar alarme
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /pararalarme
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /pararalarme
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sala
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.alarme_sacada
+  - service: media_player.media_stop
+    entity_id: media_player.echo_show_de_cadu
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: Alarme da Sala e Sacada desativados. Favor verificar seu apartamento.
+  id: 0444d5ed5bd64cb7b3d420f200511957
+- alias: Telegram temperatura
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /temperatura
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /temperatura
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: 'A temperatura atual em: {{state_attr(''zone.home'', ''friendly_name'')}}
+        é de {{states(''sensor.dark_sky_temperature'')}}º C.'
+  id: aed86c90c6804c939d5a8fbe8e42851c
+- alias: Telegram kwhmes
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /kwhmes
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /kwhmes
+  action:
+  - service: '{% if trigger.event.data[''from_first''] == ''Cadu'' %} notify.cadutelegram
+      {% elif trigger.event.data[''from_first''] == ''Fernanda'' %} notify.fernandatelegram
+      {% endif %}
+
+      '
+    data:
+      message: 'O total de kWh mês é: {{states(''sensor.kwh_mes_total'') }} kWh.'
+  id: 28be9c91fc654481ab9ba3df48ee23c1
+- alias: Telegram ajuda
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: telegram_callback
+    event_data:
+      command: /ajuda
+  - platform: event
+    event_type: telegram_command
+    event_data:
+      command: /ajuda
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: '{{ trigger.event.data.user_id }}'
+      message: "Utilize os seguintes comandos:\n\n <u>Comandos Gerais</u>\n <b>/consumodia</b>
+        - consumo diário\n <b>/consumomes</b> - consumo mensal\n <b>/nascimentohelena</b>
+        - dias nasc Helena\n <b>/temperatura</b> - temperatura atual\n <b>/kwhmes</b>
+        - consumo mensal (kwh)\n\n <u>Comandos Alarme</u>\n <b>/ligarsala</b> - Ativar
+        o alarme da Sala\n <b>/ligarsacada</b> - Ativar o alarme da Sacada\n <b>/ligaralarme</b>
+        - Ativar o alarme Total\n <b>/desligaralarme</b> - Desativar o alarme Total\n
+        <b>/desligarsala</b> - Desativar o alarme do Sala\n <b>/desligarsacada</b>
+        - Desativar o alarme da Sacada\n <b>/pararalarme</b> - Desligar o alarme disparado\n\n
+        <u>Comandos Imagem</u>\n <b>/imagem</b> - Envia uma imagem da câmera\n <b>/video_sala</b>
+        - Envia um video de 10 seg da câmera Sala\n <b>/video_escritorio</b> - Envia
+        um video de 10 seg da câmera Escritorio\n <b>/ajuda</b> - essa tela"
+  id: ba1bd6b4503f4a6b94a60038bfbf9661
+- alias: teste de resposta
+  trigger:
+    platform: event
+    event_type: telegram_text
+  condition:
+    condition: template
+    value_template: '{{ trigger.event.data.text == "Oi, tudo bem?" }}'
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: '{{ trigger.event.data.user_id }}'
+      message: Olá, tudo bem e com vc, {{ trigger.event.data.from_first }}?
+  id: 1bc93b523fd74822a3968fa957725f32
+- alias: Telegram bot that repeats text
+  trigger:
+    platform: event
+    event_type: telegram_text
+  condition:
+    condition: template
+    value_template: '{{ trigger.event.data.text == "Ajuda" }}'
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: '{{ trigger.event.data.user_id }}'
+      message: <b> Olá {{ trigger.event.data.from_first }}, o que você deseja?</b>
+      disable_notification: true
+      inline_keyboard:
+      - Ajuda:/ajuda, Temperatura:/temperatura
+      - Ligar Alarme:/ligaralarme, Desligar Alarme:/desligaralarme
+      - Imagem Cam:/imagem, Vídeo Cam Sala:/video_sala, Vídeo Cam Escritorio:/video_escritorio
+      - Nasc. Helena:/nascimentohelena
+      - Consumo Dia/R$:/consumodia, Consumo Mes/R$:/consumomes
+      - Consumo/Kwh Mês:/kwhmes
+      - Ligar Alarme Sala:/ligarsala, Desligar Alarme Sala:/desligarsala
+      - Ligar Alarme Sacada:/ligarsacada, Desligar Alarme Sacada:/desligarsacada
+  id: 998b4e52075b42b1ab71473c0768c4ba
+- id: abe07e0a89e942ee8bcfc8695f1faca5
+  alias: Define o tema Home
+  trigger:
+  - platform: homeassistant
+    event: start
+  action:
+  - service: frontend.set_theme
+    data:
+      name: tablet
+      mode: dark
+- alias: Nova atualização disponível
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.updater
+    from: 'off'
+    to: 'on'
+  action:
+  - service: notify.cadutelegram
+    data_template:
+      title: Nova Versão Home Assistant
+      message: Nova versão do Home Assistant disponível. A nova versão é a de {{ state_attr('binary_sensor.updater',
+        'newest_version') }}.
+  id: 9336385e3ddf4863a5fd22d5676f3b1a
+- alias: Tv Sala Desliga - (Sem Player 4min)
+  initial_state: false
+  trigger:
+    platform: state
+    entity_id: media_player.chromecast_sala
+    to: 'off'
+    for:
+      minutes: 4
+  condition:
+    condition: state
+    entity_id: media_player.samsung_un50ju6400_2
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.tv_sala_power
+  - service: notify.telegramtodos
+    data:
+      message: Desliguei a TV da sala! Parece que ninguém estava assistindo.
+  id: 90f135ceff4f46f59b2fc41c9c1957f2
+- alias: Conf. Tomada 1
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.tomada1_despertar_automacao.state
+      }}'
+  condition:
+    condition: state
+    entity_id: input_boolean.tomada1_status
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.tomada_cafeteira_zigbee
+  - service: '{% if is_state("input_select.tomada1_pessoas", "Cadu") %} notify.cadutelegram
+      {% elif is_state("input_select.tomada1_pessoas", "Fernanda") %} notify.fernandatelegram
+      {% elif is_state("input_select.tomada1_pessoas", "Todos") %} notify.telegramtodos
+      {% endif %}
+
+      '
+    data_template:
+      message: '{{ states.input_text.tomada1_mensagem.state }}'
+  id: bb0062fdccca409abad221767fd4d853
+- alias: Desliga Tomada 1
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.tomada_cafeteira_zigbee
+    to: 'on'
+    for: '{{ states("input_select.tomada1_desliga_apos") }}'
+  condition:
+    alias: Status Ligado E Deslidar Tomada Ligado
+    and:
+    - condition: state
+      entity_id: input_boolean.tomada1_desliga
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.tomada1_status
+      state: 'on'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.tomada_cafeteira_zigbee
+  - delay: 10
+  - service: '{% if is_state("input_select.tomada1_pessoas", "Cadu") %} notify.cadutelegram
+      {% elif is_state("input_select.tomada1_pessoas", "Fernanda") %} notify.fernandatelegram
+      {% elif is_state("input_select.tomada1_pessoas", "Todos") %} notify.telegramtodos
+      {% endif %}
+
+      '
+    data:
+      message: Tomada da cafeteira desligada.
+  id: be014cb3db8147c88638677f7e1280ba
+- alias: Conf. Tomada 2
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.tomada2_despertar_automacao.state
+      }}'
+  condition:
+    condition: state
+    entity_id: input_boolean.tomada2_status
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.tomada_nespresso_zigbee
+  - service: '{% if is_state("input_select.tomada2_pessoas", "Cadu") %} notify.cadutelegram
+      {% elif is_state("input_select.tomada2_pessoas", "Fernanda") %} notify.fernandatelegram
+      {% elif is_state("input_select.tomada2_pessoas", "Todos") %} notify.telegramtodos
+      {% endif %}
+
+      '
+    data_template:
+      message: '{{ states.input_text.tomada2_mensagem.state }}'
+  id: c368c480c634494ba3722ec2d260aab4
+- alias: Desliga Tomada 2
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.tomada_nespresso_zigbee
+    to: 'on'
+    for: '{{ states("input_select.tomada2_desliga_apos") }}'
+  condition:
+    alias: Status Ligado E Desligar Tomada Ligado
+    and:
+    - condition: state
+      entity_id: input_boolean.tomada2_desliga
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.tomada2_status
+      state: 'on'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.tomada_nespresso_zigbee
+  - service: '{% if is_state("input_select.tomada2_pessoas", "Cadu") %} notify.cadutelegram
+      {% elif is_state("input_select.tomada2_pessoas", "Fernanda") %} notify.fernandatelegram
+      {% elif is_state("input_select.tomada2_pessoas", "Todos") %} notify.telegramtodos
+      {% endif %}
+
+      '
+    data:
+      message: Tomada da Nespresso desligada.
+  id: 655d00bbcab54a1b815e7e54054b758e
+- alias: aquario_liga
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.aquario_liga.state
+      }}'
+  condition:
+    condition: state
+    entity_id: switch.luz_aquario
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.luz_aquario
+  id: 6e17fe80c50641699a59c19c1af1b457
+- alias: aquario_desliga
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.aquario_desliga.state
+      }}'
+  condition:
+    condition: state
+    entity_id: switch.luz_aquario
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.luz_aquario
+  id: 061424e9168b42a1823efd9e6dd6eb6d
+- alias: Conf. Despertador 1
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.despert1_despertar_automacao.state
+      }}'
+  condition:
+    condition: state
+    entity_id: input_boolean.despert1_status
+    state: 'on'
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{% if is_state("input_select.despert1_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert1_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert1_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert1_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert1_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert1_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      volume_level: '{{  states.input_number.despert1_volume.state  }}'
+  - service: '{% if is_state("input_select.despert1_tts", "Google") %} tts.google_translate_say
+      {% elif is_state("input_select.despert1_tts", "Voicerss") %} tts.voicerss_say
+      {% elif is_state("input_select.despert1_tts", "Watson") %} tts.watson_tts_say
+      {% elif is_state("input_select.despert1_tts", "Amazon") %} tts.amazon_polly_say
+      {% endif %}
+
+      '
+    data_template:
+      entity_id: '{% if is_state("input_select.despert1_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert1_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert1_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert1_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert1_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert1_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      message: "{% if is_state(\"input_select.despert1_tts\", \"Amazon\") %} <speak><amazon:auto-breaths
+        frequency='medium'> {% endif %} {{ states.input_text.despert1_mensagem.state
+        }}. São {{ states.input_number.despert1_hora.state | int }} horas {% if states('input_number.despert1_minuto')|float
+        > 0 %}\n  e {{ states.input_number.despert1_minuto.state | int }} minutos!\n{%-
+        else -%}\n  em ponto!\n{% endif %} {% if is_state('input_boolean.despert1_tempo',
+        'on') %}\n  Faz {{ states.sensor.dark_sky_temperature.state  | int }} graus
+        lá fora.\n  {{ states.sensor.dark_sky_hourly_summary.state }}. \n  e nos próximos
+        dias: {{ states.sensor.dark_sky_daily_summary.state }}\n{% endif %} {% if
+        is_state(\"input_select.despert1_tts\", \"Amazon\") %} </amazon:auto-breaths></speak>
+        {% endif %}\n"
+  - delay:
+      seconds: 25
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{% if is_state("input_select.despert1_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert1_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert1_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert1_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert1_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert1_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      media_content_id: '{% if is_state("input_select.despert1_audio_str", "Classic
+        Rock Florida") %} http://us4.internet-radio.com:8258/stream {% elif is_state("input_select.despert1_audio_str",
+        "Rádio CBN Maringá") %} http://144.217.192.196:8976/stream {% elif is_state("input_select.despert1_audio_str",
+        "Mix FM") %} http://mixaac.crossradio.com.br:10000/stream {% elif is_state("input_select.despert1_audio_str",
+        "Kiss FM Brasil") %} http://199.233.234.34:8022/live {% elif is_state("input_select.despert1_audio_str",
+        "Blues") %} http://i4.streams.ovh:8352/stream {% elif is_state("input_select.despert1_audio_str",
+        "Diney") %} http://edge-np.cdn.mdstrm.com/5a9ee30411c043ae48e40bce.mp3 {%
+        elif is_state("input_select.despert1_audio_str", "Coca-Cola") %} https://ic.imusicaradios.com.br/brasil.stream.http?url=br_-_coca-cola_-_fm&1557842165443
+        {% elif is_state("input_select.despert1_audio_str", "Transamerica") %} http://transamerica.crossradio.com.br:9100/stream
+        {% elif is_state("input_select.despert1_audio_str", "BBC") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
+        {% elif is_state("input_select.despert1_audio_str", "DubBase FM") %} http://stream.dubbase.fm:7002
+        {% endif %}
+
+        '
+      media_content_type: music
+  id: 8d993bfda0f349b685c2894c616c18da
+- alias: Conf. Despertador 2
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.despert2_despertar_automacao.state
+      }}'
+  condition:
+    condition: state
+    entity_id: input_boolean.despert2_status
+    state: 'on'
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{% if is_state("input_select.despert2_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert2_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert2_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert2_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert2_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert2_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      volume_level: '{{  states.input_number.despert2_volume.state  }}'
+  - service: '{% if is_state("input_select.despert2_tts", "Google") %} tts.google_translate_say
+      {% elif is_state("input_select.despert2_tts", "Voicerss") %} tts.voicerss_say
+      {% elif is_state("input_select.despert2_tts", "Watson") %} tts.watson_tts_say
+      {% elif is_state("input_select.despert2_tts", "Amazon") %} tts.amazon_polly_say
+      {% endif %}
+
+      '
+    data_template:
+      entity_id: '{% if is_state("input_select.despert2_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert2_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert2_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert2_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert2_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert2_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      message: "{% if is_state(\"input_select.despert1_tts\", \"Amazon\") %} <speak><amazon:auto-breaths
+        frequency='medium'> {% endif %} {{ states.input_text.despert2_mensagem.state
+        }}. São {{ states.input_number.despert2_hora.state | int }} horas {% if states('input_number.despert2_minuto')|float
+        > 0 %}\n  e {{ states.input_number.despert2_minuto.state | int }} minutos!\n{%-
+        else -%}\n  em ponto!\n{% endif %} {% if is_state('input_boolean.despert2_tempo',
+        'on') %}\n  Faz {{ states.sensor.dark_sky_temperature.state | int }} graus
+        lá fora.\n  {{ states.sensor.dark_sky_hourly_summary.state }}. \n  e nos próximos
+        dias: {{ states.sensor.dark_sky_daily_summary.state }}\n{% endif %} {% if
+        is_state(\"input_select.despert1_tts\", \"Amazon\") %} </amazon:auto-breaths></speak>
+        {% endif %}\n"
+      cache: false
+  - delay:
+      seconds: 25
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{% if is_state("input_select.despert2_src", "do Escritório") %}
+        media_player.escritorio {% elif is_state("input_select.despert2_src", "da
+        Sala de Jantar") %} media_player.sala_jantar {% elif is_state("input_select.despert2_src",
+        "do Hub Jantar") %} media_player.hub_jantar {% elif is_state("input_select.despert2_src",
+        "do Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.despert2_src",
+        "da Cozinha") %} media_player.cozinha {% elif is_state("input_select.despert2_src",
+        "Todos") %} media_player.casa_toda {% endif %}
+
+        '
+      media_content_id: '{% if is_state("input_select.despert2_audio_str", "Classic
+        Rock Florida") %} http://us4.internet-radio.com:8258/stream {% elif is_state("input_select.despert2_audio_str",
+        "Rádio CBN Maringá") %} http://144.217.192.196:8976/stream {% elif is_state("input_select.despert2_audio_str",
+        "Mix FM") %} http://mixaac.crossradio.com.br:10000/stream {% elif is_state("input_select.despert2_audio_str",
+        "Kiss FM Brasil") %} http://199.233.234.34:8022/live {% elif is_state("input_select.despert2_audio_str",
+        "Blues") %} http://i4.streams.ovh:8352/stream {% elif is_state("input_select.despert2_audio_str",
+        "Diney") %} http://edge-np.cdn.mdstrm.com/5a9ee30411c043ae48e40bce.mp3 {%
+        elif is_state("input_select.despert2_audio_str", "Coca-Cola") %} https://ic.imusicaradios.com.br/brasil.stream.http?url=br_-_coca-cola_-_fm&1557842165443
+        {% elif is_state("input_select.despert2_audio_str", "Transamerica") %} http://transamerica.crossradio.com.br:9100/stream
+        {% elif is_state("input_select.despert2_audio_str", "BBC") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
+        {% elif is_state("input_select.despert2_audio_str", "DubBase FM") %} http://stream.dubbase.fm:7002
+        {% endif %}
+
+        '
+      media_content_type: music
+  id: 57cb428352634eac9b34045beeee066e
+- alias: Gasto kWh ontem Tomada Sala
+  trigger:
+    platform: time
+    at: '23:59:59'
+  action:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.kwh_gasto_ontem_tvsala
+      value: '{{ states("sensor.total_kwh_dia_tvsala") }}'
+  id: 51f9d445a9e641b3947b29e5a44929fd
+- alias: Gasto kWh ontem Tomada Proxmox
+  trigger:
+    platform: time
+    at: '23:59:59'
+  action:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.kwh_gasto_ontem_proxmox
+      value: '{{ states("sensor.total_kwh_dia_proxmox") }}'
+  id: 15ba3fb3d71444f792544da3706122cf
+- alias: Gasto kWh ontem Geladeira Cianorte
+  trigger:
+    platform: time
+    at: '23:59:59'
+  action:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.kwh_gasto_ontem_geladeira_cianorte
+      value: '{{ states("sensor.total_kwh_dia_geladeira_cianorte") }}
+
+        '
+  id: d14c41d0d6d84d74b86bd245acaadceb
+- alias: Gasto kWh ontem Tomada Lavanderia
+  trigger:
+    platform: time
+    at: '23:59:59'
+  action:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.kwh_gasto_ontem_tomada_lavanderia
+      value: '{{ states("sensor.total_kwh_dia_tomada_lavanderia") }}
+
+        '
+  id: 3df1a3ab462f4680a7bf0c953deb88e9
+- alias: Corrige Status da TV on
+  trigger:
+  - entity_id: media_player.lg_webos_tv_lk615bpsb
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.tv_casal_ligada
+  id: c8d147077ea44fff9a9dd82a6ba7216a
+- alias: Corrige Status da TV off
+  trigger:
+  - entity_id: media_player.lg_webos_tv_lk615bpsb
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.tv_casal_ligada
+  id: 5431ec5672a04e4b8d52db22f369f687
+- alias: Corrige Status da TV Sala on
+  trigger:
+  - entity_id: media_player.samsung_un50ju6400_2
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.tv_sala_ligada
+  id: 9c3959839af9447bb66738317c43f260
+- alias: Corrige Status da TV Sala off
+  trigger:
+  - entity_id: media_player.samsung_un50ju6400_2
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.tv_sala_ligada
+  id: 4e1d7cac96f34a05af46def6e78244c1
+- id: '1618361101255'
+  alias: Zone Notification
+  description: ''
+  use_blueprint:
+    path: homeassistant/notify_leaving_zone.yaml
+    input:
+      person_entity: person.carlos_eduardo_valsesia
+      zone_entity: zone.home
+      notify_device: f15a12230596c057f1f1f659ca5a0045
+- id: '1622736995373'
+  alias: teste_de_tag
+  description: ''
+  trigger:
+  - platform: event
+    event_type: test_tag
+  condition: []
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.sonoff_1000e4f7a5
+  mode: single
+- alias: tag_temos_visita
+  description: Liga e Desliga o modo Vistas em casa
+  trigger:
+  - platform: event
+    event_type: tag_visitas
+  condition: []
+  action:
+  - service: input_boolean.toggle
+    target:
+      entity_id: input_boolean.visitas
+  mode: single
+  id: 3de57896a9594fe684f9b56ee2f91ab7
+- alias: temos_visita_ligado
+  description: mensagem modo Vistas Ligado
+  trigger:
+  - entity_id: input_boolean.visitas
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_cozinha
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      target:
+      - media_player.echo_show_cozinha
+      data:
+        method: all
+        type: announce
+      message: Modo Visitas Ligado.
+      title: Aviso
+  id: 72d6e8664834436b955df0af3b057688
+- alias: temos_visita_desligado
+  description: mensagem modo Vistas Desligado
+  trigger:
+  - entity_id: input_boolean.visitas
+    platform: state
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id:
+      - media_player.echo_show_cozinha
+      volume_level: '0.4'
+  - service: notify.alexa_media
+    data:
+      target:
+      - media_player.echo_show_cozinha
+      data:
+        method: all
+        type: announce
+      message: Modo Visitas Desligado.
+      title: Aviso
+  id: e1079adeb95e4f8296109f99c03ede67
+- id: '1623722456938'
+  alias: A etiqueta ad49441a-c4a2-4883-9287-9a1ed90a8a5d é lida
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: ad49441a-c4a2-4883-9287-9a1ed90a8a5d
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      entity_id: light.sonoff_1000e3aa6c
+    data:
+      color_name: aquamarine
+      hs_color: {}
+      brightness_pct: 40
+  mode: single
+- id: 04-8F-F2-32-14-6F-80
+  alias: A etiqueta 04-8F-F2-32-14-6F-80 é lida
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 04-8F-F2-32-14-6F-80
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: media_player.echo_show_de_cadu
+    service: media_player.media_stop
+- id: A7-92-34-04arma
+  alias: Armar alarme pela etiqueta A7-92-34-04
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A7-92-34-04
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: disarmed
+  action:
+  - alias: ''
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+    service: alarm_control_panel.alarm_arm_night
+  mode: single
+- id: A7-92-34-04desarma
+  alias: Desarmar alarme pela etiqueta A7-92-34-04
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A7-92-34-04
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.home_alarm
+    state: armed_night
+  action:
+  - alias: ''
+    data:
+      entity_id: alarm_control_panel.home_alarm
+      code: '1905'
+    service: alarm_control_panel.alarm_disarm
+  mode: single
+- id: '1625427071498'
+  alias: Switch_tag_Cartao
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: A3-9F-77-05
+  condition: []
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.tag_cartao
+  mode: single
+- id: '1625618038847'
+  alias: A etiqueta cartão inter é lida
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 9F-BB-0F-B7
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.echo_show_de_cadu
+    data:
+      media_content_id: mundo livre fm maringá
+      media_content_type: TUNEIN
+  mode: single
+- id: '1625618110052'
+  alias: A etiqueta cartao nubank é lida
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: E1-53-63-F9
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.echo_show_de_cadu
+    data:
+      media_content_id: Jovem pan Maringá
+      media_content_type: TUNEIN
+  mode: single
+- id: '1625625265014'
+  alias: Tag Abajur Leitura
+  description: liga desliga abajur leitura pela tag
+  trigger:
+  - platform: event
+    event_type: abajur_escritorio
+  condition: []
+  action:
+  - service: switch.toggle
+    target:
+      entity_id: switch.escritorioabajur
+  mode: single
+- id: '1625925198660'
+  alias: Aceder_escritorio_movimento
+  description: Acende a luz do escritorio atraves do sensor de movimento
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.movimento_escritorio
+    from: 'off'
+    to: 'on'
+    id: acende_luz_escritorio
+  condition:
+  - condition: time
+    after: '18:00'
+    before: 02:00
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.luzescritorio
+  mode: single
+- id: '1625931261316'
+  alias: Luz_bwc_casal_sensor_liga
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sensor_bwc_casal
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: time
+    after: '18:00'
+    before: 01:00
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.banheirocasal
+  mode: single
+- id: '1625931342882'
+  alias: luz_bwc_casal_sensor_desliga
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.sensor_bwc_casal
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: time
+    after: '18:00'
+    before: 01:00
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.banheirocasal
+  mode: single
+- id: '1627244140670'
+  alias: acende_bwc_social_sensor
+  description: Acende o Banheiro social pelo sensor de presença
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_0
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.sonoff_1000b57904
+  mode: single
+- id: '1627244250733'
+  alias: apaga_banheiro_social_sensor
+  description: Apaga o banheiro social pelo sensor de presença se a porta estiver
+    aberta
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.1000e72240_0
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.porta_banheiro_social
+    state: 'on'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.sonoff_1000b57904
+  mode: single
+- id: '1634786930107'
+  alias: tag Abajur Absolut
+  description: acende ou apaga abajur escritorio pela tag
+  trigger:
+  - platform: event
+    event_type: absolut_escritorio
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.abajur_absolut
+  mode: single
+- id: '1636993695419'
+  alias: Ligar ambiente Natal
+  description: Liga as luzes de natal da arvore, sacada e som de natal na google sala
+    jantar
+  trigger:
+  - platform: state
+    entity_id: input_boolean.ambiente_natal
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.tomadasacada
+      - switch.tomadaarvorenatal_soquete_1
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.som_natal_ligado
+    data: {}
+  - service: spotcast.start
+    data:
+      entity_id: media_player.sala_jantar
+      uri: spotify:playlist:65rdSWH89bFAgEA20LfzXO
+      start_volume: 40
+      random_song: true
+      shuffle: true
+  mode: single
+- id: '1636995170547'
+  alias: Desligar Ambiente de Natal
+  description: Desliga o flag ambiente_natal
+  trigger:
+  - platform: state
+    entity_id: input_boolean.ambiente_natal
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.tomadasacada
+      - switch.tomadaarvorenatal_soquete_1
+    data: {}
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.som_natal_ligado
+    data: {}
+  - service: media_player.media_stop
+    target:
+      entity_id: media_player.sala_jantar
+    data: {}
+  mode: single
+- id: '1636999244948'
+  alias: Temporizador Som Natal
+  description: Temporizador de som do natal
+  trigger:
+  - platform: state
+    entity_id: input_boolean.som_natal_ligado
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 32
+      seconds: 0
+  condition: []
+  action:
+  - service: media_player.media_stop
+    target:
+      entity_id:
+      - media_player.sala_jantar
+    data: {}
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.som_natal_ligado
+    data: {}
+  mode: single
+- id: '1653631946069'
+  alias: Advanced medication reminder
+  description: ''
+  use_blueprint:
+    path: Aohzan/medication_reminder.yaml
+    input:
+      notify_device: 6beadcea1296d3344ab7a30fb6e0a1e9
+      reminder_time: 09:00:00
+      notification_title: Lembrete Medicação!
+      notification_message: Está na hora de tomar o remédio!
+      logbook_message_remind: Lembrete enviado
+      logbook_message_taken: Medicação tomada
+      notification_action_taken: Tomar
+      notification_action_later: Adiar
+      notification_action_skip: Ignorar
+      logbook_message_later: Adiar Lembrete
+      logbook_message_skip: Lembrete Ignorado
+      logbook_message_no_answer: ' Sem tempo de resposta'
+      input_boolean: input_boolean.medicamento
+- id: '1654361998167'
+  alias: SincronizaListaToDo
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: sincronizalistatodo-feNx1pgN51-OdvoJ-sCpNXbY
+    allowed_methods:
+    - POST
+    - PUT
+    local_only: false
+  condition: []
+  action:
+  - service: pyscript.sync_shopping_list
+    data: {}
+  mode: single
+- id: '1660095060431'
+  alias: teste Luz Webhook
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: teste-luz-webhook-kJih3HNEWftKHLezNduxjSpu
+    allowed_methods:
+    - POST
+    - PUT
+    local_only: false
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.luzescritorio
+  mode: single
+- id: '1660187897364'
+  alias: Seta Campainha on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.campainha_press
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.campainha_alexa
+  mode: single
+- id: '1660188023856'
+  alias: Seta Campainha Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.campainha_press
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.campainha_alexa
+  mode: single
+- id: '1660881174141'
+  alias: Abajur Brasília action
+  description: ''
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: Botao_abajur_bras
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.lampada_inteligente_10w_3
+  mode: single
+- id: '1667944165485'
+  alias: Gatilho Ligar Natal
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition:
+  - condition: or
+    conditions:
+    - condition: zone
+      entity_id: person.fernanda_batista
+      zone: zone.home
+    - condition: zone
+      entity_id: person.carlos_eduardo_valsesia
+      zone: zone.home
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.ambiente_natal
+  mode: single
+- id: '1668032515310'
+  alias: Gatilho Desliga Natal
+  description: ''
+  trigger:
+  - platform: time_pattern
+    hours: '23'
+    minutes: '43'
+    seconds: '00'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.ambiente_natal
+  mode: single
+- id: '1668205201810'
+  alias: sacada2cliquesDesLigaInt1
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.sacadadh1'', ''TOGGLE'') %}true{% endif
+      %}'
+  condition:
+  - condition: state
+    entity_id: light.1000f89e05
+    attribute: state
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.1000f89e05
+  mode: single
+- id: '1668206001927'
+  alias: SalaInt1DesligaSegurar
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{% if is_state(''sensor.salaspotsdh1'', ''HOLD'') %}true{% endif
+      %}'
+  condition:
+  - condition: state
+    entity_id: light.1000e3aa6c
+    attribute: state
+    state: 'on'
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.1000e3aa6c
+  mode: single
+- id: '1677197042106'
+  alias: Apagar os LEDs reiniciar
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition:
+  - condition: state
+    entity_id: input_boolean.acabou_enegia
+    state: 'on'
+  action:
+  - delay:
+      hours: 0
+      minutes: 2
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.1000f89e05
+      - light.1000aca60e
+      - light.1000aca618
+      - light.1000f89dff
+      - light.1000e3aa6c
+      - light.1000f8b805
+      - light.sonoff_1000f8b805
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.acabou_enegia
+  mode: single
+- id: '1678109419736'
+  alias: Abre cortina pela TAG
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 43-04-CB-36
+  condition: []
+  action:
+  - service: cover.open_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.zemismart_zigbee_curtain_motor_curtain
+  mode: single
+- id: '1678109454119'
+  alias: Fecha Cortina pela TAG
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 1A-E5-AA-04
+  condition: []
+  action:
+  - service: cover.close_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.zemismart_zigbee_curtain_motor_curtain
+  mode: single
+- id: '1679511013507'
+  alias: luzes_sem_ninguem
+  description: avisa luzes ligadas sem ninguem
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.total_luzes_ligadas
+    above: 0
+    below: 20
+  condition:
+  - condition: not
+    conditions:
+    - condition: zone
+      entity_id: person.carlos_eduardo_valsesia
+      zone: zone.home
+    - condition: zone
+      entity_id: person.fernanda_batista
+      zone: zone.home
+  action:
+  - service: notify.telegramtodos
+    data_template:
+      message: Existem {{states('sensor.total_luzes_ligadas')}} Luzes acesas, sem
+        ninguem em casa. Favor apagar para economizar energia.
+  mode: single
+- id: '1681348112510'
+  alias: teste msg Lara
+  description: ''
+  trigger:
+  - platform: time
+    at: 09:30:00
+  condition: []
+  action:
+  - service: notify.whats_textmebot
+    data:
+      message: http://api.textmebot.com/send.php?recipient=+554497647887&apikey=6PyepFufmq1A&text=Não%20esquece%20de%20escovar%20os%20dentinhos%20viu%20meu%20amor
+  mode: single
+- id: '1689283276709'
+  alias: Liga SpotBanho
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.luz_bwc_casal
+    to: 'on'
+    from: 'off'
+  condition:
+  - condition: sun
+    after: sunset
+    before: sunrise
+  action:
+  - type: turn_on
+    device_id: 8f3c26a8328adc0cda98726c4ee0953e
+    entity_id: a9af26e6f3b86094c6be32b7a2018ff1
+    domain: switch
+  mode: single
+- id: '1689284685251'
+  alias: desliga spot banho
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.luz_bwc_casal
+    to: 'off'
+    from: 'on'
+  condition:
+  - condition: state
+    entity_id: switch.spot_banho
+    state: 'on'
+  action:
+  - type: turn_off
+    device_id: 8f3c26a8328adc0cda98726c4ee0953e
+    entity_id: a9af26e6f3b86094c6be32b7a2018ff1
+    domain: switch
+  mode: single
+- id: '1693340169939'
+  alias: Aviso Airfryer
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.airfryer_energy_power
+    to: '4'
+  condition: []
+  action:
+  - service: notify.cadutelegram
+    data:
+      message: Sua Airfryer desligou
+      title: Aviso
+  - service: notify.alexa_media
+    data:
+      message: 'Seu alimento está pronto. Sua Airfryer desligou.   '
+      title: Aviso
+      target: media_player.echo_show_cozinha
+  mode: single
+- id: '1695146060159'
+  alias: botao_estudio_1_clique
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - event.botao_studio
+    to: single_press
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.luz_escritorio
+  mode: single
+- id: '1698518003831'
+  alias: ligar_led_tv
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.ledtv
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    state: 'off'
+    entity_id: switch.tomada_led_tv
+  action:
+  - type: turn_on
+    device_id: b175df14b88d17c1fc11bf485541ca10
+    entity_id: dd11647a1784b97c602fdf01f9546288
+    domain: switch
+  mode: single
+- id: '1698518179528'
+  alias: desligar_led_tv
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.ledtv
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    state: 'on'
+    entity_id: switch.tomada_led_tv
+  action:
+  - type: turn_off
+    device_id: b175df14b88d17c1fc11bf485541ca10
+    entity_id: dd11647a1784b97c602fdf01f9546288
+    domain: switch
+  mode: single
+- id: '1700184434519'
+  alias: Liga ar Meninas
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 5e115bc3c13ac7e4a1c707d9be1d67cf
+    domain: climate
+    entity_id: ce2c552faa2cb686566bbc83bf18aea0
+    type: current_temperature_changed
+    above: 27
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: 04:00:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - device_id: 5e115bc3c13ac7e4a1c707d9be1d67cf
+    domain: climate
+    entity_id: ce2c552faa2cb686566bbc83bf18aea0
+    type: set_hvac_mode
+    hvac_mode: cool
+  mode: single
+- id: '1700184543500'
+  alias: Desliga Ar Meninas
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 5e115bc3c13ac7e4a1c707d9be1d67cf
+    domain: climate
+    entity_id: ce2c552faa2cb686566bbc83bf18aea0
+    type: current_temperature_changed
+    below: 26
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: 04:00:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - device_id: 5e115bc3c13ac7e4a1c707d9be1d67cf
+    domain: climate
+    entity_id: ce2c552faa2cb686566bbc83bf18aea0
+    type: set_hvac_mode
+    hvac_mode: 'off'
+  mode: single
+- id: '1700198462649'
+  alias: Desligar ar casal
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: fdd4ba3fc8c23f9abe53d3c133580f50
+    entity_id: 51161acf0222e2dab57ec01e8efab824
+    domain: sensor
+    below: 26
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: 06:00:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: climate.set_hvac_mode
+    data:
+      hvac_mode: 'off'
+    target:
+      entity_id: climate.ar_casal
+  mode: single
+- id: '1700198624660'
+  alias: Liga ar casal
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: fdd4ba3fc8c23f9abe53d3c133580f50
+    entity_id: 51161acf0222e2dab57ec01e8efab824
+    domain: sensor
+    above: 27
+  condition:
+  - condition: time
+    after: '22:00:00'
+    before: 06:00:00
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: climate.set_hvac_mode
+    data:
+      hvac_mode: cool
+    target:
+      entity_id: climate.ar_casal
+  mode: single
+- id: '1702154458356'
+  alias: seta ar escritorio
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - climate.arescritorio
+    attribute: temperature
+    above: 0
+    below: 23
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id:
+      - climate.arescritorio
+    data:
+      temperature: 23
+  mode: single
+- id: '1702155835417'
+  alias: seta ar meninas
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - climate.armeninas
+    attribute: temperature
+    above: 0
+    below: 23
+  condition: []
+  action:
+  - service: climate.set_temperature
+    target:
+      entity_id:
+      - climate.armeninas
+    data:
+      temperature: 23
+  mode: single
+- id: '1704067651071'
+  alias: Atualizar o GIT
+  description: ''
+  trigger:
+  - platform: time
+    at: 02:00:00
+  condition: []
+  action:
+  - service: shell_command.pushupdate_to_github
+    data: {}
+  mode: single

@@ -1,0 +1,1118 @@
+tv_on:
+  sequence:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.lg_tv_2
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Power
+    service: remote.send_command
+tv_off:
+  sequence:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.lg_tv_2
+  - service: media_player.turn_off
+    entity_id: media_player.lg_tv_quarto
+tv2_on:
+  sequence:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.samsung_un50ju6400
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBGAI2VETkRORA5ERQSExITEBUSEhM3EjgSNxITEhMSExISExITEhI4EhITEhMSEhMSExITEjcSExI3EzcSOBI3EzcSNxMADQU=
+    service: broadlink.send
+tv2_off:
+  sequence:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.samsung_un50ju6400
+  - service: media_player.turn_off
+    entity_id: media_player.samsung_un50ju6400_2
+ligar_ar_lara_quente:
+  alias: Liga ar Lara no quente 25C
+  sequence:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.lara_ac
+      temperature: 25
+      hvac_mode: heat
+piscar_leds_alarme:
+  alias: Pisca LEDs Alarme Disparado
+  sequence:
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000aca618
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  - delay:
+      seconds: 0.01
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000aca618
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      effect: DIY Pulse
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000aca60e
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  - delay:
+      seconds: 0.01
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000aca60e
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      effect: DIY Pulse
+  - service: light.turn_on
+    data:
+      entity_id: light.ledjantar
+      brightness: 255
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      effect: red_strobe
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000e3aa6c
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  - delay:
+      seconds: 0.01
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000e3aa6c
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      effect: DIY Pulse
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000f89e05
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+  - delay:
+      seconds: 0.01
+  - service: light.turn_on
+    data:
+      entity_id: light.sonoff_1000f89e05
+      brightness: '255'
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      effect: DIY Pulse
+parar_piscar_leds_alarme:
+  alias: Parar Pisca LEDs Alarme Disparado
+  sequence:
+  - service: light.turn_off
+    entity_id: light.sonoff_1000aca618
+  - service: light.turn_off
+    entity_id: light.sonoff_1000e3aa6c
+  - service: light.turn_off
+    entity_id: light.ledjantar
+  - service: light.turn_off
+    entity_id: light.ledprateleira
+  - service: light.turn_off
+    entity_id: light.sonoff_1000aca60e
+  - service: light.turn_off
+    entity_id: light.sonoff_1000f89e05
+inicia_timer_mama_helena:
+  alias: Inicia o Timer para o Mamá da Helena
+  sequence:
+  - service: timer.start
+    entity_id: timer.mama_helena
+ativa_desativa_alarme_total:
+  alias: Ativa/Desativa Alarme total
+  sequence:
+    service_template: "{% if is_state('sensor.alarme_total','on') %}\n  input_boolean.turn_off
+      \n{%- else -%}\n  input_boolean.turn_on\n{%- endif %}\n"
+    entity_id:
+    - input_boolean.alarme_sala
+    - input_boolean.alarme_sacada
+activate_alexa_actionable_notification:
+  description: Activar notificações acionando a Alexa
+  sequence:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.alexa_actionable_notification
+      value: '{"text": "{{ text }}", "event": "{{ event_id }}"}'
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{{ alexa_device }}'
+      media_content_type: skill
+      media_content_id: amzn1.ask.skill.62a68bef-068c-4059-807e-2abd156dae1a
+empty_shopping_list:
+  alias: empty shopping list
+  sequence:
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[1] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[2] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[3] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[4] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[5] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[6] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[7] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[8] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[9] }}'
+  - service: shopping_list.complete_item
+    data_template:
+      name: '{{ states.sensor.shopping_list.state.split(''-'')[10] }}'
+flash_room1:
+  alias: Flash Room1 On
+  sequence:
+  - alias: Light Room1 On
+    service: homeassistant.turn_on
+    data:
+      entity_id: switch.intentradaluz
+  - delay:
+      seconds: 1
+  - alias: Light Room1 Off
+    service: homeassistant.turn_off
+    data:
+      entity_id: switch.intentradaluz
+  - alias: loop_room1
+    service: script.turn_on
+    data:
+      entity_id: script.flash_loop
+flash_loop:
+  alias: Flash loop
+  sequence:
+  - delay:
+      seconds: 1
+  - alias: loop_room1
+    service: script.turn_on
+    data:
+      entity_id: script.flash_room1
+luzes_flash:
+  alias: Ligar Flash Luzes
+  sequence:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.ledprateleira
+      brightness: '255'
+      hs_color:
+      - 0
+      - 100
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.sonoff_1000e3aa6c
+      brightness: '255'
+      hs_color:
+      - 0
+      - 100
+  - service: homeassistant.turn_on
+    data:
+      entity_id: light.ledjantar
+      brightness: '255'
+      hs_color:
+      - 0
+      - 100
+  - delay:
+      seconds: 0.01
+  - service: homeassistant.turn_off
+    data:
+      entity_id:
+      - light.ledprateleira
+      - light.ledjantar
+      - light.sonoff_1000e3aa6c
+  - service: script.turn_on
+    data:
+      entity_id: script.light_loop
+light_loop:
+  alias: Loop Luzes
+  sequence:
+  - delay:
+      seconds: 0.01
+  - service: homeassistant.turn_on
+    data:
+      entity_id: script.luzes_flash
+luzes_flash_cancel:
+  alias: Cancelar Loop Luzes
+  sequence:
+  - service: script.turn_off
+    data:
+      entity_id: script.luzes_flash
+  - service: script.turn_off
+    data:
+      entity_id: script.light_loop
+  - service: light.turn_off
+    data:
+      entity_id: light.ledprateleira
+  - service: light.turn_off
+    data:
+      entity_id: light.sonoff_1000e3aa6c
+  - service: light.turn_off
+    data:
+      entity_id: light.ledjantar
+off_todas_luzes:
+  alias: (Off) Todas as luzes
+  sequence:
+  - service: switch.turn_off
+    data:
+      entity_id: group.all_lights
+  - service: light.turn_off
+    data:
+      entity_id: group.all_leds
+on_todas_luzes:
+  alias: (On) Todas as luzes
+  sequence:
+  - service: switch.turn_on
+    data:
+      entity_id: group.all_lights
+  - service: light.turn_on
+    data:
+      entity_id: group.all_leds
+cade_a_fernanda:
+  alias: Cade a Fernanda
+  sequence:
+  - service: notify.cadutelegram
+    data_template:
+      message: "{% if is_state('device_tracker.life360_fernanda_batista', 'home')
+        %}\n  A Fernanda está em casa! Celular {{ states.sensor.bateria_status_fernanda.state
+        }} e bateria em {{ states.device_tracker.life360_fernanda_batista.attributes.battery|int
+        }}%\n{% else %}\n  Fernanda se localiza em {{ states.device_tracker.life360_fernanda_batista.attributes.address
+        }}. Celular: {{ states.sensor.bateria_status_fernanda.state }} e bateria em
+        {{ states.device_tracker.life360_fernanda_batista.attributes.battery|int }}%\n{%
+        endif %}\n"
+cade_o_cadu:
+  alias: Cade o Cadu
+  sequence:
+  - service: notify.fernandatelegram
+    data_template:
+      message: "{% if is_state('device_tracker.life360_carlos_eduardo_valsesia', 'home')
+        %} Cadu está em Casa! Celular {{ states.sensor.bateria_status_cadu.state }}
+        e bateria em {{ states.device_tracker.life360_carlos_eduardo_valsesia.attributes.battery|int
+        }}% {% else %}\n Cadu se localiza em {{ states.device_tracker.life360_carlos_eduardo_valsesia.attributes.address
+        }}. Celular {{ states.sensor.bateria_status_cadu.state }} bateria em {{ states.device_tracker.life360_carlos_eduardo_valsesia.attributes.battery|int
+        }}%\n{% endif %}"
+fotos_intelbras:
+  alias: Cap. Intelbras
+  sequence:
+  - service: camera.snapshot
+    data:
+      entity_id: camera.camera_intelbras
+      filename: /config/www/cameras/intelbras1.jpg
+  - service: notify.telegramtodos
+    data:
+      message: ''
+      data:
+        photo:
+        - file: /config/www/cameras/intelbras1.jpg
+          caption: CamSala
+video_sala:
+  alias: Gerando e enviando video Sala e Escritorio
+  sequence:
+  - service: notify.telegramtodos
+    data:
+      message: Gravando vídeo interno, aguarde...
+  - service: camera.record
+    data:
+      entity_id: camera.camera_sala
+      filename: /config/www/cameras/int.mp4
+      duration: 15
+  - service: camera.record
+    data:
+      entity_id: camera.camera_escritorio
+      filename: /config/www/cameras/int1.mp4
+      duration: 15
+  - delay:
+      seconds: 25
+  - service: notify.telegramtodos
+    data:
+      message: ''
+      data:
+        video:
+        - file: /config/www/cameras/int.mp4
+          caption: Video Sala
+        - file: /config/www/cameras/int1.mp4
+          caption: Video Escritório
+video_sala_porta:
+  alias: Gerando e enviando video Sala
+  sequence:
+  - service: notify.cadutelegram
+    data:
+      message: Gravando vídeo interno, aguarde...
+  - service: camera.record
+    data:
+      entity_id: camera.camera_sala
+      filename: /config/www/cameras/int.mp4
+      duration: 15
+  - delay:
+      seconds: 25
+  - service: notify.cadutelegram
+    data:
+      message: ''
+      data:
+        video:
+        - file: /config/www/cameras/int.mp4
+          caption: Video Sala
+video_escritorio_porta:
+  alias: Gerando e enviando video Escritório
+  sequence:
+  - service: notify.cadutelegram
+    data:
+      message: Gravando vídeo interno, aguarde...
+  - service: camera.record
+    data:
+      entity_id: camera.camera_escritorio
+      filename: /config/www/cameras/int1.mp4
+      duration: 15
+  - delay:
+      seconds: 25
+  - service: notify.cadutelegram
+    data:
+      message: ''
+      data:
+        video:
+        - file: /config/www/cameras/int1.mp4
+          caption: Video Escritório
+iniciar_cam_cromecast:
+  alias: Iniciar Camera - Chromecast Sala
+  sequence:
+  - delay:
+      seconds: 3
+  - service: camera.play_stream
+    data:
+      entity_id: camera.camera_intelbras
+      media_player: media_player.hub_jantar
+parar_cam_cromecast:
+  alias: Parar Camera - Chromecast Sala
+  sequence:
+  - service: media_player.turn_off
+    data:
+      entity_id: media_player.hub_jantar
+laser_pattern:
+  alias: Laser Pattern
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBIAAABIZESExI3EjcSExISExISEhM3EjcSNxITEjcSExI3EjcSExISExISNxMSEhITEhMSEhISOBE4EhMSNxI3EzYTNhM2EwANBQAAAAAAAAAAAAAAAAAA
+    service: broadlink.send
+laser_speed:
+  alias: Laser Speed
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBIAAABIJISExE4EjcSExITERMSExI3EjcSNxMSEjcSExI3EjcSExI3EjgRExI3EjcTEhITEhITEhISEzcSEhMSEjcSOBE4EgANBQAAAAAAAAAAAAAAAAAA
+    service: broadlink.send
+laser_color:
+  alias: Laser Color
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBIAAABH5MTEhI2EjgQFBIUERMRExI4ETgROBITEjcRFBE3EzcRExEUETgSOBETEhMSFBATFBEROBEUERMSNxI3EzcSNxE4EgANBQAAAAAAAAAAAAAAAAAA
+    service: broadlink.send
+laser_mode:
+  alias: Laser Mode
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBIAAABHZQRFBA5ETgSFA8VDxQTExA6DzoPOhETEDkSFg04ETkRFBEUEDgRFRA5EDkRFBAVDxUQORAVEDgSFBETETgROBE5EAANBQAAAAAAAAAAAAAAAAAA
+    service: broadlink.send
+laser_auto_music:
+  alias: Laser Auto Music
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBQAAABH5MTEhM2EzcSEhMSExETEhM2EzYUNRMSEzYTEhM2EjgSEhM3EhIROBMSExEUERMRFBEUERM2ExISNxM2ETkSNxM2EwAFEwABJEoUAA0FAAAAAAAA
+    service: broadlink.send
+led_cozinha_flash:
+  alias: Flash LED da Cozinha
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBQAAABKZQTExMTExMSExMTExMTExITEzcTOBM3EzcTExM3EzcTNxM4EzcUEhI4ExITExMTExMTExITEzcTExM3EzcTOBM3EwAFSgABKUsTAA0FAAAAAAAA
+    service: broadlink.send
+led_cozinha_strobe:
+  alias: Strobe LED da Cozinha
+  sequence:
+  - data:
+      host: 192.168.5.74
+      packet:
+      - JgBQAAABKZUTExMTEhMTExMTExMTEhMTEzcUNxM3EzcTExM3EzcTOBM3EzcTNxM3ExMTExMTEhQSExMTExMTEhM4EzcTNxM3EwAFRwABLUoTAA0FAAAAAAAA
+    service: broadlink.send
+led_esc_strobe:
+  alias: Strobe LED do Escritório
+  sequence:
+  - data:
+      host: 192.168.5.8
+      packet:
+      - JgBQAAABKZUTExMTEhMTExMTExMTEhMTEzcUNxM3EzcTExM3EzcTOBM3EzcTNxM3ExMTExMTEhQSExMTExMTEhM4EzcTNxM3EwAFRwABLUoTAA0FAAAAAAAA
+    service: broadlink.send
+tv_sala_liga_desliga:
+  alias: TV Sala Liga/desliga
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Power
+    service: remote.send_command
+tv_sala_vol_up:
+  alias: TV Sala Volume +
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Volume_up
+    service: remote.send_command
+tv_sala_vol_down:
+  alias: TV Sala Volume -
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Volume_down
+    service: remote.send_command
+tv_sala_mute:
+  alias: TV Sala Mute
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Mute
+    service: remote.send_command
+tv_sala_input:
+  alias: TV Sala Entrada
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Source
+    service: remote.send_command
+tv_sala_tools:
+  alias: TV Sala Tools
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Tools
+    service: remote.send_command
+tv_sala_menu:
+  alias: TV Sala Menu
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Menu
+    service: remote.send_command
+tv_sala_guide:
+  alias: TV Sala Guia
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Guide
+    service: remote.send_command
+tv_sala_up:
+  alias: TV Sala Cima
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Cima
+    service: remote.send_command
+tv_sala_down:
+  alias: TV Sala Baixo
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Baixo
+    service: remote.send_command
+tv_sala_left:
+  alias: TV Sala Esquerda
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Esquerda
+    service: remote.send_command
+tv_sala_right:
+  alias: TV Sala Direita
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Direita
+    service: remote.send_command
+tv_sala_hub:
+  alias: TV Sala HUB
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Smart_hub
+    service: remote.send_command
+tv_sala_ok:
+  alias: TV Sala Ok
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Ok
+    service: remote.send_command
+tv_sala_back:
+  alias: TV Sala Voltar
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Back
+    service: remote.send_command
+tv_sala_exit:
+  alias: TV Sala Sair
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Exit
+    service: remote.send_command
+tv_sala_info:
+  alias: TV Sala Info
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Info
+    service: remote.send_command
+tv_sala_red:
+  alias: TV Sala Vermelho
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Red
+    service: remote.send_command
+tv_sala_green:
+  alias: TV Sala Verde
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Green
+    service: remote.send_command
+tv_sala_yellow:
+  alias: TV Sala Amarelo
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Yellow
+    service: remote.send_command
+tv_sala_blue:
+  alias: TV Sala Azul
+  sequence:
+  - data:
+      entity_id: remote.sala_remote
+      device: tv_sala
+      command: Blue
+    service: remote.send_command
+tv_quarto_liga_desliga:
+  alias: TV Quarto Liga/desliga
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Power
+    service: remote.send_command
+tv_quarto_vol_up:
+  alias: TV Quarto Volume +
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Volume_up
+    service: remote.send_command
+tv_quarto_vol_down:
+  alias: TV Quarto Volume -
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Volume_down
+    service: remote.send_command
+tv_quarto_mute:
+  alias: TV Quarto Mute
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Mute
+    service: remote.send_command
+tv_quarto_input:
+  alias: TV Quarto Entrada
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Input
+    service: remote.send_command
+tv_quarto_settings:
+  alias: TV Quarto Config
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Settings
+    service: remote.send_command
+tv_quarto_up:
+  alias: TV Quarto Cima
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Cima
+    service: remote.send_command
+tv_quarto_down:
+  alias: TV Quarto Baixo
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Baixo
+    service: remote.send_command
+tv_quarto_left:
+  alias: TV Quarto Esquerda
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Esquerda
+    service: remote.send_command
+tv_quarto_right:
+  alias: TV Quarto Direita
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Direita
+    service: remote.send_command
+tv_quarto_netflix:
+  alias: TV Quarto Netflix
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Netflix
+    service: remote.send_command
+tv_quarto_prime:
+  alias: TV Quarto Prime
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Prime
+    service: remote.send_command
+tv_quarto_ok:
+  alias: TV Quarto Ok
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Ok
+    service: remote.send_command
+tv_quarto_back:
+  alias: TV Quarto Voltar
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Voltar
+    service: remote.send_command
+tv_quarto_exit:
+  alias: TV Quarto Sair
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Sair
+    service: remote.send_command
+tv_quarto_home:
+  alias: TV Quarto Home
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Home
+    service: remote.send_command
+tv_quarto_info:
+  alias: TV Quarto Info
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Info
+    service: remote.send_command
+tv_quarto_red:
+  alias: TV Quarto Vermelho
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Red
+    service: remote.send_command
+tv_quarto_green:
+  alias: TV Quarto Verde
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Green
+    service: remote.send_command
+tv_quarto_blue:
+  alias: TV Quarto Azul
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Blue
+    service: remote.send_command
+tv_quarto_yellow:
+  alias: TV Quarto Amarelo
+  sequence:
+  - data:
+      entity_id: remote.quartocasal_remote
+      device: tv_casal
+      command: Yellow
+    service: remote.send_command
+ar_quarto_swing:
+  alias: Ar Casal Swing
+  sequence:
+  - data:
+      host: 192.168.5.3
+      packet:
+      - JgCSAAABIZMVEhUSFRMVNhUSFRMVNhUSFTYVExUSFTYVEhYSFRIVEhYSFRIVEhYSFRIVEhY2FRIVEhUTFRIVEhU2FhIWNRUSFRMVNhUSFgACjRU2FRIWEhUSFRIWEhUSFRIWEhU2FRIVExUSFTYVEhYSFRIVEhYSFRIVEhYSFRIVEhYSFRIVEhUTFTYVEhU2FTcVAA0FAAAAAA==
+    service: broadlink.send
+ar_quarto_led:
+  alias: Ar Casal LED
+  sequence:
+  - data:
+      host: 192.168.5.3
+      packet:
+      - JgCSAAABH5QTFRMUExQTFRMUExQTFRMUEzgTFBQUEzgTFBMVExQTFBMUFBQTFBMUFBQTFBM4FBQTFBMUFBQTFBM4ExUTOBMUExQUNxQUEwACjxQUExQUFBMUExQUFBMUExQUFBM4ExQTFBQUEzgTFBQUExQTFBQUExQTFBQUExQTFBQUExQTFBQUEzgTFBM4FBQTAA0FAAAAAA==
+    service: broadlink.send
+ar_quarto_aumenta:
+  alias: Ar Casal Aumenta
+  sequence:
+  - data:
+      host: 192.168.5.3
+      packet:
+      - JgCSAAABJZIXNBgQFxAXNRcRFhEYEBYRFxEXEBgQFjUYEBcRFxAXERYRGBAXEBgQFxAYNBc0GBAXERcQGBAWERc1FhEYNBcQGBAXNRcQGAACjBgQFxEXEBgQFxAXERYRFxEWERcRFhEYEBcQFzUXERYRFxEWERcRFhEXERYRFxEXEBcRFhEXERcQFzUXERY1FzUWAA0FAAAAAA==
+    service: broadlink.send
+ar_quarto_diminui:
+  alias: Ar Casal Diminui
+  sequence:
+  - data:
+      host: 192.168.5.3
+      packet:
+      - JgCSAAABJZIXNRYRFxEWNhYRFhIWERYSFjUXNRY2FhEWEhYRFhIWERUTFBMXERYRFRMWNRU3FRMUExUTFBMVExQ3FRMVNxYRFRMUNxUTFAACkBUTFBMVExQTFRMUExcRFBMVExQTFRMVEhUTFTcUExUTFBMWEhQTFRMUExUTFhEVExUSFRMVEhUTFRMUExY2FjUVAA0FAAAAAA==
+    service: broadlink.send
+som_vol_up:
+  alias: Som Escritorio Aumenta
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Volume_up
+    service: remote.send_command
+som_vol_down:
+  alias: Som Escritorio Diminui
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Volume_down
+    service: remote.send_command
+som_power:
+  alias: Som Escritorio Liga/Desliga
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Power
+    service: remote.send_command
+som_function:
+  alias: Som Escritorio Função
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Function
+    service: remote.send_command
+som_turner_up:
+  alias: Som Escritorio Turner Up
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Turner_up
+    service: remote.send_command
+som_turner_down:
+  alias: Som Escritorio Turner Down
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Turner_down
+    service: remote.send_command
+som_turner_band:
+  alias: Som Escritorio Band
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Band
+    service: remote.send_command
+som_cd_volta:
+  alias: Som Escritorio CD Volta
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Cd_volta
+    service: remote.send_command
+som_cd_avanca:
+  alias: Som Escritorio CD Avança
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Cd_avanca
+    service: remote.send_command
+som_cd_skip:
+  alias: Som Escritorio CD Skip
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Disc_skip
+    service: remote.send_command
+som_cd_play:
+  alias: Som Escritorio CD Play
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Play
+    service: remote.send_command
+som_cd_pause:
+  alias: Som Escritorio CD Pause
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Pause
+    service: remote.send_command
+som_cd_stop:
+  alias: Som Escritorio CD Stop
+  sequence:
+  - data:
+      entity_id: remote.escritorio_remote
+      device: som
+      command: Stop
+    service: remote.send_command
+ouvir_audio:
+  alias: Play Áudio
+  sequence:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_audio", "Google Home Escritório")
+        %} media_player.escritorio {% elif is_state("input_select.src_cast_audio",
+        "Google Home Sala Jantar") %} media_player.sala_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Hub Sala Jantar") %} media_player.hub_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Home Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.src_cast_audio",
+        "Google Home Cozinhar") %} media_player.cozinha           {% elif is_state("input_select.src_cast_audio",
+        "Todos Google Home") %} media_player.casa_toda {% elif is_state("input_select.src_cast_audio",
+        "Chromecast Tv Sala") %} media_player.chromecast_sala {% endif %}
+
+        '
+      volume_level: '{{  states.input_number.audio_volume.state  }}'
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_audio", "Google Home Escritório")
+        %} media_player.escritorio {% elif is_state("input_select.src_cast_audio",
+        "Google Home Sala Jantar") %} media_player.sala_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Hub Sala Jantar") %} media_player.hub_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Home Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.src_cast_audio",
+        "Google Home Cozinhar") %} media_player.cozinha    {% elif is_state("input_select.src_cast_audio",
+        "Todos Google Home") %} media_player.casa_toda {% elif is_state("input_select.src_cast_audio",
+        "Chromecast Tv Sala") %} media_player.chromecast_sala {% endif %}
+
+        '
+      media_content_id: '{% if is_state("input_select.str_audio", "Historinhas") %}
+        http://192.99.150.31:8371/stream?I {% elif is_state("input_select.str_audio",
+        "Rádio CBN Maringá") %} http://144.217.192.196:8976/stream {% elif is_state("input_select.str_audio",
+        "Kids") %} http://192.99.150.31:9431/stream {% elif is_state("input_select.str_audio",
+        "Anos 70") %} http://192.99.150.31:8241/stream {% elif is_state("input_select.str_audio",
+        "Anos 80") %} http://192.99.150.31:8697/stream {% elif is_state("input_select.str_audio",
+        "Anos 90") %} http://192.99.150.31:8056/stream {% elif is_state("input_select.str_audio",
+        "New Rock") %} http://6d9a.webradio.upx.net.br:8028/stream {% elif is_state("input_select.str_audio",
+        "Reggae") %} http://192.99.150.31:8715/stream {% elif is_state("input_select.str_audio",
+        "Studio do Amor") %} http://192.99.150.31:8962/stream {% elif is_state("input_select.str_audio",
+        "Sertanejo Boemia") %} http://192.99.150.31:9485/stream {% elif is_state("input_select.str_audio",
+        "Classic Rock Florida") %} http://us4.internet-radio.com:8258/stream {% elif
+        is_state("input_select.str_audio", "Mix FM") %} http://mixaac.crossradio.com.br:10000/stream
+        {% elif is_state("input_select.str_audio", "Kiss FM Brasil") %} http://199.233.234.34:8022/live
+        {% elif is_state("input_select.str_audio", "Blues") %} http://i4.streams.ovh:8352/stream
+        {% elif is_state("input_select.str_audio", "Diney") %} http://edge-np.cdn.mdstrm.com/5a9ee30411c043ae48e40bce.mp3
+        {% elif is_state("input_select.str_audio", "Coca-Cola") %} https://ic.imusicaradios.com.br/brasil.stream.http?url=br_-_coca-cola_-_fm&1557842165443
+        {% elif is_state("input_select.str_audio", "Transamerica") %} http://transamerica.crossradio.com.br:9100/stream
+        {% elif is_state("input_select.str_audio", "BBC") %} http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p
+        {% elif is_state("input_select.str_audio", "DubBase FM") %} http://stream.dubbase.fm:7002
+        {% elif is_state("input_select.str_audio", "Trilhas Sonoras") %} http://6d9a.webradio.upx.net.br:9896/stream
+        {% endif %}
+
+        '
+      media_content_type: music
+stop_audio:
+  alias: Stop Áudio
+  sequence:
+  - service: media_player.turn_off
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_audio", "Google Home Escritório")
+        %} media_player.escritorio {% elif is_state("input_select.src_cast_audio",
+        "Google Home Sala Jantar") %} media_player.sala_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Hub Sala Jantar") %} media_player.hub_jantar {% elif is_state("input_select.src_cast_audio",
+        "Google Home Quarto Casal") %} media_player.quarto_casal {% elif is_state("input_select.src_cast_audio",
+        "Google Home Cozinhar") %} media_player.cozinha    {% elif is_state("input_select.src_cast_audio",
+        "Todos Google Home") %} media_player.casa_toda {% elif is_state("input_select.src_cast_audio",
+        "Chromecast Tv Sala") %} media_player.chromecast_sala {% endif %}
+
+        '
+ver_video:
+  alias: Play Vídeo
+  sequence:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '
+      volume_level: '{{  states.input_number.video_volume.state  }}'
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '
+      media_content_id: '{% if is_state("input_select.str_video", "SBT") %} https://59e4b6c1beddc.streamlock.net/pioneira-tv3/pioneira-tv3/chunklist_w899378795.m3u8
+        {% elif is_state("input_select.str_video", "CAMERA CASA") %} rtsp://admin:EANVDL@192.168.5.31:554  {%
+        elif is_state("input_select.str_video", "TV CULTURA PR") %} http://200.189.113.201/hls/tve.m3u8
+        {% elif is_state("input_select.str_video", "WEATHER CHANNEL") %} http://weather-lh.akamaihd.net/i/twc_1@92006/master.m3u8
+        {% elif is_state("input_select.str_video", "BLOOMBERG TV US") %} https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8
+        {% elif is_state("input_select.str_video", "RECORD SP") %} http://playplusspo-lh.akamaihd.net/i/pp_sp@350176/index_360_av-p.m3u8
+        {% elif is_state("input_select.str_video", "TV GAZETA") %} http://api.new.livestream.com/accounts/5381476/events/2395418/live.m3u8
+        {% elif is_state("input_select.str_video", "TV CIDADE OESTE") %} http://hls.cadena.com.br/live/df9e135c-df44-4fbc-8e95-d128ab1db00c/index.m3u8
+        {% elif is_state("input_select.str_video", "REDE TV SP") %} https://evpp.mm.uol.com.br/redetv1/redetv1/chunklist_w1956210905.m3u8
+        {% elif is_state("input_select.str_video", "FUTURA") %} http://srv3.zoeweb.tv:1935/z01-live/stream/livestream.m3u8
+        {% elif is_state("input_select.str_video", "CAT TVE") %} http://wowza4.catve.com.br:1935/live/livestream/chunklist_w708731897.m3u8
+        {% elif is_state("input_select.str_video", "TV ITAPETININGA SP") %} http://stream02.msolutionbrasil.com.br:1935/tvitape/tvitape/live.m3u8
+        {% elif is_state("input_select.str_video", "TV NOVA PARAIBA") %} http://stmv1.sejaguia.com.br/tv487/tv487/playlist.m3u8
+        {% elif is_state("input_select.str_video", "TV Faap") %} http://midia.faap.br:80/faaplatamlive-live/stream_720/livestream.m3u8
+        {% elif is_state("input_select.str_video", "CONECTV Osasco SP") %} http://stream02.msolutionbrasil.com.br:1935/conectv/live/chunklist_w379083720.m3u8
+        {% elif is_state("input_select.str_video", "TV MAR Maceio") %} https://v7.ciclano.io:1443/tvmar/tvmar/chunklist_w783582179.m3u8
+        {% elif is_state("input_select.str_video", "INFANTIL - DESENHO GOSPEL") %}
+        http://stmv1.srvstm.com/gospelcartoon/gospelcartoon/playlist.m3u8 {% elif
+        is_state("input_select.str_video", "MUSICA - CAPITAL TV") %} http://capital_tv-lh.akamaihd.net/i/CapitalTv_1@183098/master.m3u8
+        {% elif is_state("input_select.str_video", "MUSICA - RADIO SANBORJA") %} https://5949aa132c8fb.streamlock.net:554/iptvsanborja/livesanborjatv/playlist.m3u8
+        {% elif is_state("input_select.str_video", "MUSICA - FOXMIX") %} http://149.56.17.92:1935/portalfoxmix/_definst_/portalfoxmix/playlist.m3u8
+        {% elif is_state("input_select.str_video", "MUSICA - RETRO MUSIC") %} http://stream.mediawork.cz/retrotv//retrotvHQ1/playlist.m3u8
+        {% elif is_state("input_select.str_video", "MUSICA - MELODY TV") %} http://186.155.200.118:1935/live/MelodyChannel/playlist.m3u8
+        {% elif is_state("input_select.str_video", "ADULTO - BLOWJOB") %} http://live.redtraffic.xyz/blowjob.m3u8
+        {% elif is_state("input_select.str_video", "ADULTO - CUCKOLD") %} http://live.redtraffic.xyz/cuckold.m3u8
+        {% elif is_state("input_select.str_video", "ADULTO - LESBIAN") %} http://live.redtraffic.xyz/lesbian.m3u8
+        {% elif is_state("input_select.str_video", "ADULTO - RUSSIAN") %} http://live.redtraffic.xyz/russian.m3u8
+        {% endif %}
+
+        '
+      media_content_type: video
+stop_video:
+  alias: Stop Vídeo
+  sequence:
+  - service: media_player.turn_off
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '
+ver_teste_video:
+  alias: Play Vídeo Streaming
+  sequence:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '
+      volume_level: '{{  states.input_number.video_teste_volume.state  }}'
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '
+      media_content_id: '{{ states.input_text.url_teste_video.state }}
+
+        '
+      media_content_type: video
+stop_teste_video:
+  alias: Stop Vídeo Teste
+  sequence:
+  - service: media_player.turn_off
+    data_template:
+      entity_id: '{% if is_state("input_select.src_cast_video", "Sala") %} media_player.chromecast_sala
+        {% elif is_state("input_select.src_cast_video", "Hub Jantar") %} media_player.hub_jantar
+        {% endif %}
+
+        '

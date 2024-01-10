@@ -1,0 +1,176 @@
+title: Câmeras
+path: cameras
+icon: 'mdi:camera'
+cards:
+  - type: 'custom:webrtc-camera'
+    url: 'rtsp://admin:EANVDL@192.168.5.50/live/mpeg4'
+    
+  - type: 'custom:webrtc-camera'
+    url: 'rtsp://admin:DOCWOX@192.168.5.51/live/mpeg4'
+    # ui: true  # custom video controls, default false
+    title: Camera da Sala # optional card title
+    entity: camera.camera_sala_mainstream
+    ptz:
+      service: onvif.ptz 
+      data_left:
+        entity_id: camera.camera_sala_mainstream
+        pan: LEFT
+        move_mode: ContinuousMove
+      data_right:
+        entity_id: camera.camera_sala_mainstream
+        pan: RIGHT
+        move_mode: ContinuousMove
+      data_up:
+        entity_id: camera.camera_sala_mainstream
+        tilt: UP
+        move_mode: ContinuousMove
+      data_down:
+        entity_id: camera.camera_sala_mainstream
+        tilt: DOWN
+        move_mode: ContinuousMove
+    #   data_zoom_in: # optional, for zoom increase
+    #     entity_id: camera.camera_sala_mainstream
+    #     zoom: ZOOM_IN
+    #     move_mode: ContinuousMove
+    #   data_zoom_out: # optional, for zoom decrease
+    #     entity_id: camera.camera_sala_mainstream
+    #     zoom: ZOOM_OUT
+    #     move_mode: ContinuousMove
+
+#   - type: picture-glance
+#     title:  Escritório  
+#     entities:
+#       - switch.luzescritorio1
+#     camera_image: camera.192_168_5_52
+#     camera_view: live
+ 
+#   - type: picture-glance
+#     title: Sala de Jantar
+#     entities:
+#       - switch.intsalajantar
+#     camera_image: camera.192_168_5_138
+#     camera_view: live
+      
+
+#   - type: picture-glance
+#     entities:
+#       - entity: camera.camera_sala
+#         tap_action:
+#           action: call-service
+#           service: onvif.ptz
+#           service_data:
+#             entity_id: camera.camera_sala
+#             pan: LEFT
+#             speed: 1
+#             distance: 0.3
+#             move_mode: ContinuousMove
+#         name: Pan Left
+#         show_state: false
+#         icon: 'mdi:arrow-left'
+#         show_icon: true
+#       - entity: camera.camera_sala
+#         tap_action:
+#           action: call-service
+#           service: onvif.ptz
+#           service_data:
+#             entity_id: camera.camera_sala
+#             tilt: UP
+#             speed: 1
+#             distance: 0.3
+#             move_mode: ContinuousMove
+#         name: Tilt Up
+#         icon: 'mdi:arrow-up'
+#       - entity: camera.camera_sala
+#         tap_action:
+#           action: call-service
+#           service: onvif.ptz
+#           service_data:
+#             entity_id: camera.camera_sala
+#             tilt: DOWN
+#             speed: 1
+#             distance: 0.3
+#             move_mode: ContinuousMove
+#         name: Tilt Down
+#         icon: 'mdi:arrow-down'
+#       - entity: camera.camera_sala
+#         tap_action:
+#           action: call-service
+#           service: onvif.ptz
+#           service_data:
+#             entity_id: camera.camera_sala
+#             pan: RIGHT
+#             speed: 1
+#             distance: 0.3
+#             move_mode: ContinuousMove
+#         name: Pan Right
+#         icon: 'mdi:arrow-right'
+#         show_icon: true
+#     camera_image: camera.camera_sala
+#     camera_view: live
+
+#   - type: picture-elements
+#     image: https://i.imgur.com/FHZLxXp.png
+#     elements:
+#       - type: icon
+#         icon: 'mdi:arrow-up'
+#       #- type: image
+#         camera_image: camera.camera_intelbras
+#         camera_view: live
+#         style:
+#           background: 'rgba(255, 255, 255, 0.5)'
+#           right: 25px
+#           bottom: 25px
+
+#   - type: horizontal-stack
+#     cards:
+
+#       - type: picture-elements
+#         image: https://i.imgur.com/FHZLxXp.png
+#         elements:   
+
+#           # Temperatura
+#           - type: icon
+#             icon: mdi:thermometer
+#             style:
+#               left: 3%
+#               top: 10% 
+
+#           - type: state-icon
+#             tap_action: toggle
+#             entity: camera.camera_intelbras
+#             style:
+#             top: 5%
+#             left: 4%
+
+#           - entity: sensor.sonoff_a400006659_temperature
+#             style:
+#               color: black
+#               left: 8%
+#               top: 10% 
+#             type: state-label             
+
+#           # Luz 1
+#           - entity: switch.intsalajantar
+#             tap_action:
+#               action: toggle
+#             style:
+#               left: 50%
+#               top: 40% 
+#             type: state-icon   
+
+#           # Luz 2
+#           - entity: switch.intsalaluz
+#             tap_action:
+#               action: toggle
+#             style:
+#               left: 80%
+#               top: 60% 
+#             type: state-icon  
+
+#           # Porta
+#           - entity: binary_sensor.porta_sala
+#             icon: mdi:door
+#             style:
+#               left: 57%
+#               top: 60% 
+#             type: state-icon  

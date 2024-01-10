@@ -1,0 +1,96 @@
+#    _____                           
+#   / ____|                          
+#  | |  __ _ __ ___  _   _ _ __  ___ 
+#  | | |_ | '__/ _ \| | | | '_ \/ __|
+#  | |__| | | | (_) | |_| | |_) \__ \
+#   \_____|_|  \___/ \__,_| .__/|___/
+#                         | |        
+#                         |_|        
+
+echos:
+  name: All Echos
+  entities:
+    - media_player.echo_escritorio
+    - media_player.echo_de_quarto
+
+luzes_sacada:
+  name: Sacada
+  entities:
+    - switch.luzsacada ## Principal
+    - switch.spotsacada1  ## Spot
+    - switch.spotsacada  ## Spot Churrasqueira
+    - switch.luzchurrasqueira  ## Luz da Churrasqueira
+luzes_banheiro:
+  name: Banheiros
+  entities:
+    - switch.luz_bwc_social  ## Social
+    - switch.spot_bwc_social ## spot BWC Social
+    - switch.luz_bwc_casal ## Casal
+    - switch.spot_bwc_casal ## spot Casal
+    - switch.spot_banho ## spot banho
+luzes_cozinha:
+  name: Cozinha
+  entities:
+    - switch.luz_cozinha  ## Principal
+    - switch.pendente_cozinha  ## Pendente
+    - switch.ledcozinha_paralelo  ## Led Pia
+    - switch.luzbancada  ## bancada
+luzes_entrada:
+  name: Entrada
+  entities:
+    - switch.entrada  ## Entrada
+luzes_corredor:
+  name: Corredor
+  entities:
+    - switch.luz_corredor  ## Corredor
+    - switch.spot_prateleira ## spot prateleira
+luzes_jantar:
+  name: Jantar
+  entities:
+    - switch.luzjantar ## Sala Jantar
+    - switch.spot_cristaleira  ## Spot Cristaleira
+luzes_estar:
+  name: Estar
+  entities:
+    - switch.luzsala ## Sala de Estar
+    - switch.spottv ## Spot Tv
+    - switch.ledtv ## Led TV
+luzes_quarto_meninas:
+  name: Quarto Meninas
+  entities:
+    - switch.luzmeninas  ## Luz Meninas
+    - switch.spot_beliche ## Spot Beliche
+    - switch.spot_mesa  ## Spot Bancada 
+luzes_escritorio:
+  name: Escritório
+  entities:
+    - switch.luz_escritorio ## principal
+    - switch.spot_escritorio  ## Spot Escritorio
+    - light.d1_abajur ## Abajur do Escritorio
+luzes_casal:
+  name: Quarto Casal
+  entities:
+    - switch.luz_casal      ## Luz Casal
+    - switch.sanca_casal   ## Sanca
+    - switch.spot_casal ## spot 
+    - switch.abajurcasal_paralelo ## abajur
+abajur_casal:
+  name: Abajur Casal
+  entities:
+    - light.sonoff_10014a2767
+    - light.sonoff_10014a341d
+    
+all_lights:
+  name: all_lights
+  entities:
+    - group.luzes_sacada 
+    - group.luzes_banheiro
+    - group.luzes_cozinha
+    - group.luzes_entrada
+    - group.luzes_corredor
+    - group.luzes_jantar
+    - group.luzes_estar
+    - group.luzes_quarto_meninas
+    - group.luzes_escritorio
+    - group.luzes_casal
+    

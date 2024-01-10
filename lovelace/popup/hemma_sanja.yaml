@@ -1,0 +1,158 @@
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Stäng
+                deviceID: this
+                style:
+                  --ha-card-border-radius: 1em
+                  --more-info-header-color: rgba(255,255,255,0.6)
+                  background: none
+                  box-shadow: none
+                card:
+                  type: custom:stack-in-card
+                  style: |
+                    ha-card {
+                      animation: pop-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: center;
+                      box-shadow: none; border-radius: 1em;
+                      background: linear-gradient(180deg, rgba(48,52,52,1) 0%, rgba(48,52,52,1) 4.8em, rgba(34,38,39,1) 4.8em, rgba(34,38,39,1) 100%); }
+                    @keyframes pop-in {
+                      0% { transform: scale(0.6); opacity: 0; } 20% { opacity: 0; } 100% { transform: scale(1); opacity: 0.9; }}
+                  cards:
+
+                    - type: entities
+                      title: Sanja
+                      entities:
+                        - entity: person.sanja
+                          secondary_info: last-changed
+                      style: |
+                        ha-card {
+                          box-shadow: none; border-radius: 1em; padding: 0.3em 1.25em 0.4em 1em;  
+                          background: linear-gradient(180deg, rgba(48,52,52,1) 0%, rgba(48,52,52,1) 4.8em, rgba(34,38,39,1) 4.8em, rgba(34,38,39,1) 100%); }
+                        .card-header {
+                          margin: -0.4em 0 1.4em 0.4em; font-family: sf text; letter-spacing: 0.005em; font-size: 1.5em;}
+
+                    - type: history-graph
+                      entities:
+                        - entity: person.sanja
+                      hours_to_show: 24
+                      refresh_interval: 0
+                      style: |
+                        ha-card {
+                          padding: 0.3em 1.2em 0 1em;
+                          margin: -1em -0.6em 0 0;
+                          z-index: 1;
+                        }
+
+                    - type: glance
+                      show_state: false
+                      entities:
+                        - entity: device_tracker.sanja
+                          name: Router
+                          icon: mdi:wifi
+                        - entity: device_tracker.sanja_bluetooth
+                          name: Bluetooth
+                          icon: mdi:bluetooth
+                        - entity: sensor.placeholder
+                          name: Position
+                          icon: mdi:help
+                      style:
+                        .: |
+                          ha-card {
+                            margin: -0.7em -0.5em 0 -1em;
+                          }
+
+                        "ha-card > div > div:nth-child(1)":
+                          $: |
+                            state-badge {
+                            color: {% if is_state('device_tracker.sanja', 'home') %} #3182b7 {% else %} #FFFFFF20 {% endif %};}
+
+                        "ha-card > div > div:nth-child(2)":
+                          $: |
+                            state-badge {
+                            color: {% if is_state('device_tracker.sanja_bluetooth', 'home') %} #3182b7 {% else %} #FFFFFF20 {% endif %};}
+
+                        "ha-card > div > div:nth-child(3)":
+                          $: |
+                            state-badge {
+                            color: #FFFFFF20;}
+
+                    - type: entities
+                      title: Skrivare
+                      show_header_toggle: false
+                      style: |
+                        ha-card {
+                          margin-top: -1.4em;
+                          padding: 0 1.2em 0.4em 0.5em;
+                        }
+                        .card-header {
+                          margin-left: 0.45em;
+                          padding-bottom: 0.7em;
+                          font-size: 1.5em;
+                        }
+                      entities:
+
+                        - entity: sensor.printer_status_template
+
+                        - type: custom:bar-card
+                          entities:
+
+                            - entity: sensor.hp_printer_inkcartridge_black
+                              name: Svart
+                              icon: mdi:water-outline
+                              tap_action:
+                                action: call-service
+                                service: homeassistant.update_entity
+                                service_data:
+                                  entity_id: sensor.hp_printer_inkcartridge_black
+
+                            - entity: sensor.hp_printer_inkcartridge_cyanmagentayellow
+                              name: Färg
+                              icon: mdi:water
+                              tap_action:
+                                action: call-service
+                                service: homeassistant.update_entity
+                                service_data:
+                                  entity_id: sensor.hp_printer_inkcartridge_cyanmagentayellow
+
+                          positions:
+                            icon: outside
+                            indicator: 'off'
+                            name: outside
+                          severity:
+                            - color: '#303435'
+                              from: 11
+                              to: 100
+                            - color: '#6d2525'
+                              from: 0
+                              to: 10
+                          decimal: 0
+                          entity_row: true
+                          style: |
+                            ha-card {
+                              margin-bottom: 1em;
+                            }
+                            bar-card-iconbar {
+                              padding-left: 0.23em;
+                            }
+                            bar-card-name {
+                              padding-left: 0.25em;
+                            }
+                            bar-card-value {
+                              margin-right: auto;
+                              color: #e0e1e1;
+                              text-shadow: none;
+                              font-size: 1em;
+                              font-weight: 400;
+                              letter-spacing: 0.01em;
+                            }
+                            bar-card-background {
+                              background: radial-gradient(circle, rgba(52, 57, 58, 0.1) 0%, rgba(17,18,18,0.2) 75%);
+                              box-shadow: inset 0 0 25px #00000045;
+                              border-radius: 0.3em;
+                            }
+                            bar-card-backgroundbar {
+                              background: none;
+                            }
+                          unit_of_measurement: '%'
+                          height: 2em
+                          width: 55%

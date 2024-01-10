@@ -1,0 +1,284 @@
+#    _____ _ _                 
+#   / ____| (_)                
+#  | |    | |_ _ __ ___   __ _ 
+#  | |    | | | '_ ` _ \ / _` |
+#  | |____| | | | | | | | (_| |
+#   \_____|_|_|_| |_| |_|\__,_|
+
+title: Climatização
+path: climatizacao
+icon: 'mdi:air-filter'
+cards:
+
+  - cards:
+      - cards:
+          - entity: climate.ar_casal
+            type: thermostat  
+        type: horizontal-stack 
+        
+      - cards: 
+          - color_thresholds:
+              - color: '#E65100'
+                value: 30
+              - color: '#4CAF50'
+                value: 20
+              - color: '#03A9F4'
+                value: 10
+            entities:
+              - entity: sensor.quartocasal_temperature
+                index: 0
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Temperatura Quarto
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#29B6F6'
+                value: 90
+              - color: '#00897B'
+                value: 70
+              - color: '#FFAB00'
+                value: 50
+            entities:
+              - entity: sensor.quartocasal_humidity
+                index: 0
+            icon: 'mdi:water-percent'
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Umidade Quarto
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack  
+      - entities:
+          - entity: sensor.st_casal
+            name: Sensação Térmica
+        type: entities
+    type: vertical-stack
+  - cards:
+      - cards:
+          - entity: climate.arescritorio
+            type: thermostat  
+        type: horizontal-stack
+
+      - cards: 
+          - color_thresholds:
+              - color: '#E65100'
+                value: 30
+              - color: '#4CAF50'
+                value: 20
+              - color: '#03A9F4'
+                value: 10
+            entities:
+              - entity: sensor.temp_escritorio
+                index: 0
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Temperatura Escritório
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#29B6F6'
+                value: 90
+              - color: '#00897B'
+                value: 70
+              - color: '#FFAB00'
+                value: 50
+            entities:
+              - entity: sensor.umidade_escritorio
+                index: 0
+            icon: 'mdi:water-percent'
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Umidade Escritório
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack  
+      # - entities:
+      #     - entity: sensor.bateria_temp_escritorio
+      #       name: Bateria Sensor
+      #   type: entities
+        
+    type: vertical-stack
+  - cards:
+      - cards:
+          - entity: climate.armeninas
+            type: thermostat   
+        type: horizontal-stack 
+      - cards: 
+          - color_thresholds:
+              - color: '#E65100'
+                value: 30
+              - color: '#4CAF50'
+                value: 20
+              - color: '#03A9F4'
+                value: 10
+            entities:
+              - entity: sensor.temp_meninas
+                index: 0
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Temperatura Lara/Helena
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#29B6F6'
+                value: 90
+              - color: '#00897B'
+                value: 70
+              - color: '#FFAB00'
+                value: 50
+            entities:
+              - entity: sensor.umidade_meninas
+                index: 0
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Umidade Lara/Helena
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      # - entities:
+      #     - entity: sensor.bateria_temp_meninas
+      #       name: Bateria Sensor
+      #   type: entities
+    type: vertical-stack
+
+  - cards: 
+      - color_thresholds:
+          - color: '#E65100'
+            value: 30
+          - color: '#4CAF50'
+            value: 20
+          - color: '#03A9F4'
+            value: 10
+        entities:
+          - entity: sensor.echo_escritorio_temperature 
+            index: 0
+        font_size: 85
+        height: 200
+        hours_to_show: 36
+        line_width: 2
+        name: Temperatura Sala
+        show:
+          extrema: true
+          fill: true
+        type: 'custom:mini-graph-card'
+    type: horizontal-stack   
+
+  - cards:
+      - cards: 
+          - color_thresholds:
+              - color: '#E65100'
+                value: 30
+              - color: '#4CAF50'
+                value: 20
+              - color: '#03A9F4'
+                value: 10
+            entities:
+              - entity: sensor.temperatura_sacada
+                index: 0
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Temperatura Sacada
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+          - color_thresholds:
+              - color: '#29B6F6'
+                value: 90
+              - color: '#00897B'
+                value: 70
+              - color: '#FFAB00'
+                value: 50
+            entities:
+              - entity: sensor.umidade_sacada
+                index: 0
+            icon: 'mdi:water-percent'
+            font_size: 85
+            height: 200
+            hours_to_show: 36
+            line_width: 2
+            name: Umidade Sacada
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack  
+      - entities:
+          - entity: sensor.temperature_and_humidity_sensor_bateria
+            name: Bateria Sensor
+        type: entities
+    type: vertical-stack
+
+  # - cards: 
+  #     - color_thresholds:
+  #         - color: '#E65100'
+  #           value: 30
+  #         - color: '#4CAF50'
+  #           value: 20
+  #         - color: '#03A9F4'
+  #           value: 10
+  #       entities:
+  #         - entity: sensor.temperatura_sacada
+  #           index: 0
+  #       font_size: 85
+  #       height: 200
+  #       hours_to_show: 36
+  #       line_width: 2
+  #       name: Temperatura Sacada
+  #       show:
+  #         extrema: true
+  #         fill: true
+  #       type: 'custom:mini-graph-card'
+  #   type: horizontal-stack   
+    
+  # - cards: 
+  #     - color_thresholds:
+  #         - color: '#E65100'
+  #           value: 30
+  #         - color: '#4CAF50'
+  #           value: 20
+  #         - color: '#03A9F4'
+  #           value: 10
+  #       entities:
+  #         - entity: sensor.umidade_sacada
+  #           index: 0
+  #       font_size: 85
+  #       height: 200
+  #       hours_to_show: 36
+  #       line_width: 2
+  #       name: Umidade Sacada
+  #       show:
+  #         extrema: true
+  #         fill: true
+  #       type: 'custom:mini-graph-card'
+  #   type: horizontal-stack   
+ 
+      
+    

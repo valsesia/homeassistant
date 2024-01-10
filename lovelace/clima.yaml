@@ -1,0 +1,149 @@
+#    _____ _ _                 
+#   / ____| (_)                
+#  | |    | |_ _ __ ___   __ _ 
+#  | |    | | | '_ ` _ \ / _` |
+#  | |____| | | | | | | | (_| |
+#   \_____|_|_|_| |_| |_|\__,_|
+
+title: Clima
+path: clima
+icon: 'mdi:weather-partly-snowy-rainy'
+type: custom:grid-layout 
+
+layout: 
+      #default
+      margin: 5%
+      grid-gap: var(--custom-layout-card-padding)
+      grid-template-columns: repeat(4, 1fr) 0
+      grid-template-rows: 0 repeat(2, fit-content(95%)) 0fr
+      grid-template-areas: |
+        "   .           .           .          .      ."
+        "   previsao    info       tempera     chuva  ." 
+        "   .           .           .          .      ."
+        "   .       jantar     lavanderia  .      ." 
+        "   lara        cozinha    banheiro    .      ." 
+        "   lavabo      sacada     todas       .      ." 
+        "   entrada     .          .           .      ."         
+      mediaquery:
+        #phone 
+        "(max-width: 800px)": 
+          grid-gap: calc(var(--custom-layout-card-padding) * 1.7)
+          grid-template-columns: 0 repeat(2, 1fr) 0
+          grid-template-rows: 0 repeat(5, fit-content(100%)) 0fr
+          grid-template-areas: |
+            ".  .           .           ."
+            ".  previsao    info        ."
+            ".  tempera     chuva       ."
+            ".  lara        corredor    ."
+            ".  estar       lavanderia  ."
+            ".  jantar      entrada     ."
+            ".  banheiro    lavabo      ."
+            ".  todas       .           ."
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: var(--custom-layout-card-padding)
+          grid-template-columns: repeat(3, 1fr) 0
+          grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
+          grid-template-areas: |
+            ".           .           .          ."
+            "previsao    info       tempera     ." 
+            "chuva       jantar     lavanderia  ." 
+            "lara        cozinha    banheiro    ." 
+            "lavabo      sacada     entrada     ." 
+            "todas       .           .          ."     
+cards:
+
+  - type: grid 
+    title: Previsão
+    view_layout:
+      grid-area: previsao
+    columns: 1
+
+    cards:
+    
+      - type: weather-forecast
+        entity: weather.valsesia_home
+    
+      # - cards:
+      # - cards:
+      #     - color_thresholds:
+      #         - color: '#FFEA00'
+      #           value: 0
+      #         - color: '#01579B'
+      #           value: 100
+      #       entities:
+      #         - sensor.dark_sky_cloud_coverage
+      #       height: 140
+      #       hours_to_show: 24
+      #       line_width: 2
+      #       name: Nuvens - 24h
+      #       points_per_hour: 1
+      #       type: 'custom:mini-graph-card'
+        #   - color_thresholds:
+        #       - color: '#4CAF50'
+        #         value: 0
+        #       - color: '#FFEB3B'
+        #         value: 3
+        #       - color: '#EF6C00'
+        #         value: 6
+        #       - color: '#F44336'
+        #         value: 8
+        #       - color: '#9C27B0'
+        #         value: 11
+        #     entities:
+        #       - sensor.dark_sky_uv_index
+        #     height: 140
+        #     hours_to_show: 24
+        #     line_width: 2
+        #     name: Índice UV - 24h
+        #     points_per_hour: 1
+        #     type: 'custom:mini-graph-card'
+        # type: horizontal-stack
+  - type: grid 
+    title: Informações
+    view_layout:
+      grid-area: info
+    columns: 1
+    cards:
+      - cards:
+          - entities:
+              - entity: sun.sun
+                name: Sol
+              - entity: sensor.moon
+                name: Lua
+            type: entities
+        type: horizontal-stack
+        
+
+    # type: vertical-stack
+  - type: grid 
+    title: Temperatura
+    view_layout:
+      grid-area: tempera
+    columns: 1
+    cards:
+      - cards:
+          - aspect_ratio: 90%
+            # title: Temperatura
+            type: iframe
+            url: >-
+              https://embed.windy.com/embed2.html?lat=-23.436622&lon=-51.925662&zoom=5&level=surface&overlay=temp&menu=&message=&marker=true&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=-23.436622&detailLon=-51.925662&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1
+        type: horizontal-stack
+        
+  - type: grid 
+    title: Chuva e Trovão
+    view_layout:
+      grid-area: chuva
+    columns: 1
+    square: true
+    styles:
+      title:
+        - font-size: 12px
+    cards:
+      - cards:
+          - aspect_ratio: 90%
+            # title: Chuva e Trovão
+            type: iframe
+            url: >-
+              https://embed.windy.com/embed2.html?lat=-23.436622&lon=-51.925662&zoom=5&level=surface&overlay=rain&menu=&message=&marker=true&calendar=now&pressure=&type=map&location=coordinates&detail=&detailLat=-23.436622&detailLon=-51.925662&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1
+        type: horizontal-stack

@@ -1,0 +1,567 @@
+#   _____ _                 _                  /\/|       
+#  |_   _| |               (_)                |/\/        
+#    | | | |_   _ _ __ ___  _ _ __   __ _  ___ __ _  ___  
+#    | | | | | | | '_ ` _ \| | '_ \ / _` |/ __/ _` |/ _ \ 
+#   _| |_| | |_| | | | | | | | | | | (_| | (_| (_| | (_) |
+#  |_____|_|\__,_|_| |_| |_|_|_| |_|\__,_|\___\__,_|\___/ 
+#                                          )_)            
+title: Iluminação
+path: iluminacao
+icon: 'mdi:lightbulb-on-outline'
+type: custom:grid-layout 
+
+layout: 
+      #default
+      margin: 5%
+      grid-gap: var(--custom-layout-card-padding)
+      grid-template-columns: repeat(3, 1fr) 0
+      grid-template-rows: 0 repeat(2, fit-content(95%)) 0fr
+      grid-template-areas: |
+        "   .           .           .          ."
+        "   escritorio  estar      corredor    ." 
+        "   .           .           .          ."
+        "   casal       jantar     lavanderia  ." 
+        "   lara        cozinha    banheiro    ." 
+        "   lavabo      sacada     todas       ." 
+        "   entrada     .          .           ."         
+      mediaquery:
+        #phone 
+        "(max-width: 800px)": 
+          grid-gap: calc(var(--custom-layout-card-padding) * 1.7)
+          grid-template-columns: 0 repeat(2, 1fr) 0
+          grid-template-rows: 0 repeat(5, fit-content(100%)) 0fr
+          grid-template-areas: |
+            ".  .           .           ."
+            ".  escritorio  cozinha     ."
+            ".  casal       sacada      ."
+            ".  lara        corredor    ."
+            ".  estar       lavanderia  ."
+            ".  jantar      entrada     ."
+            ".  banheiro    lavabo      ."
+            ".  todas       .           ."
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: var(--custom-layout-card-padding)
+          grid-template-columns: repeat(3, 1fr) 0
+          grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
+          grid-template-areas: |
+            ".           .           .          ."
+            "escritorio  estar      corredor    ." 
+            "casal       jantar     lavanderia  ." 
+            "lara        cozinha    banheiro    ." 
+            "lavabo      sacada     entrada     ." 
+            "todas       .           .          ."     
+cards:
+
+
+  - type: grid 
+    title: Escritório
+    view_layout:
+      grid-area: escritorio
+    columns: 2
+
+    cards:
+      - type: custom:button-card
+        entity: switch.luz_escritorio
+        name: Escritório
+        template:
+          - base
+          - icon_closet
+
+      - type: custom:button-card
+        entity: switch.spot_escritorio
+        name: Spot Escritório
+        template:
+          - base
+          - icon_spot
+
+      - type: custom:button-card
+        entity: switch.bancada_escritorio
+        name: Bancada
+        template:
+          - base
+          - icon_led
+
+      - type: custom:button-card
+        entity: switch.letreiro_no_ar
+        name: Letreiro NO AR
+        template:
+          - base
+          - icon_spot
+          
+      - type: custom:button-card
+        entity: light.d1_abajur
+        name: Abajour Leitura
+        template:
+          - light
+          - icon_shade
+
+      - type: custom:button-card
+        entity: switch.tomada_escritorio
+        name: Enfeite
+        template:
+          - base
+          - icon_enfeite
+
+      - type: custom:button-card
+        entity: switch.luz_estudio
+        name: Luz Estudio
+        template:
+          - base
+          - icon_spot
+          
+      # - type: custom:button-card
+      #   entity: switch.zigbee_abajur
+      #   name: Abajour Absolut
+      #   template:
+      #     - base
+      #     - icon_shade
+                
+
+
+      ## Quarto Casal ##############################
+  - type: grid 
+    title: Casal
+    view_layout:
+      grid-area: casal
+    columns: 2
+    cards:
+    
+      - type: custom:button-card
+        entity: switch.luz_casal
+        name: Luz Casal
+        template:
+          - base
+          - icon_hue
+
+      - type: custom:button-card
+        entity: switch.spot_casal
+        name: Spot
+        template:
+          - base
+          - icon_spot
+            
+      - type: custom:button-card
+        entity: switch.sanca_casal
+        name: Sanca
+        template:
+          - base
+          - icon_spot
+
+      - type: custom:button-card
+        entity: switch.abajur_casal
+        name: Abajur
+        template:
+          - light
+          - icon_shade
+          
+
+      ## Quarto Lara ##############################
+
+  - type: grid 
+    title: Lara/Helena
+    view_layout:
+      grid-area: lara
+    columns: 2
+    cards:
+
+      - type: custom:button-card
+        entity: switch.luzmeninas
+        name: Luz Lara/Helena
+        template:
+          - base
+          - icon_hue
+
+      - type: custom:button-card
+        entity: switch.spot_mesa
+        name: Spot Mesa
+        template:
+          - light
+          - icon_shade
+       
+      - type: custom:button-card
+        entity: switch.spot_beliche
+        name: Spot Beliche
+        template:
+          - light
+          - icon_shade
+
+      ## Sala de Estar ##############################
+
+  - type: grid 
+    title: Sala de Estar
+    view_layout:
+      grid-area: estar
+    columns: 2
+    cards:
+
+      - type: custom:button-card
+        entity: switch.luzsala
+        name: Luz Sala
+        template:
+          - base
+          - icon_hue
+          
+          
+      - type: custom:button-card
+        entity: switch.ledtv
+        name: Led TV
+        template:
+          - base
+          - icon_led
+
+
+      - type: custom:button-card
+        entity: switch.spottv
+        name: Spot TV
+        template:
+          - base
+          - icon_spot
+
+                
+            
+      # - type: custom:button-card
+      #   entity: light.sonoff_1000e3aa6c
+      #   name: LED TV
+      #   template:
+      #     - light
+      #     - icon_led
+            
+ 
+      ## Sala de Jantar ##############################
+
+  - type: grid 
+    title: Sala de Jantar
+    view_layout:
+      grid-area: jantar
+    columns: 2
+    cards:       
+
+
+      - type: custom:button-card
+        entity: switch.luzjantar
+        name: Luz Jantar
+        template:
+          - base
+          - icon_kitchen
+       
+      - type: custom:button-card
+        entity: switch.spot_cristaleira
+        name: Spot Cristaleira
+        template:
+          - base
+          - icon_spot
+
+            
+      # - type: custom:button-card
+      #   entity: light.ledjantar
+      #   name: LED Jantar
+      #   template:
+      #     - light
+      #     - icon_led
+           
+  
+        ## Cozinha ##############################
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Cozinha'
+  - type: grid 
+    title: Cozinha
+    view_layout:
+      grid-area: cozinha
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.luz_cozinha
+        name: Luz Cozinha
+        template:
+          - base
+          - icon_cozinha
+
+      - type: custom:button-card
+        entity: switch.pendente_cozinha
+        name: Pendente
+        template:
+          - base
+          - icon_pendente
+
+      - type: custom:button-card
+        entity: switch.ledcozinha_paralelo
+        name: LED Cozinha
+        template:
+          - base
+          - icon_led
+
+      - type: custom:button-card
+        entity: switch.luzbancada
+        name: LED Bancada
+        template:
+          - base
+          - icon_led
+          
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Sacada'
+  - type: grid 
+    title: Sacada
+    view_layout:
+      grid-area: sacada
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.luzsacada
+        name: Luz Sacada
+        template:
+          - base
+          - icon_hue
+
+
+      - type: custom:button-card
+        entity: switch.spotsacada
+        name: Spot Churrasqueira
+        template:
+          - base
+          - icon_spot
+
+            
+      - type: custom:button-card
+        entity: switch.spotsacada1
+        name: Spot Sacada
+        template:
+          - base
+          - icon_spot
+          
+      - type: custom:button-card
+        entity: switch.luzchurrasqueira
+        name: Luz Churraqueira
+        template:
+          - base
+          - icon_hue
+
+
+      ## Corredor ##############################
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Corredor/Hall'
+  - type: grid 
+    title: Corredor
+    view_layout:
+      grid-area: corredor
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.luz_corredor
+        name: Luz Corredor
+        template:
+          - base
+          - icon_hall
+
+
+      - type: custom:button-card
+        entity: switch.spot_prateleira
+        name: Spot Prateleira
+        template:
+          - base
+          - icon_spot
+
+              
+      ## Banheiros ##############################
+
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Banheiros'
+  - type: grid 
+    title: Banheiros
+    view_layout:
+      grid-area: banheiro
+    columns: 2
+    cards:     
+        
+
+      - type: custom:button-card
+        entity: switch.luz_bwc_social
+        name: Social
+        template:
+          - base
+          - icon_bathroom
+
+      - type: custom:button-card
+        entity: switch.spot_bwc_social
+        name: Spot Social
+        template:
+          - base
+          - icon_spot
+
+      - type: custom:button-card
+        entity: switch.luz_bwc_casal
+        name: Casal
+        template:
+          - base
+          - icon_bathroom
+
+      - type: custom:button-card
+        entity: switch.spot_bwc_casal
+        name: Spot Casal
+        template:
+          - base
+          - icon_spot
+
+  - type: grid 
+    title: Lavabo
+    view_layout:
+      grid-area: lavabo
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.luz_lavabo
+        name: Lavabo
+        template:
+          - base
+          - icon_hue               
+        #   - type: custom:button-card
+        #     entity: light.dicroica_dir
+        #     # aspect_ratio: 2/1
+        #     name: Dicroica Dir
+        #     style:
+        #       top: 64.5%
+        #       left: 55.18%
+        #       width: 10%
+        #     custom_fields: 
+        #       icon_bathroom: *icon_bathroom 
+        #     styles: 
+        #       custom_fields:
+        #         icon_bathroom:
+        #           [top: 11%, left: 6.5%, width: 40px, position: absolute]
+        #     template: base
+
+                
+        #   - type: custom:button-card
+        #     entity: light.dicroica_esq
+        #     # aspect_ratio: 2/1
+        #     name: Dicroica Esq
+        #     style:
+        #       top: 64.5%
+        #       left: 55.18%
+        #       width: 10%
+        #     custom_fields: 
+        #       icon_bathroom: *icon_bathroom 
+        #     styles: 
+        #       custom_fields:
+        #         icon_bathroom:
+        #           [top: 11%, left: 6.5%, width: 40px, position: absolute]
+        #     template: base
+        # type: horizontal-stack
+
+      ## Lavanderia ##############################
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Lavanderia'
+
+  - type: grid 
+    title: Lavanderia
+    view_layout:
+      grid-area: lavanderia
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.luz_lavanderia
+        name: Lavanderia
+        template:
+          - base
+          - icon_hue
+
+  - type: grid 
+    title: Entrada
+    view_layout:
+      grid-area: entrada
+    columns: 2
+    cards:     
+
+      - type: custom:button-card
+        entity: switch.entrada_sala
+        name: Entrada
+        template:
+          - base
+          - icon_hue
+          
+        #   - type: custom:button-card
+        #     entity: switch.10009585a3
+        #     # aspect_ratio: 3/1
+        #     name: Lavanderia
+        #     custom_fields:
+        #       icon_hue: *icon_hue 
+        #     styles: 
+        #       custom_fields:
+        #         icon_hue:
+        #           [top: 11%, left: 4%, width: 50px, position: absolute]
+        #       name: 
+        #         [left: 4%, position: absolute]   
+        #       state:
+        #         [left: 4%, position: absolute]
+        #     template: base
+        
+        # type: horizontal-stack
+
+    #   - type: 'custom:button-card'
+    #     template: tilt
+    #     name: 'Todas'
+  - type: grid 
+    title: Todas
+    view_layout:
+      grid-area: todas
+    columns: 2
+    cards:     
+        
+        #   - type: custom:button-card
+        #     entity: script.on_todas_luzes
+        #     aspect_ratio: 2/1
+        #     name: Ligar Todas
+        #     tap_action:
+        #       action: call-service
+        #       service: script.on_todas_luzes
+        #     custom_fields:
+        #       icon_hue: *icon_hue 
+        #     styles: *icon_hue_styles
+        #     template: light
+        
+        
+      - type: custom:button-card
+        entity: switch.acendetudo
+        name: Ligar/Desl Todas
+        template:
+          - base
+          - icon_hue
+
+
+        #   - type: custom:button-card
+        #     entity: switch.acendetudo
+        #     # aspect_ratio: 2/1
+        #     name: Ligar/Desligar Todas
+            
+        #     custom_fields:
+        #       icon_hue: *icon_hue 
+        #     styles: *icon_hue_styles
+        #     template: light
+
+        #   - type: custom:button-card
+        #     entity: script.off_todas_luzes
+        #     aspect_ratio: 2/1
+        #     name: Desigar Todas
+        #     tap_action:
+        #       action: call-service
+        #       service: script.off_todas_luzes
+        #     custom_fields:
+        #       icon_hue: *icon_hue 
+        #     styles: *icon_hue_styles
+        #     template: light
+            
+        # type: horizontal-stack
+    # type: vertical-stack
+
+
+

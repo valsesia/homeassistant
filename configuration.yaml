@@ -1,0 +1,4633 @@
+#  _   _                              _               _       _                  _
+# | | | |  ___   _ __ ___    ___     / \    ___  ___ (_) ___ | |_   __ _  _ __  | |_
+# | |_| | / _ \ | '_ ` _ \  / _ \   / _ \  / __|/ __|| |/ __|| __| / _` || '_ \ | __|
+# |  _  || (_) || | | | | ||  __/  / ___ \ \__ \\__ \| |\__ \| |_ | (_| || | | || |_
+# |_| |_| \___/ |_| |_| |_| \___| /_/   \_\|___/|___/|_||___/ \__| \__,_||_| |_| \__|
+#
+# https://www.home-assistant.io/docs/configuration/basic/
+#
+# Caracteres ASCII em https://pt.rakko.tools/tools/68/  - tipo STANDARD
+
+homeassistant:
+
+  # arquivo de customização
+  packages: !include_dir_named packages
+  customize_domain:
+    automation:
+      initial_state: true
+  customize: !include customize.yaml
+#   allowlist_external_dirs:
+#     - /config
+    
+#  _____
+# |__  /  ___   _ __    ___
+#   / /  / _ \ | '_ \  / _ \
+#  / /_ | (_) || | | ||  __/
+# /____| \___/ |_| |_| \___|
+
+zone:
+  - name: MuffatoCerro
+    latitude: -23.445250
+    longitude: -51.931605
+    radius: 100
+    icon: mdi:shopify
+
+  - name: CidadeCancaoCerro
+    latitude: -23.435379
+    longitude: -51.933646
+    radius: 100
+    icon: mdi:shopify
+
+api:
+
+# #  ____                                            __  __             _
+# # | __ )  _ __   ___  __      __ ___   ___  _ __  |  \/  |  ___    __| |
+# # |  _ \ | '__| / _ \ \ \ /\ / // __| / _ \| '__| | |\/| | / _ \  / _` |
+# # | |_) || |   | (_) | \ V  V / \__ \|  __/| |    | |  | || (_) || (_| |
+# # |____/ |_|    \___/   \_/\_/  |___/ \___||_|    |_|  |_| \___/  \__,_|
+# browser_mod:
+#   prefix: "browser_mod_"
+#   devices:
+#     d31de38c-694d72df:
+#       name: imac_chrome
+#       camera: true
+#     daa37d16-8add8e9f:
+#       name: iphone_cadu
+#       camera: true
+
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+
+#  ____          __                _  _      ____                 __  _
+# |  _ \   ___  / _|  __ _  _   _ | || |_   / ___|  ___   _ __   / _|(_)  __ _
+# | | | | / _ \| |_  / _` || | | || || __| | |     / _ \ | '_ \ | |_ | | / _` |
+# | |_| ||  __/|  _|| (_| || |_| || || |_  | |___ | (_) || | | ||  _|| || (_| |
+# |____/  \___||_|   \__,_| \__,_||_| \__|  \____| \___/ |_| |_||_|  |_| \__, |
+#                                                                        |___/
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+zeroconf:
+  
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+smartir:
+  update_branch: rc
+
+owntracks:
+  max_gps_accuracy: 200
+
+#   ____                                               _    _
+#  / ___|  ___   _ __  __   __  ___  _ __  ___   __ _ | |_ (_)  ___   _ __
+# | |     / _ \ | '_ \ \ \ / / / _ \| '__|/ __| / _` || __|| | / _ \ | '_ \
+# | |___ | (_) || | | | \ V / |  __/| |   \__ \| (_| || |_ | || (_) || | | |
+#  \____| \___/ |_| |_|  \_/   \___||_|   |___/ \__,_| \__||_| \___/ |_| |_|
+# https://www.home-assistant.io/components/conversation/
+#conversation:
+#  intents:
+#    default:
+#     - Olá, tudo bem?
+#     - Como vai?
+#     - Oi
+
+#   ____         _                   _
+#  / ___|  __ _ | |  ___  _ __    __| |  __ _  _ __
+# | |     / _` || | / _ \| '_ \  / _` | / _` || '__|
+# | |___ | (_| || ||  __/| | | || (_| || (_| || |
+#  \____| \__,_||_| \___||_| |_| \__,_| \__,_||_|
+calendar:
+  - platform: caldav
+    username: !secret user_calendar
+    password: !secret pass_calendar
+    url: https://caldav.icloud.com
+    days: 7
+    custom_calendars:
+      - name: Trabalho
+        calendar: Trabalho
+        search: '.*'
+      - name: Familia
+        calendar: Family
+        search: '.*'
+      - name: Calendario1
+        calendar: Calendário1
+        search: '.*'
+      - name: Calendário
+        calendar: Calendário
+        search: '.*'
+      - name: Pessoal
+        calendar: Pessoal
+        search: '.*'
+    
+
+# google:
+#   client_id: 830482116968-gn3natm31sgtktop4b7u40oof0lkclou.apps.googleusercontent.com
+#   client_secret: RvSp1GSn0oT2c5eNHfS6AT1B
+
+#  _____  _
+# |_   _|(_) _ __ ___    ___  _ __
+#   | |  | || '_ ` _ \  / _ \| '__|
+#   | |  | || | | | | ||  __/| |
+#   |_|  |_||_| |_| |_| \___||_|
+timer:
+  mama_helena:
+    duration: "02:40:00"
+
+#  _   _  _    _
+# | | | || |_ | |_  _ __
+# | |_| || __|| __|| '_ \
+# |  _  || |_ | |_ | |_) |
+# |_| |_| \__| \__|| .__/
+#                  |_|
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.0.0.200
+    - 172.30.33.0/24
+    - 192.168.5.0/24
+
+
+# O intent_scriptcomponente permite que os usuários configurem ações e respostas a intenções. As intenções podem ser acionadas por qualquer componente que suporte isso.
+#  ___         _                 _     ____               _         _
+# |_ _| _ __  | |_   ___  _ __  | |_  / ___|   ___  _ __ (_) _ __  | |_
+#  | | | '_ \ | __| / _ \| '_ \ | __| \___ \  / __|| '__|| || '_ \ | __|
+#  | | | | | || |_ |  __/| | | || |_   ___) || (__ | |   | || |_) || |_
+# |___||_| |_| \__| \___||_| |_| \__| |____/  \___||_|   |_|| .__/  \__|
+#                                                           |_|
+# https://www.home-assistant.io/components/intent_script/
+# https://www.home-assistant.io/components/dialogflow/
+# intent_script:
+#   default:
+#     speech:
+#       text: >
+#         {{ [
+#         "E aí! Qual vai ser?",
+#         "Opa tudo bom mestre! O que você deseja?",
+#         ] | random }}
+#   AteLogo:
+#     speech:
+#       text: >
+#         {{ [
+#         "OK. Se precisar é só me chamar.",
+#         "Falou! Tô indo nessa!",
+#         "Até logo!",
+#         "Até mais!",
+#         ] | random }}
+
+#    code_arm_required: false
+
+#     _     _
+#    / \   | |  __ _  _ __  _ __ ___
+#   / _ \  | | / _` || '__|| '_ ` _ \
+#  / ___ \ | || (_| || |   | | | | | |
+# /_/   \_\|_| \__,_||_|   |_| |_| |_|
+
+alarm_control_panel:
+  - platform: manual
+    name: Home Alarm
+    code: !secret code_alarm
+    arming_time: 60
+    delay_time: 0
+    trigger_time: 120
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      arming_time: 0
+    armed_night:
+      arming_time: 0
+    armed_vacation:
+      arming_time: 0
+
+# https://www.home-assistant.io/integrations/stream/
+stream:
+
+# Permite que outros componentes do Home Assistant processem fluxos de vídeo e áudio.
+#   __  __
+#  / _|/ _|
+# | |_| |_ _ __ ___  _ __   ___  __ _
+# |  _|  _| '_ ` _ \| '_ \ / _ \/ _` |
+# | | | | | | | | | | |_) |  __/ (_| |
+# |_| |_| |_| |_| |_| .__/ \___|\__, |
+#                   |_|         |___/
+# https://www.home-assistant.io/components/ffmpeg/
+#ffmpeg:
+
+# Cameras
+#   _____
+#  / ____|
+# | |     __ _ _ __ ___   ___ _ __ __ _
+# | |    / _` | '_ ` _ \ / _ \ '__/ _` |
+# | |___| (_| | | | | | |  __/ | | (_| |
+#  \_____\__,_|_| |_| |_|\___|_|  \__,_|
+# https://www.home-assistant.io/components/camera/
+# https://www.home-assistant.io/components/generic/
+# https://www.home-assistant.io/components/onvif/
+# camera:
+#   - platform: ffmpeg
+#     name: Camera Escritorio
+#     input: !secret input_cam_esc
+
+# - platform: ffmpeg
+#   name: Camera Sala Home
+#   input: !secret input_cam_sala
+
+#   _____                        _
+#  |  __ \                      | |
+#  | |__) |___  ___ ___  _ __ __| | ___ _ __
+#  |  _  // _ \/ __/ _ \| '__/ _` |/ _ \ '__|
+#  | | \ \  __/ (_| (_) | | | (_| |  __/ |
+#  |_|  \_\___|\___\___/|_|  \__,_|\___|_|
+recorder:
+  db_url: !secret urlDB
+  purge_keep_days: 31 #aqui é opcional, define a frequência (em dias) a tarefa de limpeza é executada.
+  exclude:
+    domains:
+      - automation
+      - script
+    entities:
+      - sun.sun
+      - sensor.last_boot
+      - sensor.date
+      - sensor.saudacao_dia
+      - sensor.icloud3_event_log
+
+# Inputs selects
+#  _____                   _              _           _
+# |_   _|                 | |            | |         | |
+#   | |  _ __  _ __  _   _| |_   ___  ___| | ___  ___| |_
+#   | | | '_ \| '_ \| | | | __| / __|/ _ \ |/ _ \/ __| __|
+#  _| |_| | | | |_) | |_| | |_  \__ \  __/ |  __/ (__| |_
+# |_____|_| |_| .__/ \__,_|\__| |___/\___|_|\___|\___|\__|
+#             |_|
+# https://www.home-assistant.io/components/input_select/
+input_select:
+  tomada1_pessoas:
+    name: "tomada destinatarios1"
+    options:
+      - Cadu
+      - Fernanda
+      - Todos
+    icon: mdi:account-multiple
+  tomada1_desliga_apos:
+    name: "desliga tomada1 apos"
+    options:
+      - "00:00:30"
+      - "00:30:00"
+      - "01:00:00"
+      - "01:30:00"
+      - "02:00:00"
+      - "02:30:00"
+      - "03:00:00"
+      - "03:30:00"
+      - "04:00:00"
+      - "05:00:00"
+      - "05:30:00"
+      - "06:00:00"
+    icon: mdi:timer-stop-outline
+  tomada2_desliga_apos:
+    name: "desliga tomada1 apos"
+    options:
+      - "00:00:30"
+      - "00:30:00"
+      - "01:00:00"
+      - "01:30:00"
+      - "02:00:00"
+      - "02:30:00"
+      - "03:00:00"
+      - "03:30:00"
+      - "04:00:00"
+      - "05:00:00"
+      - "05:30:00"
+      - "06:00:00"
+    icon: mdi:timer-stop-outline
+  tomada3_desliga_apos:
+    name: "desliga tomada1 apos"
+    options:
+      - "00:00:30"
+      - "00:30:00"
+      - "01:00:00"
+      - "01:30:00"
+      - "02:00:00"
+      - "02:30:00"
+      - "03:00:00"
+      - "03:30:00"
+      - "04:00:00"
+      - "05:00:00"
+      - "05:30:00"
+      - "06:00:00"
+    icon: mdi:timer-stop-outline
+  tomada4_desliga_apos:
+    name: "desliga tomada1 apos"
+    options:
+      - "00:00:30"
+      - "00:30:00"
+      - "01:00:00"
+      - "01:30:00"
+      - "02:00:00"
+      - "02:30:00"
+      - "03:00:00"
+      - "03:30:00"
+      - "04:00:00"
+      - "05:00:00"
+      - "05:30:00"
+      - "06:00:00"
+    icon: mdi:timer-stop-outline
+  tomada2_pessoas:
+    name: "tomada destinatarios2"
+    options:
+      - Cadu
+      - Fernanda
+      - Todos
+    icon: mdi:account-multiple
+  tomada3_pessoas:
+    name: "tomada destinatarios3"
+    options:
+      - Cadu
+      - Fernanda
+      - Todos
+    icon: mdi:account-multiple
+  tomada4_pessoas:
+    name: "tomada destinatarios4"
+    options:
+      - Cadu
+      - Fernanda
+      - Todos
+    icon: mdi:account-multiple
+  despert1_src:
+    name: "Reproduzir em Google Home Desp1"
+    options:
+      - Todos
+      - do Escritório
+      - da Sala de Jantar
+      - do Hub Jantar
+      - do Quarto Casal
+      - da Cozinha
+    icon: mdi:google-home
+  despert1_audio_str:
+    name: "Ouvir Rádio Despertador1"
+    options:
+      - Não
+      - Rádio CBN Maringá
+      - Classic Rock Florida
+      - Mix FM
+      - Kiss FM Brasil
+      - Blues
+      - Diney
+      - Coca-Cola
+      - Transamerica
+      - BBC
+      - DubBase FM
+    icon: mdi:music-note
+  despert1_tts:
+    name: "Qual Voz Desp1"
+    options:
+      - Google
+      #      - Voicerss
+      - Watson
+      - Amazon
+    icon: mdi:voice
+  despert2_src:
+    name: "Reproduzir em Google Home Desp2"
+    options:
+      - Todos
+      - do Escritório
+      - da Sala de Jantar
+      - do Hub Jantar
+      - do Quarto Casal
+      - da Cozinha
+    icon: mdi:google-home
+  despert2_audio_str:
+    name: "Ouvir Rádio Despertador2"
+    options:
+      - Não
+      - Rádio CBN Maringá
+      - Classic Rock Florida
+      - Mix FM
+      - Kiss FM Brasil
+      - Blues
+      - Diney
+      - Coca-Cola
+      - Transamerica
+      - BBC
+      - DubBase FM
+    icon: mdi:music-note
+  despert2_tts:
+    name: "Qual Voz Desp2"
+    options:
+      - Google
+      #      - Voicerss
+      - Watson
+      - Amazon
+    icon: mdi:voice
+  src_cast_audio:
+    name: "Ouvir em"
+    options:
+      - Google Home Escritório
+      - Google Home Sala Jantar
+      - Google Hub Sala Jantar
+      - Google Home Quarto Casal
+      - Google Home Cozinha
+      - Todos Google Home
+      - Chromecast Tv Sala
+    icon: mdi:google-home
+  str_audio:
+    name: "Reproduzir Audio"
+    options:
+      - Rádio CBN Maringá
+      - Historinhas
+      - Kids
+      - Anos 70
+      - Anos 80
+      - Anos 90
+      - New Rock
+      - Reggae
+      - Studio do Amor
+      - Sertanejo Boemia
+      - Classic Rock Florida
+      - Mix FM
+      - Kiss FM Brasil
+      - Blues
+      - Diney
+      - Coca-Cola
+      - Transamerica
+      - BBC
+      - DubBase FM
+      - Trilhas Sonoras
+    icon: mdi:music-note
+  src_cast_video:
+    name: "Chrome Cast"
+    options:
+      - Sala
+      - Hub Jantar
+    icon: mdi:google-chrome
+  str_video:
+    name: "Reproduzir Video"
+    options:
+      - CAMERA CASA
+      - SBT
+      - TV CULTURA PR
+      - WEATHER CHANNEL
+      - BLOOMBERG TV US
+      - RECORD SP
+      - TV GAZETA
+      - TV CIDADE OESTE
+      - REDE TV SP
+      - FUTURA
+      - CAT TVE
+      - TV ITAPETININGA SP
+      - TV NOVA PARAIBA
+      - TV Faap
+      - CONECTV Osasco SP
+      - TV MAR Maceio
+      - INFANTIL - DESENHO GOSPEL
+      - MUSICA - CAPITAL TV
+      - MUSICA - RADIO SANBORJA
+      - MUSICA - FOXMIX
+      - MUSICA - RETRO MUSIC
+      - MUSICA - MELODY TV
+      - ADULTO - BLOWJOB
+      - ADULTO - CUCKOLD
+      - ADULTO - LESBIAN
+      - ADULTO - RUSSIAN
+    icon: mdi:library-video
+  src_cast_teste_video:
+    name: "Chrome Cast Teste"
+    options:
+      - Sala
+      - Hub Jantar
+    icon: mdi:google-chrome
+  padrao_tts:
+    name: "TTS Padrão"
+    options:
+      - Google
+      #      - Voicerss
+      - Watson
+      - Amazon
+    icon: mdi:voice
+
+#   _____                   _     ____              _
+#  |_   _|                 | |   |  _ \            | |
+#    | |  _ __  _ __  _   _| |_  | |_) | ___   ___ | | ___  __ _ _ __
+#    | | | '_ \| '_ \| | | | __| |  _ < / _ \ / _ \| |/ _ \/ _` | '_ \
+#   _| |_| | | | |_) | |_| | |_  | |_) | (_) | (_) | |  __/ (_| | | | |
+#  |_____|_| |_| .__/ \__,_|\__| |____/ \___/ \___/|_|\___|\__,_|_| |_|
+#              | |
+#              |_|
+input_boolean:
+  acabou_enegia:
+    name: "Acabou energia"
+  campainha_alexa:
+    name: "Campainha Alexa"
+  ambiente_natal:
+    name: "Ambiente de Natal"
+    #initial: off
+    icon: mdi:string-lights
+  som_natal_ligado:
+    name: "Som de natal ligado"
+    #initial: off
+  checar_luzes:
+    name: "Checar as luzes?"
+    initial: off
+    icon: mdi:motion-sensor
+  apagar_todas_luzes:
+    name: "Apagar todas as luzes"
+    initial: off
+    icon: mdi:motion-sensor
+  dar_mama_helena:
+    name: "Dar mamá Helena"
+    initial: off
+    icon: mdi:motion-sensor
+  apagar_luzes:
+    name: "Apaga tudo"
+    initial: off
+    icon: mdi:lightbulb-off
+  acender_luzes:
+    name: "Acende tudo"
+    initial: off
+    icon: mdi:lightbulb-on
+  despert1_status:
+    name: Status Desp1
+    #initial: off
+  despert2_status:
+    name: Status Desp2
+    #initial: off
+  tomada1_status:
+    name: Status Tomada1
+    #initial: off
+  tomada1_desliga:
+    name: Desliga Tomada1
+  tomada2_status:
+    name: Status Tomada2
+  tomada2_desliga:
+    name: Desliga Tomada2
+  tomada3_status:
+    name: Status Tomada3
+  tomada3_desliga:
+    name: Desliga Tomada3
+  tomada4_status:
+    name: Status Tomada4
+  tomada4_desliga:
+    name: Desliga Tomada4
+  despert1_tempo:
+    name: Ouvir informações de tempo Desp1
+  despert2_tempo:
+    name: Ouvir informações de tempo Desp2
+    #initial: on
+  tv_casal_ligada:
+    name: TV Quarto Ligada
+  tv_sala_ligada:
+    name: TV Sala Ligada
+  alarme_sacada:
+    name: Alarme Sacada
+  alarme_sala:
+    name: Alarme Sala
+  parar_alarme:
+    name: Parar Alarme
+    initial: off
+  visitas:
+    name: Temos Visita
+  #    initial: off
+  porta_banheiro_social_aberta:
+    name: Porta BWC Social Aberta
+  porta_banheiro_casal_aberta:
+    name: Porta BWC Casal Aberta
+  porta_sacada_aberta:
+    name: Porta Sacada Aberta
+  porta_sala_aberta:
+    name: Porta Sala Aberta
+
+  lg_tv_casal:
+
+  lg_tv_sala:
+
+# Inputs numéricos
+#  _____                   _                           _
+# |_   _|                 | |                         | |
+#   | |  _ __  _ __  _   _| |_   _ __  _   _ _ __ ___ | |__   ___ _ __
+#   | | | '_ \| '_ \| | | | __| | '_ \| | | | '_ ` _ \| '_ \ / _ \ '__|
+#  _| |_| | | | |_) | |_| | |_  | | | | |_| | | | | | | |_) |  __/ |
+# |_____|_| |_| .__/ \__,_|\__| |_| |_|\__,_|_| |_| |_|_.__/ \___|_|
+#             | |
+#             |_|
+# https://www.home-assistant.io/components/input_number/
+input_number:
+  aquario_liga_hora:
+    name: Hora Ligar Aquario
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+
+  aquario_liga_minuto:
+    name: Minuto Ligar Aquario
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+
+  aquario_desliga_hora:
+    name: Hora Desligar Aquario
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+
+  aquario_desliga_minuto:
+    name: Minuto Desligar Aquario
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+    
+  despert1_hora:
+    name: Hora Desp1
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  despert1_minuto:
+    name: Minuto Desp1
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  despert1_volume:
+    name: Volume Desp1
+    icon: mdi:volume-high
+    min: 0
+    max: 0.99
+    step: 0.10
+    mode: slider
+  tomada1_hora:
+    name: Hora Tomada1
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  tomada1_minuto:
+    name: Minuto Tomada1
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  tomada2_hora:
+    name: Hora Tomada2
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  tomada2_minuto:
+    name: Minuto Tomada2
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  tomada3_hora:
+    name: Hora Tomada3
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  tomada3_minuto:
+    name: Minuto Tomada3
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  tomada4_hora:
+    name: Hora Tomada4
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  tomada4_minuto:
+    name: Minuto Tomada4
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  despert2_hora:
+    name: Hora Desp2
+    icon: mdi:timer
+    min: 0
+    max: 23
+    step: 1
+    mode: slider
+  despert2_minuto:
+    name: Minuto2
+    icon: mdi:timer
+    min: 0
+    max: 59
+    step: 1
+    mode: slider
+  despert2_volume:
+    name: Volume Desp2
+    icon: mdi:volume-high
+    min: 0
+    max: 0.99
+    step: 0.10
+    mode: slider
+  audio_volume:
+    name: Volume Audio
+    icon: mdi:volume-high
+    min: 0
+    max: 1
+    step: 0.01
+    mode: slider
+  video_volume:
+    name: Volume Video
+    icon: mdi:volume-high
+    min: 0
+    max: 1
+    step: 0.01
+    mode: slider
+  video_teste_volume:
+    name: Volume Video Teste
+    icon: mdi:volume-high
+    min: 0
+    max: 1
+    step: 0.01
+    mode: slider
+
+#  __  __         _    _
+# |  \/  |  __ _ | |_ | |_
+# | |\/| | / _` || __|| __|
+# | |  | || (_| || |_ | |_
+# |_|  |_| \__, | \__| \__|
+#             |_|
+mqtt:
+  sensor:
+
+    # - name: "cozinhaDH1"
+    #   state_topic: "cmnd/cozinhaDH/POWER1"
+    #   expire_after: 1
+
+
+  binary_sensor:
+    # - name: 'Porta Sacada'
+    #   state_topic: 'home/porta_sacada'
+    #   device_class: door
+
+    # - name: 'sensor Escitorio Mov'
+    #   state_topic: 'home/sensor_escritorio_mov'
+    #   off_delay: 90
+    #   device_class: motion
+
+    # - name: 'Sacada Crash'
+    #   state_topic: 'home/sacada_crash'
+    #   off_delay: 10
+    #   device_class: safety
+
+    # - name: 'Sensor Teste'
+    #   state_topic: 'tele/rf_bridge/RESULT'
+    #   value_template: '{{value_json.RfReceived.Data}}'
+    #   payload_on: 'A25B27'
+    #   payload_off: 'A25B2E'
+    #   device_class: door
+    #   qos: 1
+
+#   ____  _                           _____
+#  |  _ \(_)                         / ____|
+#  | |_) |_ _ __   __ _ _ __ _   _  | (___   ___ _ __  ___  ___  _ __
+#  |  _ <| | '_ \ / _` | '__| | | |  \___ \ / _ \ '_ \/ __|/ _ \| '__|
+#  | |_) | | | | | (_| | |  | |_| |  ____) |  __/ | | \__ \ (_) | |
+#  |____/|_|_| |_|\__,_|_|   \__, | |_____/ \___|_| |_|___/\___/|_|
+#                             __/ |
+#                            |___/
+binary_sensor:
+
+
+# Inputs de texto
+#  _____                   _    _            _
+# |_   _|                 | |  | |          | |
+#   | |  _ __  _ __  _   _| |_ | |_ _____  _| |_
+#   | | | '_ \| '_ \| | | | __|| __/ _ \ \/ / __|
+#  _| |_| | | | |_) | |_| | |_ | ||  __/>  <| |_
+# |_____|_| |_| .__/ \__,_|\__| \__\___/_/\_\\__|
+#             | |
+#             |_|
+# https://www.home-assistant.io/components/input_text/
+input_text:
+  despert1_mensagem:
+    name: Mensagem Desp1
+    #    initial: "Bom dia!"
+    icon: mdi:voice
+  tomada1_mensagem:
+    name: Mensagem Tomada1
+    #initial: "Bom dia!"
+  tomada2_mensagem:
+    name: Mensagem Tomada2
+    #initial: "Bom dia!"
+    icon: mdi:voice
+  tomada3_mensagem:
+    name: Mensagem Tomada3
+    #initial: "Bom dia!"
+    icon: mdi:voice
+  tomada4_mensagem:
+    name: Mensagem Tomada4
+    #initial: "Bom dia!"
+    icon: mdi:voice
+  despert2_mensagem:
+    name: Mensagem Desp2
+    #    initial: "Já está na hora de ir trabalhar!"
+    icon: mdi:voice
+  url_teste_video:
+    name: URL
+    #    initial: "Insira a URL"
+    icon: mdi:link-variant
+
+  valor_kwh:
+    name: "KwhCopel"
+  #    initial: "0.7978"
+
+  kwh_gasto_ontem_tvsala:
+    name: "kWh Gasto Ontem TV Sala"
+    icon: mdi:counter
+
+#   kwh_gasto_ontem_proxmox:
+#     name: "kWh Gasto Ontem Proxmox"
+#     icon: mdi:counter
+
+
+  dolar_atual:
+    name: "Dolar Atual"
+    icon: "mdi:cash"
+
+  dolar_antigo:
+    name: "Dolar Antigo"
+    icon: "mdi:cash"
+
+  versao_atual:
+    name: "Versão Atual Home"
+    icon: "mdi:update"
+
+  alexa_actionable_notification:
+    name: Notificações acionadas pela Alexa
+    max: 255
+    initial: '{"text": "Este é um teste da habilidade personalizada de ações da alexa. Funcionou?", "event": "actionable.skill.test"}'
+
+#   _                    _
+#  | |                  | |
+#  | |     _____   _____| | __ _  ___ ___
+#  | |    / _ \ \ / / _ \ |/ _` |/ __/ _ \
+#  | |___| (_) \ V /  __/ | (_| | (_|  __/
+#  |______\___/ \_/ \___|_|\__,_|\___\___|
+lovelace:
+  mode: yaml
+
+  resources:
+  
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module      
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
+    - url: /hacsfiles/apexcharts-card/apexcharts-card.js
+      type: module
+    - url: /hacsfiles/lovelace-more-info-card/more-info-card.js
+      type: module
+    - url: /hacsfiles/tabbed-card/tabbed-card.js
+      type: module      
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module      
+    - url: /local/community/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+    - url: /local/community/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /local/community/decluttering-card/decluttering-card.js
+      type: module
+    - url: /local/community/lovelace-card-tools/card-tools.js
+      type: module
+    - url: /local/community/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /local/community/check-button-card/check-button-card.js
+      type: module
+
+    - url: /local/community/light-popup-card/light-popup-card.js
+      type: module
+    - url: /local/custom-cards/icloud3-event-log-card.js
+      type: module
+    - url: /local/community/stack-in-card/stack-in-card.js
+      type: module
+    - url: "/local/custom_icons.js?v=25052001"
+      type: module
+    - url: "/local/thermostat-popup-card.js"
+      type: module
+    - url: /local/font.css
+      type: css
+
+# Localizador
+#  _____             _            _                  _
+# |  __ \           (_)          | |                | |
+# | |  | | _____   ___  ___ ___  | |_ _ __ __ _  ___| | _____ _ __
+# | |  | |/ _ \ \ / / |/ __/ _ \ | __| '__/ _` |/ __| |/ / _ \ '__|
+# | |__| |  __/\ V /| | (_|  __/ | |_| | | (_| | (__|   <  __/ |
+# |_____/ \___| \_/ |_|\___\___|  \__|_|  \__,_|\___|_|\_\___|_|
+# https://www.home-assistant.io/components/device_tracker/
+# https://www.home-assistant.io/components/google_maps/
+device_tracker:
+  #   - platform: bluetooth_le_tracker
+
+  - platform: icloud3
+    username: valsesia@gmail.com
+    password: !secret senhaicloud
+
+#   - platform: ping
+#     hosts:
+#       hostcadu: 192.168.5.42
+#       hostfernanda: 192.168.5.16
+
+#    _____           _                   _    _            _ _   _
+#   / ____|         | |                 | |  | |          | | | | |
+#  | (___  _   _ ___| |_ ___ _ __ ___   | |__| | ___  __ _| | |_| |__
+#   \___ \| | | / __| __/ _ \ '_ ` _ \  |  __  |/ _ \/ _` | | __| '_ \
+#   ____) | |_| \__ \ ||  __/ | | | | | | |  | |  __/ (_| | | |_| | | |
+#  |_____/ \__, |___/\__\___|_| |_| |_| |_|  |_|\___|\__,_|_|\__|_| |_|
+#           __/ |
+#          |___/
+# Informações sobre o sistema e seus componentes. Também permite executar ferramentas de diagnóstico para diagnosticar problemas.
+system_health:
+
+#   ______               _                 _
+#  |  ____|             | |               | |
+#  | |__ _ __ ___  _ __ | |_ ___ _ __   __| |
+#  |  __| '__/ _ \| '_ \| __/ _ \ '_ \ / _` |
+#  | |  | | | (_) | | | | ||  __/ | | | (_| |
+#  |_|  |_|  \___/|_| |_|\__\___|_| |_|\__,_|
+# Enables the frontend
+frontend:
+
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+  themes: !include_dir_merge_named themes
+
+#  _____                          _         _
+# |_   _|  ___  _ __ ___   _ __  | |  __ _ | |_   ___
+#   | |   / _ \| '_ ` _ \ | '_ \ | | / _` || __| / _ \
+#   | |  |  __/| | | | | || |_) || || (_| || |_ |  __/
+#   |_|   \___||_| |_| |_|| .__/ |_| \__,_| \__| \___|
+#                         |_|
+
+
+template: 
+  - sensor:
+    - unique_id: sidebar
+      state: template
+      attributes:
+        time: >
+          {% set hours = now().strftime('%H') %}
+          {% set minutes = now().strftime('%M') %}
+          <span class="time">
+            {{ hours }}<span class="time-colon">:</span>{{ minutes }}
+          </span>
+        date: >
+          <font color='#6a7377'><b>
+          {% if strptime(states('sensor.date'), '%Y-%m-%d').day != None %}
+          {% set days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'] %}
+          {% set months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'] %}
+            {{ days[now().weekday()] }}<br>
+            {{ strptime(states('sensor.date'), '%Y-%m-%d').day }} {{ months[now().month-1] }}
+          {% endif %}
+          </b></font>
+        greet: >
+          <b>
+          {% set time = now().hour %}
+          {% if time <= 1 %} Boa madrugada {{'\U0001F611'}}
+          {% elif time <= 3 %} Boa madrugada {{'\U0001F62A'}}
+          {% elif time <= 5 %} Boa madrugada {{'\U0001F634'}}
+          {% elif time <= 7 %} Bom dia {{'\U0001F4A9'}}
+          {% elif time <= 9 %} Bom dia {{'\u2615\uFE0F'}}
+          {% elif time <= 10 %} Bom dia {{'\U0001F642'}}
+          {% elif time <= 13 %} Boa tarde {{'\U0001F60A'}}
+          {% elif time <= 15 %} Boa tarde {{'\U0001F60E'}}
+          {% elif time <= 17 %} Boa tarde {{'\U0001F44B\U0001F3FB'}}
+          {% elif time <= 19 %} Boa noite {{'\U0001F44B\U0001F3FB'}}
+          {% elif time <= 22 %} Boa noite {{'\U0001F60C'}}
+          {% elif time <= 23 %} Boa noite {{'\U0001F974'}}
+          {% else %} Boa noite {{'\U0001F974'}}
+          {% endif %}
+          </b>
+        active: >
+          <b>
+          {% set lights = [
+            states.light.d1_abajur,
+            states.light.abajurmeninas,
+            states.switch.luz_casal,
+            states.switch.sanca_casal,
+            states.switch.spot_casal,
+            states.switch.abajurcasal_paralelo,
+            states.switch.luz_bwc_social,
+            states.switch.luz_bwc_casal,
+            states.switch.spot_bwc_social,
+            states.switch.spot_bwc_casal,
+            states.switch.spot_banho,
+            states.switch.luz_corredor,
+            states.switch.spot_prateleira,
+            states.switch.luzmeninas,
+            states.switch.spot_mesa,
+            states.switch.spot_beliche,
+            states.switch.luz_escritorio,
+            states.switch.spot_escritorio,
+            states.switch.luzsala,
+            states.switch.spottv,
+            states.switch.ledtv,
+            states.switch.luzjantar,
+            states.switch.spot_cristaleira,
+            states.switch.luzbancada,
+            states.switch.pendente_cozinha,
+            states.switch.luz_cozinha,
+            states.switch.ledcozinha_paralelo,
+            states.switch.luz_lavanderia,
+            states.switch.luz_lavabo,
+            states.switch.luzsacada,
+            states.switch.spotsacada1,
+            states.switch.spotsacada,
+            states.switch.luzchurrasqueira,
+            states.switch.entrada
+          ] %}
+
+          {% set devices = [
+            states.media_player.lg_tv_casal,
+            states.media_player.carlos_s_lg_oled_webos_2021_tv,
+            states.climate.arescritorio,
+            states.climate.armeninas,
+            states.climate.ar_casal
+            
+          ] %}
+
+          {% set lights_on = lights | selectattr('state','eq','on') | list %}
+          {% set lights_name = lights | selectattr('state','eq','on') | map(attribute='name') | join(', ') %}
+
+          {% set devices_on = devices | selectattr('state','search','(on|cool|fan_only|playing)') | list %}
+          {% set devices_name = devices_on | map(attribute='name') | join(', ') %}
+
+          {% if (lights_on | length == 0) and (devices_on | length > 0) %}
+            {{ devices_name | regex_replace(',([^,]*)$',' e\\1') }} estão ligados
+
+          {% elif (lights_on | length == 1) and (devices_on | length == 1) %}
+            {{ lights_name }} e {{devices_name }} estão ligados
+
+          {% elif (lights_on | length == 1) and (devices_on | length > 1) %}
+            {{ lights_name }}, {{ devices_name | regex_replace(',([^,]*)$',' e\\1') }} está ligado
+
+          {% elif (lights_on | length > 1) and (devices_on | length == 1) %}
+            {{ lights_on | length }} luzes e {{ devices_name }} está ligado
+
+          {% elif (lights_on | length > 1) and (devices_on | length > 1) %}
+            {{ lights_on | length }} luzes, {{ devices_name | regex_replace(',([^,]*)$',' e\\1') }} está ligado
+
+          {% elif (lights_on | length == 1) and (devices_on | length == 0) %}
+            {{ lights_name }} está ligado
+
+          {% elif (lights_on | length > 1) and (devices_on | length == 0) %}
+            {{ lights_on | length }} as luzes estão acesas
+
+          {% else %}
+            <font color='#6a7377'>Tudo está desligado</font>
+          {% endif %}
+          </b>
+        mailbox: >
+          {% set portasala = states('sensor.portasala') %}
+          {% if portasala | int(default=0) > 0 %}
+            {{ '\U0001F6AA' }} <font color='#6a7377'><b>Porta da Sala ({{ portasala }})</b></font>
+          {% endif %}
+        weather: >
+          {% set entity = 'weather.valsesia_home' %}
+          {% if not is_state(entity, 'unknown') %}
+            {% set temp = state_attr(entity, 'temperature') | round(0) %}
+            {% set precip = state_attr(entity, 'forecast')[0]['precipitation'] | round(0)%}
+              Temperatura {{ temp }}°C com {{ 'nenhum risco de chuva' if precip == 0
+              else precip | string + 'mm de chuva \u2614\uFE0F' }}
+          {% else %}
+            Não consigo ler a previsão do tempo...
+          {% endif %}
+        laundry: >
+          {% set start_time = state_attr('calendar.calendario_calendario', 'start_time') %}
+          {% set msg = state_attr('calendar.calendario_calendario', 'message') %}
+          {% if start_time != None %}
+            {% set time = as_timestamp(start_time) | timestamp_custom('%H:%M') %}
+            {% set hours = as_timestamp(start_time) | timestamp_custom('%H') | int(default=0) / 24 %}
+            {% set count = (as_timestamp(start_time) - as_timestamp(now())) / 86400 - hours %}
+            {% set day = strptime(start_time, '%Y-%m-%d %H:%M:%S').strftime('%A')
+            | replace('Monday', 'Segunda')
+            | replace('Tuesday', 'Terça')
+            | replace('Wednesday', 'Quarta')
+            | replace('Thursday', 'Quinta')
+            | replace('Friday', 'Sexta')
+            | replace('Saturday', 'Sábado')
+            | replace('Sunday', 'Domingo') %}
+            {% if count <= 0.0 %}
+              {{'\U0001F4C5'}} {{day}} {{ time }} - {{msg}}
+            {% elif count <= 1.0 %}
+              Amanhã: {{ time }} - {{msg}}
+            {% elif count <= 2.0 %}
+              2 dias: {{ time }} - {{msg}}
+            {% endif %}
+          {% endif %}
+        battery: >
+          {% set bateria_cadu = states('sensor.iphone_de_cadu_battery_level') %}
+          {% set bateria_fer = state_attr("device_tracker.iphone_de_fernanda_patricia", "battery")  %}
+          {% set entities = states.sensor 
+            | selectattr('entity_id', 'search', 'battery')
+            | rejectattr('entity_id', 'search', 'iphone_de_fernanda')
+            | map(attribute = 'entity_id') | list %}
+          iPhone Cadu - {{bateria_cadu}}%<br>
+          iPhone Fer - {{bateria_fer}}%
+          
+    - name: saudacao_dia
+      state: >
+        {% set t = now().hour %}
+        {% if t <= 1 %} Boa madrugada {{'\U0001F611'}}
+        {% elif t <= 3 %} Boa madrugada {{'\U0001F62A'}}
+        {% elif t <= 5 %} Boa madrugada {{'\U0001F634'}}
+        {% elif t <= 7 %} Bom dia {{'\U0001F4A9'}}
+        {% elif t <= 9 %} Bom dia {{'\u2615\uFE0F'}}
+        {% elif t <= 10.5 %} Bom dia {{'\U0001F642'}}
+        {% elif t <= 13 %} Boa tarde {{'\U0001F60A'}}
+        {% elif t <= 15 %} Boa tarde {{'\U0001F60E'}}
+        {% elif t <= 17 %} Boa tarde {{'\U0001F44B\U0001F3FB'}}
+        {% elif t <= 19 %} Boa noite {{'\U0001F44B\U0001F3FB'}}
+        {% elif t <= 22 %} Boa noite {{'\U0001F60C'}}
+        {% elif t <= 23 %} Boa noite {{'\U0001F974'}}
+        {% else %} Boa noite {{'\U0001F974'}}
+        {% endif %}
+
+    - name: placeholder
+      state: " "
+
+    - name: alarme_total
+      # friendly_name: "Alarme Total"
+      state: >
+        {% if is_state('input_boolean.alarme_sala','on') and is_state('input_boolean.alarme_sacada','on') -%}
+           on 
+        {%- else -%}
+           off
+        {%- endif %}
+
+
+    - name: total_luzes_ligadas
+      # friendly_name: "Luzes ligadas no momento"
+      unit_of_measurement: ""
+      state: >
+        {% set lights = [
+          states.light.d1_abajur,
+          states.light.abajurmeninas,
+          states.switch.luz_casal,
+          states.switch.sanca_casal,
+          states.switch.spot_casal,
+          states.switch.abajurcasal_paralelo,
+          states.switch.luz_bwc_social,
+          states.switch.luz_bwc_casal,
+          states.switch.spot_bwc_social,
+          states.switch.spot_bwc_casal,
+          states.switch.spot_banho,
+          states.switch.luz_corredor,
+          states.switch.spot_prateleira,
+          states.switch.luzmeninas,
+          states.switch.spot_mesa,
+          states.switch.spot_beliche,
+          states.switch.luz_escritorio,
+          states.switch.spot_escritorio,
+          states.switch.luzsala,
+          states.switch.spottv,
+          states.switch.ledtv,
+          states.switch.luzjantar,
+          states.switch.spot_cristaleira,
+          states.switch.luzbancada,
+          states.switch.pendente_cozinha,
+          states.switch.luz_cozinha,
+          states.switch.ledcozinha_paralelo,
+          states.switch.luz_lavanderia,
+          states.switch.luz_lavabo,
+          states.switch.luzsacada,
+          states.switch.spotsacada1,
+          states.switch.spotsacada,
+          states.switch.luzchurrasqueira,
+          states.switch.entrada
+          ] %}
+        {{ lights | selectattr('state','eq','on') | list | count }}
+      icon: >
+        {% set lights = [
+          states.light.d1_abajur,
+          states.light.abajurmeninas,
+          states.switch.luz_casal,
+          states.switch.sanca_casal,
+          states.switch.spot_casal,
+          states.switch.abajurcasal_paralelo,
+          states.switch.luz_bwc_social,
+          states.switch.luz_bwc_casal,
+          states.switch.spot_bwc_social,
+          states.switch.spot_bwc_casal,
+          states.switch.spot_banho,
+          states.switch.luz_corredor,
+          states.switch.spot_prateleira,
+          states.switch.luzmeninas,
+          states.switch.spot_mesa,
+          states.switch.spot_beliche,
+          states.switch.luz_escritorio,
+          states.switch.spot_escritorio,
+          states.switch.luzsala,
+          states.switch.spottv,
+          states.switch.ledtv,
+          states.switch.luzjantar,
+          states.switch.spot_cristaleira,
+          states.switch.luzbancada,
+          states.switch.pendente_cozinha,
+          states.switch.luz_cozinha,
+          states.switch.ledcozinha_paralelo,
+          states.switch.luz_lavanderia,
+          states.switch.luz_lavabo,
+          states.switch.luzsacada,
+          states.switch.spotsacada1,
+          states.switch.spotsacada,
+          states.switch.luzchurrasqueira,
+          states.switch.entrada
+          ] %} 
+          {% if ( lights | selectattr('state','eq','on') | list | count ) > 9 %}
+              mdi:numeric-9-plus-circle
+          {% else %}
+              mdi:numeric-{{ lights | selectattr('state','eq','on') | list | count }}-circle
+          {% endif %}
+          
+    - name: lavadora_tempo_restante
+      state: >
+        {% set rem_h = (as_timestamp(states.sensor.lavadora_washer_completion_time.state) - as_timestamp(now())) | timestamp_custom('%-H', false) %}
+        {% set rem_m = (as_timestamp(states.sensor.lavadora_washer_completion_time.state) - as_timestamp(now())) | timestamp_custom('%-M', false) %}
+        {% if int(rem_h) > 0.9 %} {{ rem_h }} hora(s) e {{ rem_m }} minuto(s)  {% else %} {{ rem_m }} minuto(s) {% endif %}
+          
+
+    - name: tomada1_hora
+      state: "{{ states.input_number.tomada1_hora.state | int }}"
+    - name: tomada1_minuto
+      state: "{{ states.input_number.tomada1_minuto.state | int }}"
+    
+    - name: tomada1_despertar
+      unique_id: tomada1_despertar_222
+      # friendly_name: "Agendamento definidos para"
+      # icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.tomada1_hora.state }}:
+        {%- if states.sensor.tomada1_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada1_minuto.state }}
+      attributes:
+        # friendly_name: "Agendamento definido para"
+        icon: mdi:alarm-bell
+        
+    - name: tomada1_despertar_automacao
+      state: >
+        {% if states.sensor.tomada1_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada1_hora.state }}:
+        {%- if states.sensor.tomada1_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada1_minuto.state }}
+
+      #### sensores tomada 2
+    - name: tomada2_hora
+      state: "{{ states.input_number.tomada2_hora.state | int }}"
+    - name: tomada2_minuto
+      state: "{{ states.input_number.tomada2_minuto.state | int }}"
+
+    - name: tomada2_despertar
+      unique_id: tomada2_despertar
+      # friendly_name: "Agendamento definidos para"
+      icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.tomada2_hora.state }}:
+        {%- if states.sensor.tomada2_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada2_minuto.state }}
+    - name: tomada2_despertar_automacao
+      state: >
+        {% if states.sensor.tomada2_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada2_hora.state }}:
+        {%- if states.sensor.tomada2_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada2_minuto.state }}
+
+      #### sensores tomada 3
+    - name: tomada3_hora
+      state: >
+        {{ states.input_number.tomada3_hora.state | int }}
+    - name: tomada3_minuto
+      state: >
+        {{ states.input_number.tomada3_minuto.state | int }}
+    - name: tomada3_despertar
+      # friendly_name: "Agendamento definidos para"
+      icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.tomada3_hora.state }}:
+        {%- if states.sensor.tomada3_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada3_minuto.state }}
+    - name: tomada3_despertar_automacao
+      state: >
+        {% if states.sensor.tomada3_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada3_hora.state }}:
+        {%- if states.sensor.tomada3_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada3_minuto.state }}
+
+      #### sensores tomada 4
+    - name: tomada4_hora
+      state: >
+        {{ states.input_number.tomada4_hora.state | int }}
+    - name: tomada4_minuto
+      state: >
+        {{ states.input_number.tomada4_minuto.state | int }}
+    - name: tomada4_despertar
+      # friendly_name: "Agendamento definidos para"
+      icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.tomada4_hora.state }}:
+        {%- if states.sensor.tomada4_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada4_minuto.state }}
+    - name: tomada4_despertar_automacao
+      state: >
+        {% if states.sensor.tomada4_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada4_hora.state }}:
+        {%- if states.sensor.tomada4_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.tomada4_minuto.state }}
+
+## Sensores Aquario   
+    - name: aquario_hora_liga
+      state: >
+        {{ states.input_number.aquario_liga_hora.state | int }}
+    - name: aquario_minuto_liga
+      state: >
+        {{ states.input_number.aquario_liga_minuto.state | int }}
+    - name: aquario_liga
+      icon: mdi:fishbowl-outline
+      state: >
+        {%- if states.sensor.aquario_hora_liga.state|length == 1 -%}
+          0
+        {%- endif -%}
+        {{ states.sensor.aquario_hora_liga.state}}:
+        {%- if states.sensor.aquario_minuto_liga.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.aquario_minuto_liga.state }}    
+
+    - name: aquario_hora_desliga
+      state: >
+        {{ states.input_number.aquario_desliga_hora.state | int }}
+    - name: aquario_minuto_desliga
+      state: >
+        {{ states.input_number.aquario_desliga_minuto.state | int }}
+    - name: aquario_desliga
+      icon: mdi:fishbowl-outline
+      state: >
+        {%- if states.sensor.aquario_hora_desliga.state|length == 1 -%}
+          0
+        {%- endif -%}
+        {{ states.sensor.aquario_hora_desliga.state}}:
+        {%- if states.sensor.aquario_minuto_desliga.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.aquario_minuto_desliga.state }}    
+    
+    #### sensores despertador
+    - name: despert1_hora
+      state: >
+        {{ states.input_number.despert1_hora.state | int }}
+    - name: despert1_minuto
+      state: >
+        {{ states.input_number.despert1_minuto.state | int }}
+    - name: despert1_despertar
+      # friendly_name: "Alarmes definidos para"
+      icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.despert1_hora.state }}:
+        {%- if states.sensor.despert1_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert1_minuto.state }}
+
+    - name: despert1_despertar_automacao
+      state: >
+        {% if states.sensor.despert1_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert1_hora.state }}:
+        {%- if states.sensor.despert1_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert1_minuto.state }}
+    - name: despert2_hora
+      state: >
+        {{ states.input_number.despert2_hora.state | int }}
+    - name: despert2_minuto
+      state: >
+        {{ states.input_number.despert2_minuto.state | int }}
+    - name: despert2_despertar
+      # friendly_name: "Alarmes definidos pra"
+      icon: mdi:alarm-bell
+      state: >
+        {{ states.sensor.despert2_hora.state }}:
+        {%- if states.sensor.despert2_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert2_minuto.state }}
+    - name: despert2_despertar_automacao
+      state: >
+        {% if states.sensor.despert2_hora.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert2_hora.state }}:
+        {%- if states.sensor.despert2_minuto.state|length == 1 -%}
+          0
+        {%- endif -%}
+          {{ states.sensor.despert2_minuto.state }}
+
+    - name: cadu_last_changed
+      #entity_id: sensor.time
+      state: >
+        {%- set time = (as_timestamp(now()) - 
+        as_timestamp(states.person.carlos_eduardo_valsesia.last_changed)) | int %}
+        {%- set minutes = ((time % 3600) // 60) %}
+        {%- set hours = ((time % 86400) // 3600) %}
+        {%- set days = (time // 86400) %}
+        {% if time <= 60 %} 0m
+        {% elif time <= 3600 %} {{ minutes }}m
+        {% elif time <= 86400 %} {{ hours }}h
+        {% elif time > 86400 %} {{ days }}d 
+        {% endif %}
+
+    - name: bateria_cadu_1
+      # friendly_name: Bateria Cadu Manual
+      icon: mdi:battery
+      unit_of_measurement: "%"
+      state: >
+        {{ states.sensor.iphone_de_cadu_battery_level.state |int }}
+      device_class: battery
+
+    - name: bateria_cadu_st
+      state: >
+        {{ states.device_tracker.iphone_de_cadu.attributes.battery_status }}
+      device_class: battery
+
+    - name: bateria_status_cadu
+      # friendly_name: Status Bateria Cadu
+      state: >
+        {% if is_state('sensor.bateria_cadu_st', "NotCharging") %}
+          Descarregando
+        {% else %}
+          Carregando
+        {% endif %}
+      icon: >
+        {% if is_state('sensor.bateria_cadu_st', "NotCharging") %}
+          mdi:battery-50
+        {% else %}
+          mdi:battery-charging
+        {% endif %}
+
+    - name: fer_last_changed
+      #entity_id: sensor.time
+      state: >
+        {%- set time = (as_timestamp(now()) - 
+        as_timestamp(states.person.fernanda_batista.last_changed)) | int %}
+        {%- set minutes = ((time % 3600) // 60) %}
+        {%- set hours = ((time % 86400) // 3600) %}
+        {%- set days = (time // 86400) %}
+        {% if time <= 60 %} 0m
+        {% elif time <= 3600 %} {{ minutes }}m
+        {% elif time <= 86400 %} {{ hours }}h
+        {% elif time > 86400 %} {{ days }}d 
+        {% endif %}
+
+    - name: bateria_fernanda_1
+      # friendly_name: Bateria Fernanda Manual
+      icon: mdi:battery
+      unit_of_measurement: "%"
+      state: >
+        {{ state_attr('device_tracker.iphone_de_fernanda_patricia','battery') }}
+      device_class: battery
+
+    - name: bateria_fernanda_st
+      state: >
+        {{ states.device_tracker.iphone_de_fernanda_patricia.attributes.battery_status }}
+      device_class: battery
+
+    - name: bateria_status_fernanda
+      # friendly_name: Status Bateria Fernanda
+      state: >
+        {% if is_state('sensor.bateria_fernanda_st', "NotCharging") %}
+          Descarregando
+        {% else %}
+          Carregando
+        {% endif %}
+      icon: >
+        {% if is_state('sensor.bateria_fernanda_st', "NotCharging") %}
+          mdi:battery-50
+        {% else %}
+          mdi:battery-charging
+        {% endif %}
+
+    ## Air Fryer
+    - name: total_kwh_mes_airfryer
+      # friendly_name: Total kwh Gasto Mes AirFryer
+      unit_of_measurement: "kWh"
+      state: "{{ '%.3f'|format(states('sensor.kwh_gasta_mes_airfryerr')|float(0)) }}"
+
+    - name: custo_dia_airfryer
+      # friendly_name: Energia Diária AirFryer
+      state: "{{ 'R$ %.2f'|format(((states('sensor.airfryer_energy_today')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}"
+    - name: custo_ontem_airfryer
+      # friendly_name: Energia Ontem AirFryer
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.airfryer_energy_yesterday')|float(0)) * states('input_text.valor_kwh') | float(0) ))  }}
+    - name: custo_semana_airfryer
+      # friendly_name: Energia Semanal AirFryer
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_airfryer')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+    - name: custo_mes_airfryer
+      # friendly_name: Energia Mensal Frigobar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_airfryer')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+
+    ## Frigobar
+    - name: total_kwh_mes_frigobar
+      # friendly_name: Total kwh Gasto Mes Frigobar
+      unit_of_measurement: "kWh"
+      state: "{{ '%.3f'|format(states('sensor.kwh_gasta_mes_frigobar')|float(0)) }}"
+
+    - name: custo_dia_frigobar
+      # friendly_name: Energia Diária Frigobar
+      state: "{{ 'R$ %.2f'|format(((states('sensor.frigobar_energy_today')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}"
+    - name: custo_ontem_frigobar
+      # friendly_name: Energia Ontem Frigobar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.frigobar_energy_yesterday')|float(0)) * states('input_text.valor_kwh') | float(0) ))  }}
+    - name: custo_semana_frigobar
+      # friendly_name: Energia Semanal Frigobar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_frigobar')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+    - name: custo_mes_frigobar
+      # friendly_name: Energia Mensal Frigobar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_frigobar')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+        
+    ### Geladeira
+    - name: total_kwh_mes_geladeira
+      # friendly_name: Total kwh Gasto Mes Geladeira
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_mes_geladeira')|float(0)) }}
+
+    - name: custo_dia_geladeira
+      # friendly_name: Energia Diária Geladeira
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.tomadageladeira_energy_today')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+    - name: custo_ontem_geladeira
+      # friendly_name: Energia Ontem Geladeira
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.tomadageladeira_energy_yesterday')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+    - name: custo_semana_geladeira
+      # friendly_name: Energia Semanal Geladeira
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_semana_geladeira')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+    - name: custo_mes_geladeira
+      # friendly_name: Energia Mensal Geladeira
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_mes_geladeira')|float(0)) * states('input_text.valor_kwh') | float(0) )) }}
+
+
+    ## Maquina de Lavar
+    - name: total_kwh_mes_maquina_lavar
+      # friendly_name: Total kwh Gasto Mes Maquina Lavar
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasta_mes_maquina_lavar')|float(0)) }}
+
+    - name: custo_dia_maquina_lavar
+      # friendly_name: Energia Diária Máquina Lavar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_dia_maquina_lavar')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_ontem_maquina_lavar
+      # friendly_name: Energia Ontem Máquina Lavar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.maquinalavar_energy_yesterday')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_semana_maquina_lavar
+      # friendly_name: Energia Semanal Maquina Lavar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_maquina_lavar')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_maquina_lavar
+      # friendly_name: Energia Mensal Maquina Lavar
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_maquina_lavar')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+
+    ## Computador
+    - name: total_kwh_mes_computador
+      # friendly_name: Total kwh Gasto Mes Computador
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasta_mes_computador')|float(0)) }}
+
+    - name: custo_dia_computador
+      # friendly_name: Energia Diária Computador
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.tomadamicro_energy_today')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_ontem_computador
+      # friendly_name: Energia Ontem Computador
+      state: >
+              {% if states.sensor.tomadamicro_energy_yesterday != 'unknown' %}
+                 {{ 'R$ %.2f'|format(((states('sensor.tomadamicro_energy_yesterday')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+               {% else %}
+                  0
+              {% endif %}
+    - name: custo_semana_computador
+      # friendly_name: Energia Semanal Computador
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_computador')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_computador
+      # friendly_name: Energia Mensal Computador
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_computador')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+
+
+    # Tomada Microondas
+
+    - name: total_kwh_mes_microondas
+      # friendly_name: Total kwh Gasto Mes Microondas
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasta_mes_microondas')|float(0)) }}
+
+    - name: custo_dia_microondas
+      # friendly_name: Energia Diária Microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_dia_microondas')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_ontem_microondas
+      # friendly_name: Energia Ontem microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.microondas_energy_yesterday')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_semana_microondas
+      # friendly_name: Energia Semanal microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_microondas')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_microondas
+      # friendly_name: Energia Mensal microondas
+      state: >
+          {% if states.sensor.kwh_gasta_mes_microondas != 'unknown' %} 
+              {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_microondas')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+          {% else %}
+              0
+          {% endif %}
+
+    ## Tomada da Sala
+
+    - name: consumo_hoje_tv_sala
+      # friendly_name: Consumo TV Sala hoje
+      unit_of_measurement: kWh
+      state: >
+        {{ states('sensor.arvore_natal_power').0 }}
+    # - name: consumo_dez_dias_tv_sala
+    #   # friendly_name: 10 dias consumo TV Sala
+    #   unit_of_measurement: kWh
+    #   state: >-
+    #     {% set p = states('sensor.arvore_natal_power') | float %}
+    #     {{ [p[:10]] | sum if p }}
+
+    - name: total_kwh_dia_tvsala
+      # friendly_name: Total kwh Gasto Dia TV sala
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_dia_tvsala')|float(0)) }}
+    - name: total_kwh_ontem_tvsala
+      # friendly_name: Total kwh Gasto Ontem TV sala
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('input_text.kwh_gasto_ontem_tvsala')|float(0)) }}
+    - name: total_kwh_semana_tvsala
+      # friendly_name: Total kwh Gasto Semana TV sala
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_semana_tvsala')|float(0)) }}
+    - name: total_kwh_mes_tvsala
+      # friendly_name: Total kwh Gasto Mes TV sala
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_mes_tvsala')|float(0)) }}
+
+    - name: custo_dia_tvsala
+      # friendly_name: Energia Diária tvsala
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_dia_tvsala')|float(0) ) * states('input_text.valor_kwh')|float(0) ))  }}
+    - name: custo_ontem_tvsala
+      # friendly_name: Energia Ontem tvsala
+      state: >
+        {{ 'R$ %.2f'|format(((states('input_text.kwh_gasto_ontem_tvsala')|float(0) ) * states('input_text.valor_kwh')|float(0) ))  }}
+    - name: custo_semana_tvsala
+      # friendly_name: Energia Semanal tvsala
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_semana_tvsala')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_tvsala
+      # friendly_name: Energia Mensal tvsala
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_mes_tvsala')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+
+    # Tomada Microondas
+
+    - name: total_kwh_mes_microondas
+      # friendly_name: Total kwh Gasto Mes Microondas
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasta_mes_microondas')|float(0)) }}
+
+    - name: custo_dia_microondas
+      # friendly_name: Energia Diária Microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_dia_microondas')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_ontem_microondas
+      # friendly_name: Energia Ontem microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.microondas_energy_yesterday')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_semana_microondas
+      # friendly_name: Energia Semanal microondas
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_semana_microondas')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_microondas
+      # friendly_name: Energia Mensal microondas
+      state: >
+          {% if states.sensor.kwh_gasta_mes_microondas != 'unknown' %} 
+              {{ 'R$ %.2f'|format(((states('sensor.kwh_gasta_mes_microondas')|float(0)) * states('input_text.valor_kwh')|float(0) )) }}
+          {% else %}
+              0
+          {% endif %}
+
+
+    ## Ar Escritório
+
+    - name: consumo_hoje_ar_escritorio
+      unit_of_measurement: kWh
+      state: >
+        {{ states('sensor.arescritorio_energy_current').0 }}
+
+    - name: total_kwh_dia_ar_escritorio
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_dia_ar_escritorio')|float(0)) }}
+    - name: total_kwh_ontem_ar_escritorio
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('input_text.kwh_gasto_ontem_ar_escritorio')|float(0)) }}
+    - name: total_kwh_semana_ar_escritorio
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_semana_ar_escritorio')|float(0)) }}
+    - name: total_kwh_mes_ar_escritorio
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format(states('sensor.kwh_gasto_mes_ar_escritorio')|float(0)) }}
+
+    - name: custo_dia_ar_escritorio
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_dia_ar_escritorio')|float(0) ) * states('input_text.valor_kwh')|float(0) ))  }}
+    - name: custo_ontem_ar_escritorio
+      state: >
+        {{ 'R$ %.2f'|format(((states('input_text.kwh_gasto_ontem_ar_escritorio')|float(0) ) * states('input_text.valor_kwh')|float(0) ))  }}
+    - name: custo_semana_ar_escritorio
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_semana_ar_escritorio')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+    - name: custo_mes_ar_escritorio
+      state: >
+        {{ 'R$ %.2f'|format(((states('sensor.kwh_gasto_mes_ar_escritorio')|float(0) ) * states('input_text.valor_kwh')|float(0) )) }}
+
+
+    ## Energia Total em R$
+    - name: custo_dia_total
+      # friendly_name: Energia Diária Total
+      state: >
+        {{ 'R$ %.2f'|format((((states('sensor.tomadageladeira_energy_today')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.frigobar_energy_today')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.airfryer_energy_today')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.tomadamicro_energy_today')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasto_dia_tvsala')|float(0) /100) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.lavadora_energy')|float(0)) * states('input_text.valor_kwh')|float(0)) )) }}
+    - name: custo_ontem_total
+      # friendly_name: Energia Ontem Total
+      state: >
+        {{ 'R$ %.2f'|format((((states('sensor.tomadageladeira_energy_yesterday')|float(0) ) * states('input_text.valor_kwh')|float(0)) + ((states('input_text.kwh_gasto_ontem_tvsala')|float(0) ) * states('input_text.valor_kwh')|float(0) ) + ((states('sensor.frigobar_energy_yesterday')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.airfryer_energy_yesterday')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.tomadamicro_energy_yesterday')|float(0)) * states('input_text.valor_kwh')|float(0)) +((states('sensor.maquinalavar_energy_yesterday')|float(0)) * states('input_text.valor_kwh')|float(0)) )) }}
+    - name: custo_semana_total
+      # friendly_name: Energia Semanal Total
+      state: >
+        {{ 'R$ %.2f'|format((((states('sensor.kwh_gasto_semana_geladeira')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_semana_frigobar')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_semana_airfryer')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasto_semana_tvsala')|float(0) /100) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_semana_computador')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_semana_maquina_lavar')|float(0) ) * states('input_text.valor_kwh')|float(0)) )) }}
+    - name: custo_mes_total
+      # friendly_name: Energia Mensal Total
+      state: >
+        {{ 'R$ %.2f'|format((((states('sensor.kwh_gasto_mes_geladeira')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_mes_frigobar')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_mes_airfryer')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasto_mes_tvsala')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_mes_computador')|float(0)) * states('input_text.valor_kwh')|float(0)) + ((states('sensor.kwh_gasta_mes_maquina_lavar')|float(0) ) * states('input_text.valor_kwh')|float(0)) )) }}
+
+    ## Energia Total em kWh
+    - name: kwh_dia_total
+      # friendly_name: Kwh Diário Total
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format( (states('sensor.kwh_gasto_dia_geladeira')|float(0)) + (states('sensor.kwh_gasta_dia_frigobar')|float(0)) + (states('sensor.kwh_gasta_dia_airfryer')|float(0)) + (states('sensor.kwh_gasta_dia_computador')|float(0)) + (states('sensor.kwh_gasto_dia_tvsala')|float(0))  + (states('sensor.kwh_gasta_dia_maquina_lavar')|float(0)) + (states('sensor.kwh_gasta_dia_tomada_lavanderia')|float(0))) }}
+    - name: kwh_ontem_total
+      # friendly_name: Kwh Ontem Total
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format( (states('sensor.tomadageladeira_energy_yesterday')|float(0) ) + (states('input_text.kwh_gasto_ontem_tvsala')|float(0) ) + (states('sensor.frigobar_energy_yesterday')|float(0)) + (states('sensor.airfryer_energy_yesterday')|float(0)) + (states('sensor.tomadamicro_energy_yesterday')|float(0)) + (states('sensor.maquinalavar_energy_yesterday')|float(0)) + (states('sensor.microondas_energy_yesterday')|float(0)) ) }}
+    - name: kwh_semana_total
+      # friendly_name: Kwh Semanal Total
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format( (states('sensor.kwh_gasto_semana_geladeira')|float(0)) + (states('sensor.kwh_gasta_semana_frigobar')|float(0)) + (states('sensor.kwh_gasta_semana_airfryer')|float(0)) + (states('sensor.kwh_gasto_semana_tvsala')|float(0)) + (states('sensor.kwh_gasta_semana_computador')|float(0)) + (states('sensor.kwh_gasta_semana_maquina_lavar')|float(0)) + (states('sensor.kwh_gasta_semana_tomada_lavanderia')|float(0)) ) }}
+    - name: kwh_mes_total
+      # friendly_name: Kwh Mensal Total
+      unit_of_measurement: "kWh"
+      state: >
+        {{ '%.3f'|format( (states('sensor.kwh_gasto_mes_geladeira')|float(0)) + (states('sensor.kwh_gasta_mes_frigobar')|float(0)) + (states('sensor.kwh_gasta_mes_airfryer')|float(0)) + (states('sensor.kwh_gasto_mes_tvsala')|float(0)) + (states('sensor.kwh_gasta_mes_computador')|float(0)) + (states('sensor.kwh_gasta_mes_maquina_lavar')|float(0)) + (states('sensor.kwh_gasta_mes_tomada_lavanderia')|float(0)) ) }}
+
+    - name: cadu_bateria
+      # friendly_name: Bateria Cadu
+      state: >
+        {{ states.sensor.iphone_de_cadu_battery_level.state |int }}
+      unit_of_measurement: "%"
+      device_class: battery
+    - name: fernanda_bateria
+      # friendly_name: Bateria Fernanda
+      state: >
+        {{ states.sensor.iphone_de_fernanda_patricia_battery_level.state |int }}
+      unit_of_measurement: "%"
+      device_class: battery
+      
+    - name: temp_escritorio
+      state: >
+        {{ state_attr('climate.arescritorio','current_temperature') }}
+      unit_of_measurement: "ºC"
+      
+    - name: temp_meninas
+      state: >
+        {{ state_attr('climate.armeninas','current_temperature') }}
+      unit_of_measurement: "ºC"
+      
+    - name: maquina_lavar_st
+      # friendly_name_template: Status da Máquina de Lavar
+      state: >
+        {% if is_state('sensor.lavadora_washer_machine_state', 'run') %}
+          Lavando
+        {% elif is_state('sensor.lavadora_washer_machine_state', 'pause') %}
+          Pausada  
+        {% else %}
+          Parada
+        {% endif %}
+      icon: >
+        {% if is_state('sensor.lavadora_washer_machine_state', 'run') %}
+          mdi:power-plug-outline
+        {% elif is_state('sensor.lavadora_washer_machine_state', 'pause') %}
+          mdi:pause  
+        {% else %}
+          mdi:power-plug-off-outline
+        {% endif %}
+
+    - name: samsung_prog_state
+      state: >-
+        {% set statuses = { 'weightSensing':'Pesando', 'wash':'Lavando', 'drying':'Secando', 'rinse':'Limpando', 'spin':'Centrifugando', 'finish':'Fim' } %}
+        {% set status = states('sensor.lavadora_washer_job_state') %}
+        {{ statuses[status] if status in statuses.keys() }}
+      availability: >-
+        {{ iif(is_state('sensor.lavadora_washer_job_state', 'none') or is_state('sensor.lavadora_washer_job_state', 'unavailable'), 'false', 'true') }}
+          
+    - name: geladeira_st
+      # friendly_name_template: Status da Geladeira
+      state: >
+        {% if (is_state('switch.tomadageladeira', 'off') or (states('sensor.tomadageladeira_energy_power') == 'unknown')) %}
+          Desligada
+        {% elif states('sensor.tomadageladeira_energy_power')|float(0) > 4 %}
+          Ligada
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.tomadageladeira', 'off') or (states('sensor.tomadageladeira_energy_power') == 'unknown')) %}
+          mdi:power-off
+        {% elif states('sensor.tomadageladeira_energy_power')|float(0) > 4 %}
+          mdi:power
+        {% else %}
+          mdi:power-cycle
+        {% endif %}
+
+    - name: frigobar_st
+      # friendly_name_template: Status do Frigobar
+      state: >
+        {% if (is_state('switch.frigobar', 'off') or (states('sensor.frigobar_energy_power') == 'unknown')) %}
+          Desligado
+        {% elif states('sensor.frigobar_energy_power')|float(0) > 4 %}
+          Ligado
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.frigobar', 'off') or (states('sensor.frigobar_energy_power') == 'unknown')) %}
+          mdi:power-off
+        {% elif states('sensor.frigobar_energy_power')|float(0) > 4 %}
+          mdi:power
+        {% else %}
+          mdi:power-cycle
+        {% endif %}
+
+    - name: tomada_computador_st
+      # friendly_name_template: Status da Computador (tomada)
+      state: >
+        {% if (is_state('switch.tomadamicro', 'off') or (states('sensor.tomadamicro_energy_power_2') == 'unknown')) %}
+          Desligada
+        {% elif states('sensor.tomadamicro_energy_power_2')|float(0) > 3 %}
+          Ligada
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.tomadamicro', 'off') or (states('sensor.tomadamicro_energy_power_2') == 'unknown')) %}
+          mdi:power-off
+        {% elif states('sensor.tomadamicro_energy_power_2') |float(0) > 3 %}
+          mdi:power
+        {% else %}
+          mdi:power-cycle
+        {% endif %}
+
+
+    - name: microondas_st
+      # friendly_name_template: Status do microondas
+      state: >
+        {% if (is_state('switch.microondas', 'off') or (states('sensor.microondas_energy_power') == 'unknown')) %}
+          Desligada
+        {% elif states('sensor.microondas_energy_power')|float(0) > 3 %}
+          Ligada
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.microondas', 'off') or (states('sensor.microondas_energy_power') == 'unknown')) %}
+          mdi:microwave-off
+        {% elif states('sensor.microondas_energy_power') |float(0) > 3 %}
+          mdi:microwave
+        {% else %}
+          mdi:microwave-off
+        {% endif %}
+
+    - name: airfryer_st
+      # friendly_name_template: Status do Air Fryer
+      state: >
+        {% if (is_state('switch.airfryer', 'off') or (states('sensor.airfryer_energy_power') == 'unknown')) %}
+          Desligado
+        {% elif states('sensor.airfryer_energy_power')|float(0) > 4 %}
+          Ligado
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.airfryer', 'off') or (states('sensor.airfryer_energy_power') == 'unknown')) %}
+          mdi:power-off
+        {% elif states('sensor.airfryer_energy_power')|float(0) > 4 %}
+          mdi:french-fries
+        {% else %}
+          mdi:power-cycle
+        {% endif %}
+
+    - name: ar_escritorio_st
+      state: >
+        {% if (is_state('climate.arescritorio', 'off') or (states.sensor.arescritorio_energy_current.state|float(0) < 5)) %}
+          Desligado
+        {% elif ( is_state('climate.arescritorio', 'cool')) %}
+          Gelando
+        {% elif ( is_state('climate.arescritorio', 'dry')) %}
+          Drenando
+        {% elif ( is_state('climate.arescritorio', 'fan_only')) %}
+          Ventilando
+        {% elif ( is_state('climate.arescritorio', 'auto')) %}
+          Automático
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('climate.arescritorio', 'off') or (states.sensor.arescritorio_energy_current.state|float(0) < 5)) %}
+          mdi:snowflake-off
+        {% elif ( is_state('climate.arescritorio', 'cool')) %}
+          mdi:snowflake
+        {% elif ( is_state('climate.arescritorio', 'dry')) %}
+          mdi:air-purifier
+        {% elif ( is_state('climate.arescritorio', 'fan_only')) %}
+          mdi:fan
+        {% elif ( is_state('climate.arescritorio', 'auto')) %}
+          mdi:air-conditioner
+        {% else %}
+          mdi:air-conditioner
+        {% endif %}
+
+    - name: ar_escritorio_temperatura
+      state: > 
+        {{ state_attr('climate.arescritorio','temperature') }}
+        
+    - name: tomada_tvsala_st
+      # friendly_name_template: Status da TV Sala (tomada)
+      state: >
+        {% if (is_state('switch.tomada_tv_sala_socket', 'off') or (states.sensor.tomada_tv_sala_power.state == 'unknown')) %}
+          Desligada
+        {% elif states.sensor.tomada_tv_sala_power.state |float(0) > 3 %}
+          Ligada
+        {% else %}
+          Standby
+        {% endif %}
+      icon: >
+        {% if (is_state('switch.tomada_tv_sala_socket', 'off') or (states.sensor.tomada_tv_sala_power.state == 'unknown')) %}
+          mdi:power-off
+        {% elif states.sensor.tomada_tv_sala_power.state |float(0) > 3 %}
+          mdi:power
+        {% else %}
+          mdi:power-cycle
+        {% endif %}
+        
+  - binary_sensor:
+    # - name: sensor_bwc_casal
+    #   # friendly_name: "sensor BWC Casal"
+    #   state: > 
+    #     {{ is_state("binary_sensor.bwc_casal_occupancy", "on") }}
+    #   delay_off: 
+    #     minutes: 3
+    #   device_class: "motion"
+
+    # - name: sensor_escritorio_prog
+    #   # friendly_name: "sensor Escritorio Prog"
+    #   state: >
+    #     {{ is_state("binary_sensor.sensor_escritorio_zig_occupancy", "on") }}
+    #   delay_off: 
+    #     minutes: 4
+    #   device_class: "motion"
+
+    # - name: campainha_press
+    #   # friendly_name: "Campainha prog"
+    #   state: >
+    #     {{ is_state("binary_sensor.1000e72240_11", "on") }}
+    #   delay_off: 
+    #     minutes: 5
+    #   device_class: "door"
+
+    - name: ultimo_dia_do_mes
+      # friendly_name: "Último Dia do Mês"
+      icon: "mdi:calendar"
+      state: >
+        {{ (as_timestamp(now()) + 86400)|timestamp_custom('%d', true) == '01' }}
+
+    - name: ultimo_dia_do_mes_energia
+      # friendly_name: "Último Dia do Mês Energia"
+      icon: "mdi:calendar"
+      state: > 
+        {{ (as_timestamp(now()) + 86400)|timestamp_custom('%d', true) == '25' }}
+          
+          
+#   _____       _   _                    _____           _       _
+#  |  __ \     | | | |                  / ____|         (_)     | |
+#  | |__) |   _| |_| |__   ___  _ __   | (___   ___ _ __ _ _ __ | |_
+#  |  ___/ | | | __| '_ \ / _ \| '_ \   \___ \ / __| '__| | '_ \| __|
+#  | |   | |_| | |_| | | | (_) | | | |  ____) | (__| |  | | |_) | |_
+#  |_|    \__, |\__|_| |_|\___/|_| |_| |_____/ \___|_|  |_| .__/ \__|
+#          __/ |                                          | |
+#         |___/                                           |_|
+python_script:
+
+#   _    _               _
+#  | |  | |             (_)
+#  | |__| | __ _ ___ ___ _  ___
+#  |  __  |/ _` / __/ __| |/ _ \
+#  | |  | | (_| \__ \__ \ | (_) |
+#  |_|  |_|\__,_|___/___/_|\___/
+hassio:
+
+#  _____  _____  ____
+# |_   _||_   _|/ ___|
+#   | |    | |  \___ \
+#   | |    | |   ___) |
+#   |_|    |_|  |____/
+# Text to speech
+tts:
+  - platform: google_translate
+    language: "pt-br"
+  #    base_url: http://192.168.5.33:8123
+  #    cache: true
+  #    cache_dir: tts
+  #    cache_dir: /tmp/tts
+  #    time_memory: 300
+  ## TTS voz Isabela Watson
+  - platform: watson_tts
+    watson_apikey: !secret watsonapi
+    voice: pt-BR_IsabelaV3Voice
+    #voice: pt-BR_IsabelaVoice
+    #base_url: https://havalsesia.duckdns.org
+
+  # Amazon Polly - https://www.home-assistant.io/components/amazon_polly/
+  - platform: amazon_polly
+    aws_access_key_id: !secret polly_id
+    aws_secret_access_key: !secret polly_access_key
+    text_type: ssml
+    #voice: Ricardo
+    voice: Vitoria
+    #voice: Camila
+    region_name: sa-east-1
+
+#   _____                 _   _ ______
+#  |  __ \               | | (_)  ____|
+#  | |__) |_ _ _ __   ___| |  _| |__ _ __ __ _ _ __ ___   ___
+#  |  ___/ _` | '_ \ / _ \ | | |  __| '__/ _` | '_ ` _ \ / _ \
+#  | |  | (_| | | | |  __/ | | | |  | | | (_| | | | | | |  __/
+#  |_|   \__,_|_| |_|\___|_| |_|_|  |_|  \__,_|_| |_| |_|\___|
+# panel_iframe:
+#   tasmoadmin:
+#     title: TasmoAdmin
+#     icon: mdi:lightbulb-on
+#     url: http://192.168.5.33:9541
+
+#    _____                    __  __
+#   / ____|                  / _|/ _|
+#  | (___   ___  _ __   ___ | |_| |_
+#   \___ \ / _ \| '_ \ / _ \|  _|  _|
+#   ____) | (_) | | | | (_) | | | |
+#  |_____/ \___/|_| |_|\___/|_| |_|
+sonoff:
+  #   username: !secret usersonoff
+  #   password: !secret senhasonoff
+  #  reload: always
+  #  force_update: [power]
+  # scan_interval: '00:01:00'  # (optional) default 5 minutes
+  #  sensors: [power, current, voltage]
+
+  # rfbridge:
+  #   Sala aberta: # button/alarm name in eWeLink application (open signal)
+  #     name: Sensor Porta da Sala # optional, you can change sensor name
+  #     device_class: door # e.g. door, window
+  #     timeout: 0 # disable auto close timeout
+  #     payload_off: Sala fechada
+  #   Sacada aberta: # button/alarm name in eWeLink application (open signal)
+  #     name: Sensor Porta da Sacada # optional, you can change sensor name
+  #     device_class: door # e.g. door, window
+  #     timeout: 0 # disable auto close timeout
+  #     payload_off: Sacada fechada
+  #   Social aberto: # button/alarm name in eWeLink application (open signal)
+  #     name: Sensor Porta BWC Social # optional, you can change sensor name
+  #     device_class: door # e.g. door, window
+  #     timeout: 0 # disable auto close timeout
+  #     payload_off: Social fechado
+  #   Casal aberto: # button/alarm name in eWeLink application (open signal)
+  #     name: Sensor Porta BWC Casal # optional, you can change sensor name
+  #     device_class: door # e.g. door, window
+  #     timeout: 0 # disable auto close timeout
+  #     payload_off: Casal fechado
+  #   Guarda-roupa aberto: # button/alarm name in eWeLink application (open signal)
+  #     name: Sensor Porta Guarda-roupa # optional, you can change sensor name
+  #     device_class: door # e.g. door, window
+  #     timeout: 5 # disable auto close timeout
+  #   Sensor escritorio: # button/alarm name in eWeLink application
+  #     device_class: motion
+  #     timeout: 90
+  #   Campainha: # button/alarm name in eWeLink application
+  #     device_class: door
+  #     timeout: 5
+  #   Botao A:
+  #     device_class: door
+  #     timeout: 5
+  #   Botao B:
+  #     device_class: door
+  #     timeout: 5
+  #   Botao C:
+  #     device_class: door
+  #     timeout: 5
+  #   Botao D:
+  #     device_class: door
+  #     timeout: 5
+
+  #   Sensor cozinha: # button/alarm name in eWeLink application
+  #     device_class: motion
+  #     timeout: 60
+
+#   _    _ _   _ _ _ _           __  __      _
+#  | |  | | | (_) (_) |         |  \/  |    | |
+#  | |  | | |_ _| |_| |_ _   _  | \  / | ___| |_ ___ _ __
+#  | |  | | __| | | | __| | | | | |\/| |/ _ \ __/ _ \ '__|
+#  | |__| | |_| | | | |_| |_| | | |  | |  __/ ||  __/ |
+#   \____/ \__|_|_|_|\__|\__, | |_|  |_|\___|\__\___|_|
+#                         __/ |
+#                       |___/
+### consumo de energia
+utility_meter:
+  kwh_gasto_dia_geladeira:
+    source: sensor.tomadageladeira_energy_today
+    cycle: daily
+  kwh_gasto_semana_geladeira:
+    source: sensor.tomadageladeira_energy_today
+    cycle: weekly
+  kwh_gasto_mes_geladeira:
+    source: sensor.tomadageladeira_energy_today
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+
+  kwh_gasta_dia_maquina_lavar:
+    source: sensor.lavadora_energy
+    cycle: daily
+  kwh_gasta_semana_maquina_lavar:
+    source: sensor.lavadora_energy
+    cycle: weekly
+  kwh_gasta_mes_maquina_lavar:
+    source: sensor.lavadora_energy
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+  kwh_gasta_dia_computador:
+    source: sensor.tomadamicro_energy_today
+    cycle: daily
+  kwh_gasta_semana_computador:
+    source: sensor.tomadamicro_energy_today
+    cycle: weekly
+  kwh_gasta_mes_computador:
+    source: sensor.tomadamicro_energy_today
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+      
+  kwh_gasta_dia_frigobar:
+    source: sensor.frigobar_energy_today
+    cycle: daily
+  kwh_gasta_semana_frigobar:
+    source: sensor.frigobar_energy_today
+    cycle: weekly
+  kwh_gasta_mes_frigobar:
+    source: sensor.frigobar_energy_today
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+
+  kwh_gasta_dia_airfryer:
+    source: sensor.airfryer_energy_today 
+    cycle: daily
+  kwh_gasta_semana_airfryer:
+    source: sensor.airfryer_energy_today
+    cycle: weekly
+  kwh_gasta_mes_airfryer:
+    source: sensor.airfryer_energy_today
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+      
+  kwh_gasta_dia_microondas:
+    source: sensor.microondas_energy_today
+    cycle: daily
+  kwh_gasta_semana_microondas:
+    source: sensor.microondas_energy_today
+    cycle: weekly
+  kwh_gasta_mes_microondas:
+    source: sensor.microondas_energy_today
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+
+  kwh_gasto_dia_tvsala:
+    source: sensor.energia_gasta_tv_sala
+    cycle: daily
+  kwh_gasto_semana_tvsala:
+    source: sensor.energia_gasta_tv_sala
+    cycle: weekly
+  kwh_gasto_mes_tvsala:
+    source: sensor.energia_gasta_tv_sala
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+
+  kwh_gasto_dia_ar_escritorio:
+    source: sensor.energia_gasta_arescritorio
+    cycle: daily
+  kwh_gasto_semana_ar_escritorio:
+    source: sensor.energia_gasta_arescritorio
+    cycle: weekly
+  kwh_gasto_mes_ar_escritorio:
+    source: sensor.energia_gasta_arescritorio
+    cycle: monthly
+    offset:
+      days: 24
+      hours: 0
+      minutes: 0
+
+
+
+#   _    _                      _    _ _
+#  | |  | |                    | |  (_) |
+#  | |__| | ___  _ __ ___   ___| | ___| |_
+#  |  __  |/ _ \| '_ ` _ \ / _ \ |/ / | __|
+#  | |  | | (_) | | | | | |  __/   <| | |_
+#  |_|  |_|\___/|_| |_| |_|\___|_|\_\_|\__|
+homekit:
+  name: Ponte HA
+  #  safe_mode: true
+  #ip_address: 192.168.5.254
+  #  auto_start: false
+  filter:
+    include_entities:
+      - input_boolean.visitas
+      - media_player.lg_tv_casal
+      - media_player.samsung_un50ju6400
+      - input_boolean.ambiente_natal
+      - switch.luz_cozinha
+      - switch.ledcozinha
+      - switch.abajurcozinhatuya
+      - sensor.echo_escritorio_temperature
+      - sensor.sonoff_100148be32_temperature
+      - sensor.temperatura_escritorio
+      - sensor.umidade_escritorio
+      - sensor.temperatura_meninas
+      - sensor.umidade_meninas
+      # - camera.camera_sala_mainstream
+      # - camera.camera_escritorio_mainstream
+      - switch.luz_casal
+      # - camera.blink_camera_frente_2
+
+    exclude_domains:
+      - automation
+      - script
+      - input_boolean
+      - input_select
+      - group
+      - input_number
+      - media_player
+      - person
+      - camera
+      - remote
+      - device_tracker
+      - select
+      - scene
+      - lock
+    exclude_entity_globs:
+      - light.browser_mod*
+      - binary_sensor.camera_escritorio*
+      - binary_sensor.blink_camera_frente*
+      - binary_sensor.camera_sala*
+      - sensor.energia*
+      - binary_sensor.imac*
+      - sensor.kwh_*
+      - binary_sensor.ipad_de_cadu*
+      - switch.*arq
+      - switch.*arq_2
+      - switch.arescritorio*
+      - switch.armeninas*
+      - switch.porta*
+    exclude_entities:
+      - switch.ledtv_mini
+      - switch.ledcozinha_mini
+      - switch.er_lu_hong_kong_kai_guan_2_interruptor_1
+      - switch.er_lu_hong_kong_kai_guan_2_interruptor_2
+      - switch.miniledcozinha_interruptor_1
+      - switch.miniledcozinha_interruptor_2
+      - switch.switch1_2
+      - switch.naousar
+      - switch.tomadacozinha_soquete_1
+      - switch.tomadacozinha_soquete_2
+      - switch.tomadacozinha_soquete_3
+      - switch.tomadacozinha_soquete_4
+      - sensor.temper_humidity_2
+      - sensor.temper_humidity_temperature_2
+      - button.temper_humidity_identify
+      - sensor.temper_humidity
+      - sensor.temper_humidity_temperature
+      - button.contact_identify
+      - switch.threeswitch_8_interruptor_1
+      - switch.threeswitch_8_interruptor_2
+      - switch.threeswitch_8_interruptor_3
+      - switch.imac_de_cadu_2
+      - light.brilho_do_led_2
+      - media_player.lg_tv_quarto
+      - light.all_group_exclude_hall
+      - switch.sancacasal_paralelo
+      - switch.spotcasal_paralelo
+      - switch.camera_escritorio_wiper
+      - switch.camera_escritorio_ir_lamp
+      - switch.acendetudo
+      - light.aa3a9900_imac_screen
+      - light.abajurquartodir
+      - light.abajurquartoesq
+      - light.abajurquartoesq
+      - light.badrum_group
+      - light.imac_screen
+      - switch.luz_corredor_paralelo
+      - switch.monitors_mute
+      - switch.imac
+      - switch.sala_estar_group
+      - switch.lavadora
+      - switch.sala_estar_group
+      - light.sovrum_group
+      - light.b27ba391_983898eb_tab_screen
+      - switch.luzes_natal_socket_1
+      - switch.spot_cristaleira_paralelo
+      - switch.maquinalavar_2
+      - light.studio_group
+      - switch.climate_timer
+      - switch.camera_escritorio_autofocus
+      - switch.luzcasal_paralelo
+      - switch.luzcozinha_paralelo
+      - switch.luz_jantar_paralelo
+      - switch.lavanderia_paralelo
+      - switch.switch2
+      - switch.spot_prateleira_paralelo
+      - switch.tomadacozinha_socket_1
+      - switch.tomadacozinha_socket_2
+      - switch.tomadacozinha_socket_3
+      - switch.tomadacozinha_socket_4
+      - switch.ewelink_virtual_switch
+      - light.hall_group
+      - switch.imac_wol
+      - switch.led_cozinha_mini
+      - switch.luz_sala_paralelo
+      - light.brilho_do_led
+      - light.vardagsrum_group
+      - light.abajurmeninas
+      - switch.bwcsocial_switch_1
+      - switch.bwcsocial_switch_2
+      - switch.bwcsocial_switch_3
+      - switch.bwc_casal_switch_1
+      - switch.bwc_casal_spot_switch_1
+      - switch.casal_switch_1
+      
+      - switch.bwc_casal_interruptor_1
+      - switch.bwcsocial_interruptor_1
+      - switch.bwcsocial_interruptor_2
+      - switch.bwcsocial_interruptor_3
+      - switch.bwc_casal_spot_interruptor_1
+      - switch.casal_interruptor_1
+      - switch.casal_interruptor_2
+      - switch.casal_interruptor_3
+      - switch.casalparalelo_interruptor_1
+      - switch.casalparalelo_interruptor_2
+      - switch.casalparalelo_interruptor_3
+      - switch.casalparalelo_interruptor_4
+      - switch.corredor_interruptor_1
+      - switch.corredor_interruptor_2
+      - switch.cozinha_interruptor_1
+      - switch.cozinha_interruptor_2
+      - switch.cozinha_interruptor_3
+      - switch.cozinha2_interruptor_1
+      - switch.cozinha2_interruptor_2
+      - switch.cozinha2_interruptor_3
+      - switch.entrada2_interruptor_1
+      - switch.entrada2_interruptor_2
+      - switch.entrada2_interruptor_3
+      - switch.escritorio_interruptor_1
+      - switch.escritorio_interruptor_2
+      - switch.escritorio_interruptor_3
+      - switch.lavabo_interruptor_1
+      - switch.lavanderia_interruptor_1
+      - switch.quartomeninas_interruptor_1
+      - switch.quartomeninas_interruptor_2
+      - switch.quartomeninas_interruptor_3
+      - switch.sacada_interruptor_1
+      - switch.sacada_interruptor_2
+      - switch.sacada_interruptor_3
+      - switch.sacadasala_interruptor_1
+      - switch.sacadasala_interruptor_2
+      - switch.sacadasala_interruptor_3
+      - switch.sala1_interruptor_1
+      - switch.sala1_interruptor_2
+      - switch.sala1_interruptor_3
+      - switch.sala2_interruptor_1
+      - switch.sala2_interruptor_2
+      - switch.sala2_interruptor_3
+      
+      - switch.casal_switch_2
+      - switch.casal_switch_3
+      - switch.casalparalelo_switch_1
+      - switch.casalparalelo_switch_2
+      - switch.casalparalelo_switch_3
+      - switch.casalparalelo_switch_4
+      - switch.corredor_switch_1
+      - switch.corredor_switch_2
+      - switch.cozinha_switch_1
+      - switch.cozinha_switch_2
+      - switch.cozinha_switch_3
+      - scene.cozinha1off
+      - switch.cozinha2_switch_1
+      - switch.cozinha2_switch_2
+      - switch.cozinha2_switch_3
+      - scene.cozinha2on
+      - switch.entrada2_switch_1
+      - switch.entrada2_switch_2
+      - switch.entrada2_switch_3
+      - switch.escritorio_switch_1
+      - switch.escritorio_switch_2
+      - scene.fazer_cafe
+      - switch.lavabo_switch_1
+      - switch.lavanderia_switch_1
+      - switch.ledtv_switch
+      - switch.ledtv_interruptor
+      - switch.miniledcozinha_switch_1
+      - switch.miniledcozinha_switch_2
+      - switch.quartomeninas_switch_1
+      - switch.quartomeninas_switch_2
+      - switch.quartomeninas_switch_3
+      - switch.sacada_switch_1
+      - switch.sacada_switch_2
+      - switch.sacada_switch_3
+      - switch.sacadasala_switch_1
+      - switch.sacadasala_switch_2
+      - switch.sacadasala_switch_3
+      - switch.sala1_switch_1
+      - switch.sala1_switch_2
+      - switch.sala1_switch_3
+      - switch.sala2_switch_1
+      - switch.sala2_switch_2
+      - switch.sala2_switch_3
+      - button.switch_identify
+      - button.switch_identify_2
+      - button.switch_identify_3
+      - button.switch_identify_4
+      - button.switch_identify_5
+      - button.switch_identify_6
+      - button.switch_identify_7
+      - button.switch_identify_8
+      - button.switch_identify_9
+      - button.switch_identify_10
+      - button.switch_identify_11
+      - button.switch_identify_12
+      - button.switch_identify_13
+      - button.switch_identify_14
+      - button.switch_identify_16
+      - button.switch_identify_17
+      - binary_sensor.sensorcozinha_movimento
+      - binary_sensor.leitor_tag1_status
+      - binary_sensor.tagreader_status
+      - binary_sensor.template_imac_vpn
+      - binary_sensor.template_udm_internet
+      - climate.ac
+      - remote.sonoff_1000e72240
+      - light.ledsintligados
+
+      - switch.nodered_3e86aa3cbb5da4f5
+      - switch.intentradaluz
+      - switch.luz_entrada_jantar
+      - remote.as_aftka_airplay
+      - light.difusor
+      - switch.home_theater_do_not_disturb_switch
+      - switch.fire_tv_de_carlos_do_not_disturb_switch
+      - switch.home_theater_repeat_switch
+      - switch.home_theater_shuffle_switch
+      - remote.homepod_mini
+      - light.lampada_jantar
+      - switch.sala_ambiente_do_not_disturb_switch
+      - switch.sala_ambiente_repeat_switch
+      - switch.sala_ambiente_shuffle_switch
+      - remote.appletv_cadu
+      - switch.echo_studio_de_carlos_do_not_disturb_switch
+      - switch.echo_studio_de_carlos_repeat_switch
+      - switch.echo_studio_de_carlos_shuffle_switch
+      - light.primeira_lampada
+      - switch.echo_dot_escritorio_do_not_disturb_switch
+      - switch.echo_dot_escritorio_shuffle_switch
+      - switch.echo_dot_escritorio_repeat_switch
+      - switch.echo_dot_quarto_azul_do_not_disturb_switch
+      - switch.echo_dot_quarto_azul_repeat_switch
+      - switch.echo_dot_quarto_azul_shuffle_switch
+      - switch.echo_sala_estar_do_not_disturb_switch
+      - switch.echo_sala_estar_shuffle_switch
+      - switch.echo_sala_estar_repeat_switch
+      - switch.firetvstick_casal_do_not_disturb_switch
+      - switch.home_theater_do_not_disturb_switch_2
+      - switch.home_theater_repeat_switch_2
+      - switch.home_theater_shuffle_switch_2
+      - switch.hora_da_festa_do_not_disturb_switch
+      - switch.hora_da_festa_shuffle_switch
+      - switch.hora_da_festa_repeat_switch
+      - light.leitor_de_tag1_led
+      - switch.leitor_de_tag1_led_habilitado
+      - switch.leitor_de_tag1_som_habilitado
+      - switch.leitor_tag1_som_habilitado
+      - switch.leitor_tag1_led_habilitado
+      - light.leitor_tag1_led
+      - switch.sensor_de_chuva_enabled
+      - switch.sonoff_1000f2a111
+      - switch.sonoff_1000f2c1b8
+      - switch.sonoff_1000f8e2bf
+      - switch.sonoff_1000f97cc4
+      - switch.sonoff_1000fa4d52
+      - switch.sonoff_10010556a3
+      - switch.tag_cartao
+      - light.tagreader_led
+      - switch.this_device_do_not_disturb_switch_3
+      - switch.todos_echo_do_not_disturb_switch
+      - light.browser_mod_d368feaf_d18d8b32
+      - switch.tagreader_buzzer_enabled
+      - switch.tagreader_led_enabled
+      - switch.echo_de_quarto_do_not_disturb_switch
+      - switch.echo_de_quarto_shuffle_switch
+      - switch.sonoff_1000c776bf
+      - switch.firetvstick_de_carlos_do_not_disturb_switch
+      - light.eb279d35034b334b03hgvf
+      - switch.this_device_do_not_disturb_switch_2
+      - switch.todos_echo_repeat_switch
+      - switch.todos_echo_shuffle_switch
+      - switch.echo_de_quarto_repeat_switch
+      - switch.echo_de_quarto_shuffle_switch
+      - switch.led_cozinha_power
+      - switch.intquartoluz
+      - remote.escritorio_remote
+      - remote.lara_remote
+      - remote.quartocasal_remote
+      - remote.sala_remote
+      - switch.tv_casal_power
+      - switch.tv_sala_power
+      - switch.led_lara_liga
+      - switch.laser
+      - remote.sonoff_1000cde9bf
+      - switch.sonoff_1000deea66
+      - switch.sonoff_1000b5bf8b
+      - climate.casal_ac
+      - device_tracker.hostcadu
+      - device_tracker.hostfernanda
+      - device_tracker.cadu_iphone
+      - remote.quarto
+      - switch.led_escritorio_power
+      - switch.som_escritorio_power
+      - switch.todosecho_do_not_disturb_switch
+      - switch.todosecho_shuffle_switch
+      - switch.todosecho_repeat_switch
+      - light.sonoff_10009e7a57
+      - device_tracker.redmi_note_5
+      - device_tracker.iphone_de_cadu
+      - device_tracker.apple_watch_5_de_cadu
+      - person.valsesia
+      - person.fernanda_patricia_batista
+      - switch.echo_dot_de_cadu_do_not_disturb_switch
+      - switch.echo_dot_de_cadu_repeat_switch
+      - switch.echo_dot_de_cadu_shuffle_switch
+      - switch.echo_show_de_carlos_do_not_disturb_switch
+      - switch.echo_show_de_carlos_repeat_switch
+      - switch.echo_show_de_carlos_shuffle_switch
+      - switch.echo_de_carlos_do_not_disturb_switch
+      - switch.echo_de_carlos_shuffle_switch
+      - switch.echo_de_carlos_repeat_switch
+      - switch.carlos_s_alexa_apps_do_not_disturb_switch
+      - switch.intsalacorredor
+      - switch.intentradajantar
+      - switch.imac_de_cadu
+      - switch.led_lara_amarelo
+      - switch.led_lara_ciano
+      - switch.led_lara_rosa
+      - switch.led_lara_verde
+      - switch.led_lara_down
+      - switch.led_lara_up
+      - media_player.sala_de_jantar_som
+      - media_player.som_ambiente
+      - switch.som_ambiente_do_not_disturb_switch
+      - switch.som_ambiente_shuffle_switch
+      - switch.som_ambiente_repeat_switch
+      - switch.sonoff_1000ad1dc8_1
+      - switch.sonoff_1000ad1dc8_2
+      - switch.sonoff_1000ad1dc8_3
+      - switch.sonoff_1000ad2773_1
+      - switch.sonoff_1000ad2773_2
+      - switch.sonoff_1000ad2773_3
+      - switch.sonoff_1000950ecd_1
+      - switch.sonoff_1000950ecd_2
+      - switch.sonoff_1000950ecd_3
+      - switch.sonoff_1000956b97_1
+      - switch.sonoff_1000956b97_2
+      - switch.sonoff_1000956d0c_1
+      - switch.sonoff_1000956d0c_2
+      - switch.sonoff_10009570a8_1
+      - switch.sonoff_10009570a8_2
+      - switch.sonoff_10009585a3
+      - switch.sonoff_100095093e_1
+      - switch.sonoff_100095093e_2
+      - switch.sonoff_100095093e_3
+      - switch.sonoff_1000951276_1
+      - switch.sonoff_1000951276_2
+      - switch.sonoff_1000951276_3
+      - switch.this_device_do_not_disturb_switch
+      - switch.todo_lugar_do_not_disturb_switch
+      - switch.todo_lugar_shuffle_switch
+      - switch.todo_lugar_repeat_switch
+      - switch.sonoff_100084fd7c ## Tomada Servidor
+      - switch.sonoff_1000b57440 ## Tomada Enfeite Escritorio
+      - switch.sonoff_1000aca60e
+      - switch.sonoff_1000aca618
+      - remote.sonoff_1000a8f19e
+      - switch.espurna_0
+      - switch.espurna_1
+      - switch.esp8266_teste_esp8266_teste
+      - switch.sonoff_10009e7a8e
+      - binary_sensor.deco_wifi
+      - binary_sensor.backups_stale
+      - binary_sensor.contact
+      - binary_sensor.aa3a9900_imac
+      - binary_sensor.proxmox
+      - binary_sensor.ledcozinhaarq
+      - binary_sensor.b27ba391_983898eb_tab
+      - binary_sensor.ultimo_dia_do_mes
+      - binary_sensor.ultimo_dia_do_mes_energia
+      - binary_sensor.monitors_mute_state
+  entity_config:
+    switch.luz_escritorio:
+      name: Luz do Escritório
+      type: switch
+    light.sonoff_1000aca618:
+      name: Led do Escritório
+    switch.abajurescritorio:
+      name: Abajur do Escritório
+    switch.luz_cozinha:
+      name: Luz da Cozinha
+      type: switch
+    binary_sensor.sensor_zemismart_occupancy:
+      name: Sensor Cozinha
+      linked_battery_sensor: sensor.sensor_zemismart_battery
+      low_battery_threshold: 31
+    camera.camera_sala_mainstream:
+      name: Camera da Sala
+      support_audio: True
+    alarm_control_panel.home_alarm:
+      code: 1905
+    media_player.lg_tv_casal:
+      name: TV Casal
+      feature_list:
+        - feature: on_off
+        - feature: play_pause
+        - feature: play_stop
+        - feature: toggle_mute
+ 
+
+#            _                  __  __          _ _
+#      /\   | |                |  \/  |        | (_)
+#     /  \  | | _____  ____ _  | \  / | ___  __| |_  __ _
+#    / /\ \ | |/ _ \ \/ / _` | | |\/| |/ _ \/ _` | |/ _` |
+#   / ____ \| |  __/>  < (_| | | |  | |  __/ (_| | | (_| |
+#  /_/    \_\_|\___/_/\_\__,_| |_|  |_|\___|\__,_|_|\__,_|
+alexa_media:
+  accounts:
+    - email: !secret amazon_user
+      password: !secret amazon_password
+      url: amazon.com
+
+    #   exclude_devices:
+    #     - "This Device"
+    #     - "Carlos's Alexa Apps"
+
+#    _____             _   _  __
+#   / ____|           | | (_)/ _|
+#  | (___  _ __   ___ | |_ _| |_ _   _
+#   \___ \| '_ \ / _ \| __| |  _| | | |
+#   ____) | |_) | (_) | |_| | | | |_| |
+#  |_____/| .__/ \___/ \__|_|_|  \__, |
+#         | |                     __/ |
+#         |_|                    |___/
+# spotify:
+
+
+#  __          __   _                        _
+#  \ \        / /  | |                      | |
+#   \ \  /\  / /_ _| | _____    ___  _ __   | |     __ _ _ __
+#    \ \/  \/ / _` | |/ / _ \  / _ \| '_ \  | |    / _` | '_ \
+#     \  /\  / (_| |   <  __/ | (_) | | | | | |___| (_| | | | |
+#      \/  \/ \__,_|_|\_\___|  \___/|_| |_| |______\__,_|_| |_|
+wake_on_lan:
+
+#   __  __          _ _         _____  _
+#  |  \/  |        | (_)       |  __ \| |
+#  | \  / | ___  __| |_  __ _  | |__) | | __ _ _   _  ___ _ __
+#  | |\/| |/ _ \/ _` | |/ _` | |  ___/| |/ _` | | | |/ _ \ '__|
+#  | |  | |  __/ (_| | | (_| | | |    | | (_| | |_| |  __/ |
+#  |_|  |_|\___|\__,_|_|\__,_| |_|    |_|\__,_|\__, |\___|_|
+#                                               __/ |
+#                                              |___/
+media_player:
+  - platform: smartir
+    name: TV LG SmartIR
+    unique_id: casal_tv
+    device_code: 1040
+    controller_data: 192.168.5.83
+    power_sensor: binary_sensor.tv_casal_power
+
+  - platform: smartir
+    name: TV Sala SmartIR
+    unique_id: sala_estar_tv
+    device_code: 1060
+    controller_data: 192.168.5.74
+    power_sensor: binary_sensor.tv_sala_power
+
+#   _
+#  (_)
+#   _  ___  ___
+#  | |/ _ \/ __|
+#  | | (_) \__ \
+#  |_|\___/|___/
+ios:
+#   push:
+#     categories:
+#       - name: Empty Shopping List
+#         identifier: 'empty_shopping_list'
+#         actions:
+#           - identifier: 'EMPTY'
+#             title: 'Empty'
+#             destructive: true
+#           - identifier: 'KEEP'
+#             title: 'Keep'
+
+
+#    _____
+#   / ____|
+#  | (___   ___ _ __  ___  ___  _ __
+#   \___ \ / _ \ '_ \/ __|/ _ \| '__|
+#   ____) |  __/ | | \__ \ (_) | |
+#  |_____/ \___|_| |_|___/\___/|_|
+sensor:
+ 
+  - platform: integration
+    source: sensor.tomadageladeira_energy_today
+    name: Energia Gasta Geladeira
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source: sensor.lavadora_energy
+    #    name: Energia Gasta Maquina Lavar
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source: sensor.frigobar_energy_today
+    name: Energia Gasta Frigobar
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source: sensor.airfryer_energy_today
+    name: Energia Gasta Air Fryer
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source: sensor.tomadamicro_energy_today
+    name: Energia Gasta Computador
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source:  sensor.tomada_tv_sala_power
+    name: Energia Gasta tv sala  ##Tv Sala
+    method: left
+    #    unit_time: s
+    unit_prefix: k
+    round: 3
+
+  - platform: integration
+    source:  sensor.arescritorio_energy_current
+    name: Energia Gasta arescritorio 
+    unit_time: h
+    unit_prefix: k
+    round: 3
+    
+  - platform: time_date
+    display_options:
+      - "time"
+      - "date"
+
+
+  ## Sensores de tempo que estamos em casa durante a semana
+  - platform: history_stats
+    name: "Cadu em Casa Semana (Tempo)"
+    entity_id: device_tracker.iphone_de_cadu_2
+    state: home
+    type: time
+    start: "{{ as_timestamp( now().replace(hour=0, minute=0, second=0) ) - now().weekday() * 86400 }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Fernanda em Casa Semana (Tempo)"
+    entity_id: device_tracker.iphone_de_fernanda_patricia
+    state: home
+    type: time
+    start: "{{ as_timestamp( now().replace(hour=0, minute=0, second=0) ) - now().weekday() * 86400 }}"
+    end: "{{ now() }}"
+
+  ## Sensores para contagem de tempo das luzes ligadas - MES
+  - platform: history_stats
+    name: "Total Luzes Ligada Mês"
+    entity_id: group.all_lights
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Casal Ligada Mês"
+    entity_id: switch.luz_casal
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Jantar Ligada Mês"
+    entity_id: switch.luzjantar
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Sala Ligada Mês"
+    entity_id: switch.luzsala
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Escritório Ligada Mês"
+    entity_id: switch.luz_escritorio
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Cozinha Ligada Mês"
+    entity_id: switch.luz_cozinha
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Corredor Ligada Mês"
+    entity_id: switch.luz_corredor 
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "TV Sala Ligada Mês"
+    entity_id: media_player.lg_tv_sala 
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+    
+  - platform: history_stats
+    name: "TV Casal Ligada Mês"
+    entity_id: media_player.lg_tv_casal 
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Banheiro Social Ligada Mês"
+    entity_id: switch.luz_bwc_social
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Banheiro Casal Ligada Mês"
+    entity_id: switch.luz_bwc_casal
+    state: "on"
+    type: time
+    start: "{{ now().replace(day=1).replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  ## Sensores para contagem de tempo das luzes ligadas - HOJE
+  - platform: history_stats
+    name: "Total Luzes Ligada Hoje"
+    entity_id: group.all_lights
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Casal Ligada Hoje"
+    entity_id: switch.luz_casal
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Jantar Ligada Hoje"
+    entity_id: switch.luzjantar
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Sala Ligada Hoje"
+    entity_id: switch.luzsala
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Escritório Ligada Hoje"
+    entity_id: switch.luz_escritorio
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Cozinha Ligada Hoje"
+    entity_id: switch.luz_cozinha
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Corredor Ligada Hoje"
+    entity_id: switch.luz_corredor
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "TV Sala Ligada Hoje"
+    entity_id: media_player.lg_tv_sala
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+    
+  - platform: history_stats
+    name: "TV Casal Ligada Hoje"
+    entity_id: media_player.lg_tv_casal
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Banheiro Social Ligada Hoje"
+    entity_id: switch.luz_bwc_social
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Banheiro Casal Ligada Hoje"
+    entity_id: switch.luz_bwc_casal
+    state: "on"
+    type: time
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
+
+  ## Sensores para contagem de tempo das luzes ligadas - ONTEM
+  - platform: history_stats
+    name: "Total Luzes Ligada Ontem"
+    entity_id: group.all_lights
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Casal Ligada Ontem"
+    entity_id: switch.luz_casal
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Jantar Ligada Ontem"
+    entity_id: switch.luzjantar
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Sala Ligada Ontem"
+    entity_id: switch.luzsala
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Escritório Ligada Ontem"
+    entity_id: switch.luz_escritorio
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Cozinha Ligada Ontem"
+    entity_id: switch.luz_cozinha
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Corredor Ligada Ontem"
+    entity_id: switch.luz_corredor
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "TV Sala Ligada Ontem"
+    entity_id: media_player.lg_tv_sala
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+      
+  - platform: history_stats
+    name: "TV Casal Ligada Ontem"
+    entity_id: media_player.lg_tv_casal
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Banheiro Social Ligada Ontem"
+    entity_id: switch.luz_bwc_social
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  - platform: history_stats
+    name: "Luz Banheiro Casal Ligada Ontem"
+    entity_id: switch.luz_bwc_casal
+    state: "on"
+    type: time
+    end: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    duration:
+      hours: 24
+
+  ## Sensores de contagem - numero de vezes que foi aberta a porta da sala
+  - platform: history_stats
+    name: "Porta Sala (Contador)"
+    entity_id: binary_sensor.porta_sala_contact
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  # - platform: history_stats
+  #   name: "Porta Sacada (Contador)"
+  #   entity_id: binary_sensor.1000e72240_2
+  #   state: "on"
+  #   type: count
+  #   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  #   end: "{{ now() }}"
+
+  # - platform: history_stats
+  #   name: "Porta BWC Social (Contador)"
+  #   entity_id: binary_sensor.1000e72240_6
+  #   state: "on"
+  #   type: count
+  #   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  #   end: "{{ now() }}"
+
+  # - platform: history_stats
+  #   name: "Porta BWC Casal (Contador)"
+  #   entity_id: binary_sensor.1000e72240_9
+  #   state: "on"
+  #   type: count
+  #   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  #   end: "{{ now() }}"
+
+  ## Sensores de contagem - numero de vezes que foi acesa a lampada
+  - platform: history_stats
+    name: "Cozinha (Contador)"
+    entity_id: switch.luz_cozinha
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Corredor (Contador)"
+    entity_id: switch.luz_corredor
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Banheiro Social (Contador)"
+    entity_id: switch.luz_bwc_social
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Banheiro da suite (Contador)"
+    entity_id: switch.luz_bwc_casal
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Luz Lara (Contador)"
+    entity_id: switch.luzmeninas 
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "Abajur Lara (Contador)"
+    entity_id: light.abajurmeninas
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: "TV Sala (Contador)"
+    entity_id: media_player.lg_tv_sala
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+    
+  - platform: history_stats
+    name: "TV LG (Contador)"
+    entity_id: media_player.lg_tv_casal
+    state: "on"
+    type: count
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+
+
+#   _______       _ _ _
+#  |__   __|     (_) (_)
+#     | |_      ___| |_  ___
+#     | \ \ /\ / / | | |/ _ \
+#     | |\ V  V /| | | | (_) |
+#     |_| \_/\_/ |_|_|_|\___/
+twilio:
+  account_sid: !secret twilioaccount
+  auth_token: !secret twiliotoken
+
+#   _______   _                                  ____        _
+#  |__   __| | |                                |  _ \      | |
+#     | | ___| | ___  __ _ _ __ __ _ _ __ ___   | |_) | ___ | |_
+#     | |/ _ \ |/ _ \/ _` | '__/ _` | '_ ` _ \  |  _ < / _ \| __|
+#     | |  __/ |  __/ (_| | | | (_| | | | | | | | |_) | (_) | |_
+#     |_|\___|_|\___|\__, |_|  \__,_|_| |_| |_| |____/ \___/ \__|
+#                     __/ |
+#                   |___/
+### Configurando o telegram
+telegram_bot:
+  - platform: polling
+    api_key: !secret apiTelegram #aqui você coloca o token gerado no bot
+    parse_mode: html
+    allowed_chat_ids:
+      - !secret chat_tg_cadu #aqui você coloca o chat_id que você pegou após conversar com o bot.
+      - !secret chat_tg_fernanda
+
+#   _   _       _   _  __
+#  | \ | |     | | (_)/ _|
+#  |  \| | ___ | |_ _| |_ _   _
+#  | . ` |/ _ \| __| |  _| | | |
+#  | |\  | (_) | |_| | | | |_| |
+#  |_| \_|\___/ \__|_|_|  \__, |
+#                          __/ |
+#                         |___/
+# Example configuration.yaml entry for the notifier
+notify:
+  - name: cadutelegram #nome que achar melhor
+    platform: telegram
+    chat_id: !secret chat_tg_cadu #aqui você coloca o chat_id que você pegou após conversar com o bot.
+  - name: fernandatelegram
+    platform: telegram
+    chat_id: !secret chat_tg_fernanda
+  - name: telegramtodos
+    platform: group
+    services:
+      - service: cadutelegram
+      - service: fernandatelegram
+
+  - name: twilio_custom_call
+    platform: twilio_call
+    from_number: !secret twilio_phone  #Atenção, esse número é o número obtido na conta Twilio, e não seu celular.
+
+  - name: twilio_sms_cadu
+    platform: twilio_sms
+    from_number: !secret twilio_phone
+
+  ## Configuração Rocket Chat
+  - platform: rocketchat
+    name: ValsesiaRocket
+    url: https://open.rocket.chat
+    username: !secret userRocket
+    password: !secret passRocket
+    room: valsesiahomeassistant
+
+  ### configuraçao para enviar msgs Whats pelo BOT - Cadu
+  - name: WhatsApp_cadu
+    platform: rest
+    resource: https://api.callmebot.com/whatsapp.php
+    data:
+      source: HA
+      phone: !secret whatsapp_phone #enter your phone number here
+      apikey: !secret whatsapp_api
+
+
+#   ____                                                 _     _      _
+#  / ___|  ___   _ __ ___   _ __ ___    __ _  _ __    __| |   | |    (_) _ __    ___
+# | |     / _ \ | '_ ` _ \ | '_ ` _ \  / _` || '_ \  / _` |   | |    | || '_ \  / _ \
+# | |___ | (_) || | | | | || | | | | || (_| || | | || (_| |   | |___ | || | | ||  __/
+#  \____| \___/ |_| |_| |_||_| |_| |_| \__,_||_| |_| \__,_|   |_____||_||_| |_| \___|
+
+command_line:
+  - notify:
+      name: whats_textmebot
+      command: 'wget $(cat) -O /dev/null'
+
+  - sensor:
+      name: shopping_list
+      command: python3 /config/shopping_list.py
+    
+
+
+
+alexa:
+  smart_home:
+    # locale: pt-BR
+    # endpoint: https://api.amazonalexa.com/v3/events
+    filter:
+      include_entities:
+        - input_boolean.campainha_alexa
+        - input_boolean.checar_luzes
+        - input_boolean.apagar_todas_luzes
+        - binary_sensor.porta_sala_contact
+        - input_boolean.visitas
+        - alarm_control_panel.home_alarm
+        - button.botao_ligar_studio
+        - button.desligar_studio
+      exclude_domains:
+        - automation
+        - script
+        - input_boolean
+        - group
+        - input_number
+        - media_player
+        - binary_sensor
+      exclude_entity_globs:
+        - light.browser_mod*
+        - media_player.browser_mod*
+        - switch.hora_da_festa*
+        - switch.home_theater*
+        - switch.ak001*
+        - switch.todos_echo*
+        - switch.echo_dot*
+        - switch.echo_sala*
+        - switch.echo_show_cozinha*
+        - switch.carlos_s_alexa*
+        - sensor.dark_sky*
+        - switch.echo*
+        - switch.extensao_micro_socket_*
+        - switch.fire_tv_*
+        - switch.leitor_de_tag1*
+        - switch.leitor_tag1*
+        - switch.sala_de_estar_*
+        - switch.tagreader_*
+        - switch.this_device_*
+        - switch.escritorio_do_*
+        - switch.*_switch_1
+        - switch.*_switch_2
+        - switch.*_switch_3
+        - switch.*_switch_4
+        - switch.carlos_s_echo_dot*
+        - switch.2o_echo_show_de_carlos*
+        - switch.ledcozinhaarq*
+        - switch.2o_echo_pop_de_carlos*
+        - sensor.blink_camera_frente*
+        - binary_sensor.blink_camera_frente*
+      exclude_entities:
+        - sensor.arescritorio_room_temperature
+        - switch.armeninas_display_light
+        - switch.arescritorio_display_light
+        - switch.tomadacozinha_soquete_1
+        - switch.tomadacozinha_soquete_2
+        - switch.tomadacozinha_soquete_3
+        - switch.tomadacozinha_soquete_4
+        - switch.ledtv_mini
+        - switch.bwc_casal_interruptor_1
+        - switch.bwcsocial_interruptor_1
+        - switch.bwcsocial_interruptor_2
+        - switch.bwcsocial_interruptor_3
+        - switch.bwc_casal_spot_interruptor_1
+        - switch.casal_interruptor_1
+        - switch.casal_interruptor_2
+        - switch.casal_interruptor_3
+        - switch.casalparalelo_interruptor_1
+        - switch.casalparalelo_interruptor_2
+        - switch.casalparalelo_interruptor_3
+        - switch.casalparalelo_interruptor_4
+        - switch.corredor_interruptor_1
+        - switch.corredor_interruptor_2
+        - switch.cozinha_interruptor_1
+        - switch.cozinha_interruptor_2
+        - switch.cozinha_interruptor_3
+        - switch.cozinha2_interruptor_1
+        - switch.cozinha2_interruptor_2
+        - switch.cozinha2_interruptor_3
+        - switch.entrada2_interruptor_1
+        - switch.entrada2_interruptor_2
+        - switch.entrada2_interruptor_3
+        - switch.escritorio_interruptor_1
+        - switch.escritorio_interruptor_2
+        - switch.escritorio_interruptor_3
+        - switch.lavabo_interruptor_1
+        - switch.lavanderia_interruptor_1
+        - switch.quartomeninas_interruptor_1
+        - switch.quartomeninas_interruptor_2
+        - switch.quartomeninas_interruptor_3
+        - switch.sacada_interruptor_1
+        - switch.sacada_interruptor_2
+        - switch.sacada_interruptor_3
+        - switch.sacadasala_interruptor_1
+        - switch.sacadasala_interruptor_2
+        - switch.sacadasala_interruptor_3
+        - switch.sala1_interruptor_1
+        - switch.sala1_interruptor_2
+        - switch.sala1_interruptor_3
+        - switch.sala2_interruptor_1
+        - switch.sala2_interruptor_2
+        - switch.sala2_interruptor_3      
+        - alarm_control_panel.blink_moduloamazon
+        - sensor.temper_humidity
+        - sensor.temper_humidity_temperature
+        - button.contact_identify
+        - switch.threeswitch_8_interruptor_1
+        - switch.threeswitch_8_interruptor_2
+        - switch.threeswitch_8_interruptor_3
+        - switch.2o_echo_pop_de_carlos_shuffle_switch
+        - switch.2o_echo_pop_de_carlos_do_not_disturb_switch
+        - switch.2o_echo_pop_de_carlos_repeat_switch
+        - light.hall_group
+        - light.brilho_do_led_2
+        - light.abajurmeninas
+        - switch.porta2
+        - switch.porta1
+        - switch.porta3
+        - switch.porta4
+        - switch.porta5
+        - light.imac_screen
+        - switch.bwcsocial_switch_1
+        - switch.bwcsocial_switch_2
+        - switch.bwcsocial_switch_3
+        - switch.bwc_casal_switch_1
+        - switch.bwc_casal_spot_switch_1
+        - switch.casal_switch_1
+        - switch.casal_switch_2
+        - switch.casal_switch_3
+        - switch.casalparalelo_switch_1
+        - switch.casalparalelo_switch_2
+        - switch.casalparalelo_switch_3
+        - switch.casalparalelo_switch_4
+        - switch.corredor_switch_1
+        - switch.corredor_switch_2
+        - switch.cozinha_switch_1
+        - switch.cozinha_switch_2
+        - switch.cozinha_switch_3
+        - scene.cozinha1off
+        - switch.cozinha2_switch_1
+        - switch.cozinha2_switch_2
+        - switch.cozinha2_switch_3
+        - scene.cozinha2on
+        - switch.entrada_switch_1
+        - switch.entrada2_switch_1
+        - switch.entrada2_switch_2
+        - switch.entrada2_switch_3
+        - switch.escritorio_switch_1
+        - switch.escritorio_switch_2
+        - scene.fazer_cafe
+        - switch.lavabo_switch_1
+        - switch.lavanderia_switch_1
+        - switch.ledtv_switch
+        - switch.miniledcozinha_switch_1
+        - switch.miniledcozinha_switch_2
+        - switch.quartomeninas_switch_1
+        - switch.quartomeninas_switch_2
+        - switch.quartomeninas_switch_3
+        - switch.sacada_switch_1
+        - switch.sacada_switch_2
+        - switch.sacada_switch_3
+        - switch.sacadasala_switch_1
+        - switch.sacadasala_switch_2
+        - switch.sacadasala_switch_3
+        - switch.sala1_switch_1
+        - switch.sala1_switch_2
+        - switch.sala1_switch_3
+        - switch.sala2_switch_1
+        - switch.sala2_switch_2
+        - switch.sala2_switch_3
+        - switch.casalparalelo_switch_1
+        - switch.casalparalelo_switch_2
+        - switch.casalparalelo_switch_3
+        - switch.tomadacozinha_socket_3
+        - switch.tomadacozinha_socket_1
+        - switch.tomadacozinha_socket_2
+        - switch.tomadacozinha_socket_4
+        - switch.abajurcasal_paralelo
+        - switch.sancacasal_paralelo
+        - switch.spotcasal_paralelo
+        - switch.luzcasal_paralelo
+        - switch.spot_prateleira_paralelo
+        - switch.luz_corredor_paralelo
+        - switch.spot_cristaleira_paralelo
+        - switch.luz_jantar_paralelo
+        - switch.luz_sala_paralelo
+        - switch.luzcozinha_paralelo
+        - switch.lavanderia_paralelo
+        - switch.led_cozinha_mini
+        - switch.armeninas_jet_mode
+        - switch.arescritorio_jet_mode
+        - switch.lavadora
+        - switch.escritorio_repeat_switch
+        - switch.escritorio_shuffle_switch
+        - binary_sensor.bwc_casal_tamper
+        - binary_sensor.pir_bwc_social_tamper
+        - sensor.backup_state
+        - binary_sensor.mymotiondetectorrule_cell_motion_detection_2
+        - binary_sensor.videosource_1_motion_alarm_2
+        - binary_sensor.myfielddetector1_field_detection_2
+        - binary_sensor.myfielddetector1_field_detection
+        - binary_sensor.videosource_1_motion_alarm
+        - binary_sensor.mymotiondetectorrule_cell_motion_detection
+        - binary_sensor.internet
+        - binary_sensor.ultimo_dia_do_mes
+        - binary_sensor.ultimo_dia_do_mes_energia
+        - binary_sensor.ipad_de_cadu_focus
+        - binary_sensor.leitor_de_tag1_status
+        - light.leitor_de_tag1_led
+        - light.leitor_tag1_led
+        - binary_sensor.leitor_tag1_status
+        - light.tagreader_led
+        - binary_sensor.tagreader_status
+        - switch.nodered_3e86aa3cbb5da4f5
+        - binary_sensor.remote_ui
+        - binary_sensor.repetidor_cozinha_led
+        - binary_sensor.repetidor_quarto_led
+        - binary_sensor.rpi_power_status
+        - binary_sensor.sacada_crash
+        - switch.extensao_micro_usb_1
+        - switch.esp8266_teste_esp8266_teste
+        - binary_sensor.broadlink_escritorio
+        - binary_sensor.broadlink_casal
+        - binary_sensor.broadlink_lara_helena
+        - binary_sensor.broadlink_sala
+        - input_boolean.alarme_sacada
+        - input_boolean.alarme_sala
+        - input_boolean.apagar_todas_luzes
+        - binary_sensor.diminui_brilho_leitura
+        - binary_sensor.aumento_brilho_leitura
+        - binary_sensor.controle_rf_1
+        - binary_sensor.controle_rf_2
+        - binary_sensor.controle_rf_3
+        - binary_sensor.controle_rf_4
+        - binary_sensor.controle_leitura
+        - input_boolean.dar_mama_helena
+        - switch.luz_entrada_jantar
+        - switch.escritorio_shuffle_switch
+        - binary_sensor.updater
+        - device_tracker.redmi_note_5
+        - device_tracker.iphone_de_cadu
+        - device_tracker.apple_watch_5_de_cadu
+        - person.valsesia
+        - person.fernanda_patricia_batista
+        - switch.echo_dot_de_cadu_do_not_disturb_switch
+        - switch.echo_dot_de_cadu_repeat_switch
+        - switch.echo_dot_de_cadu_shuffle_switch
+        - switch.echo_show_de_carlos_do_not_disturb_switch
+        - switch.echo_show_de_carlos_repeat_switch
+        - switch.echo_show_de_carlos_shuffle_switch
+        - media_player.carlos_s_alexa_apps
+        - switch.carlos_s_alexa_apps_do_not_disturb_switch
+        - media_player.chromecast_sala
+        - switch.intsalacorredor
+        - media_player.echo_dot_de_cadu
+        - media_player.escritorio_som
+        - switch.intentradajantar
+        - media_player.hub_jantar
+        - switch.imac_de_cadu
+        - media_player.jbl_sala
+        - switch.led_cozinha_power
+        - switch.led_escritorio_power
+        - switch.led_lara_amarelo
+        - switch.led_lara_ciano
+        - switch.led_lara_liga
+        - switch.led_lara_rosa
+        - switch.led_lara_verde
+        - switch.led_lara_down
+        - switch.led_lara_up
+        - media_player.sala_de_jantar_som
+        - media_player.som_ambiente
+        - switch.som_ambiente_do_not_disturb_switch
+        - switch.som_ambiente_shuffle_switch
+        - switch.som_ambiente_repeat_switch
+        - media_player.this_device
+        - switch.this_device_do_not_disturb_switch
+        - media_player.todo_lugar
+        - switch.todo_lugar_do_not_disturb_switch
+        - switch.todo_lugar_shuffle_switch
+        - switch.todo_lugar_repeat_switch
+        - media_player.casa_toda
+        - switch.climate_timer
+        - light.sovrum_group
+        - sensor.echo_dot_azul_temperature
+        - light.aa3a9900_imac_screen
+        - switch.monitors_mute
+        - climate.ac
+        - switch.sonoff_100084fd7c
+        - sensor.0x00124b002228c102_temperature
+        - switch.sonoff_1000b91f54
+        - switch.sonoff_1000b8a479
+        - light.b27ba391_983898eb_tab_screen
+        - light.studio_group
+        - timer.laundry
+        - switch.imac
+        - timer.climate
+        - timer.mama_helena
+        - light.vardagsrum_group
+        - light.badrum_group
+        - sensor.template_udm_cpu_temp
+        - light.brilho_do_led
+  entity_config:
+    alarm_control_panel.home_alarm:
+      code: !secret code_alarm
+      name: "Alarme Casa"
+      description: "Painel de Alarme Apartamento"
+    # filter:
+    #   include_domains:
+    #     - alarm_control_panel
+    #     - light
+    #   include_entity_globs:
+    #     - binary_sensor.*_occupancy
+
+google_assistant:
+  project_id: cloudflare-8fae2
+  service_account: !include cloudflare-8fae2-9ef32ea83348.json
+  report_state: true
+  secure_devices_pin: !secret code_alarm
+  expose_by_default: true
+  exposed_domains:
+    - switch
+    - climate
+    - cover
+  entity_config:
+    alarm_control_panel.home_alarm:
+      expose: true
+      room: entrada
+      
+    light.d1_abajur:
+      name: "Abajur Escritório"
+      room: Escritório
+      expose: true
+    climate.arescritorio:
+      name: "Ar do Escritório"
+      room: Escritório
+    switch.spot_escritorio:
+      name: "Spot do Escritório"
+      room: Escritório
+    switch.luz_escritorio:
+      name: "Luz do Escritório"
+      room: escritório
+
+    switch.luz_bwc_casal:
+      name: "Luz do Banheiro Casal"
+      room: banheiros
+    switch.luz_bwc_social:
+      name: "Luz do Banheiro Social"
+      room: banheiros
+    switch.spot_bwc_casal:
+      name: "Spot do Banheiro Casal"
+      room: banheiros
+    switch.spot_banho:
+      name: "Spot do Banho"
+      room: banheiros
+    switch.spot_bwc_social:
+      name: "Luz do Banheiro Social"
+      room: banheiros
+    switch.tomada_bwc_social:
+      name: "Tomada do Banheiro Social"
+      room: banheiros
+      
+    switch.luz_casal:
+      name: "Luz Casal"
+      room: "quarto de casal"
+    switch.sanca_casal :
+      name: "Sanca Casal"
+      room: "quarto de casal"
+    switch.spot_casal:
+      name: "Spot Casal"
+      room: "quarto de casal"
+    switch.abajurcasal_paralelo:
+      name: "Abajur Casal"
+      room: "quarto de casal"
+    switch.sancacasal_paralelo:
+      expose: false
+    switch.luzcasal_paralelo:
+      expose: false
+    switch.spotcasal_paralelo:
+      expose: false
+      
+    switch.luz_corredor:
+      name: "Luz do Corredor"
+      room: corredor
+    switch.spot_prateleira:
+      name: "Spot Prateleira"
+      room: corredor
+    switch.spot_prateleira_paralelo:
+      expose: false
+    switch.luz_corredor_paralelo:
+      expose: false
+      
+    switch.luzmeninas:
+      name: "Luz Meninas"
+      room: "Quarto Lara"
+    switch.spot_beliche:
+      name: "Spot do Beliche"
+      room: "Quarto Lara"
+    switch.spot_mesa:
+      name: "Spot da Mesa Meninas"
+      room: "Quarto Lara"
+    
+    switch.luzsala:
+      name: "Luz da Sala"
+      room: "sala de estar"
+    switch.spottv:
+      name: "Spot da TV"
+      room: "sala de estar"
+
+    switch.ledtv_paralelo:
+      name: "Luz da TV"
+      room: "sala de estar"
+    switch.luz_sala_paralelo:
+      expose: false
+      
+      
+    switch.luzjantar:
+      name: "Luz Jantar"
+      room: "sala de jantar"
+    switch.spot_cristaleira:
+      name: "Spot da Cristaleira"
+      room: "sala de jantar"
+    switch.luz_jantar_paralelo:
+      expose: false
+    switch.spot_cristaleira_paralelo:
+      expose: false
+      
+    switch.luz_cozinha:
+      name: "Luz da Cozinha"
+      room: "cozinha"
+    switch.pendente_cozinha:
+      name: "Pendente da Cozinha"
+      room: "cozinha"
+    switch.ledcozinha_paralelo:
+      name: "Led da Cozinha"
+      room: "cozinha"
+    switch.luzbancada:
+      name: "Luz da Bancada"
+      room: "cozinha"
+    switch.luzcozinha_paralelo:
+      expose: false
+    switch.luz_lavanderia:
+      name: "Luz da Lavanderia"
+      room: "lavanderia"
+    switch.lavanderia_paralelo:
+      expose: false
+      
+    switch.luzentrada:
+      name: "Luz da Entrada"
+      room: "entrada"
+      
+    switch.luzsacada:
+      name: "Luz da Sacada"
+      room: "sacada"
+    switch.spotsacada:
+      name: "Spot da Sacada"
+      room: "sacada"
+    switch.spotsacada1:
+      name: "Spot Churrasqueira"
+      room: "sacada"
+    switch.luzchurrasqueira:
+      name: "Luz da Churrasqueira"
+      room: "sacada"
+ 
+    switch.tomada1_cozinha:
+      name: "Tomada1 da Cozinha"
+      room: "tomadas"    
+    switch.tomada2_cozinha:
+      name: "Tomada2 da Cozinha"
+      room: "tomadas"
+    switch.usb_cozinha:
+      name: "USB da Cozinha"
+      room: "tomadas"    
+    switch.usbc_cozinha:
+      name: "USBc da Cozinha"
+      room: "tomadas"
+    switch.tomadacozinha_soquete_1:
+      expose: false
+    switch.tomadacozinha_soquete_2:
+      expose: false
+    switch.tomadacozinha_soquete_3:
+      expose: false
+    switch.tomadacozinha_soquete_4:
+      expose: false
+    switch.threeswitch_8_interruptor_1:
+      expose: false
+    switch.threeswitch_8_interruptor_2:
+      expose: false
+    switch.threeswitch_8_interruptor_3:
+      expose: false
+    switch.frigobar:
+      name: "Tomada do Frigobar"
+      room: "tomadas"  
+
+    switch.airfryer:
+      name: "Tomada da Air Fryer"
+      room: "tomadas"  
+
+    switch.microondas:
+      name: "Tomada do Microondas"
+      room: "tomadas"  
+      
+    switch.tomadageladeira:
+      name: "Tomada da Geladeira"
+      room: "tomadas"  
+      
+    switch.porta1:
+      expose: false
+    switch.porta2:
+      expose: false
+    switch.porta3:
+      expose: false
+    switch.porta4:
+      expose: false
+    sensor.temper_humidity:
+      expose: false
+    sensor.temper_humidity_temperature:
+      expose: false
+      
+    button.contact_identify:
+      expose: false
+      
+    humidifier.difusor:
+      name: "Difusor"
+      room: "sala de jantar"
+
+    switch.luz_lavabo:
+      name: "Luz do Lavabo"
+      room: "Lavabo"
+      
+    switch.imac:
+      expose: false
+    
+    switch.abajur_absolut:
+      name: "Abajur Absolut"
+      room: escritório
+   
+    lock.lock_mechanism:
+      name: "Fechadura"
+      room: entrada
+
+    sensor.temper_humidity_2:
+      expose: false
+    sensor.temper_humidity_temperature_2:
+      expose: false
+    button.temper_humidity_identify:
+      expose: false
+    switch.monitors_mute:
+      expose: false
+    switch.acendetudo:
+      expose: false
+    switch.ewelink_virtual_switch:
+      expose: false
+    switch.imac_de_cadu_2:
+      expose: false
+    switch.imac_wol:
+      expose: false
+    switch.ledcozinhaarq_2:
+      expose: false
+    switch.ledcozinhaarq:
+      expose: false
+    switch.sala_estar_group:
+      expose: false
+    switch.climate_timer:
+      expose: false
+    switch.luzes_natal_socket_1:
+      expose: false
+    binary_sensor.ledcozinhaarq:
+      expose: false
+    switch.switch2:
+      expose: false
+    switch.led_cozinha_mini:
+      expose: false
+    switch.armeninas_jet_mode:
+      expose: false
+    switch.armeninas_display_light:
+      expose: false
+    switch.arescritorio_display_light:
+      expose: false
+    switch.camera_escritorio_ir_lamp:
+      expose: false
+    switch.camera_escritorio_autofocus:
+      expose: false
+    switch.camera_escritorio_wiper:
+      expose: false
+    switch.arescritorio_jet_mode:
+      expose: false
+    switch.sonoff_1000e4f7a5:
+      expose: false
+    switch.bwcsocial_switch_1:
+      expose: false
+    switch.bwcsocial_switch_2:
+      expose: false
+    switch.bwcsocial_switch_3:
+      expose: false
+    switch.bwc_casal_switch_1:
+      expose: false
+    switch.bwc_casal_spot_switch_1:
+      expose: false
+    switch.casal_switch_1:
+      expose: false
+    switch.casal_switch_2:
+      expose: false
+    switch.casal_switch_3:
+      expose: false
+    switch.casalparalelo_switch_1:
+      expose: false
+    switch.casalparalelo_switch_2:
+      expose: false
+    switch.casalparalelo_switch_3:
+      expose: false
+    switch.casalparalelo_switch_4:
+      expose: false
+    switch.corredor_switch_1:
+      expose: false
+    switch.corredor_switch_2:
+      expose: false
+    switch.cozinha_switch_1:
+      expose: false
+    switch.cozinha_switch_2:
+      expose: false
+    switch.cozinha_switch_3:
+      expose: false
+    scene.cozinha1off:
+      expose: false
+    switch.cozinha2_switch_1:
+      expose: false
+    switch.cozinha2_switch_2:
+      expose: false
+    switch.cozinha2_switch_3:
+      expose: false
+    scene.cozinha2on:
+      expose: false
+    switch.entrada2_switch_1:
+      expose: false
+    switch.entrada2_switch_2:
+      expose: false
+    switch.entrada2_switch_3:
+      expose: false
+    switch.escritorio_switch_1:
+      expose: false
+    switch.escritorio_switch_2:
+      expose: false
+    scene.fazer_cafe:
+      expose: false
+    switch.lavabo_switch_1:
+      expose: false
+    switch.lavanderia_switch_1:
+      expose: false
+    switch.ledtv_switch:
+      expose: false
+    switch.miniledcozinha_switch_1:
+      expose: false
+    switch.miniledcozinha_switch_2:
+      expose: false
+    switch.quartomeninas_switch_1:
+      expose: false
+    switch.quartomeninas_switch_2:
+      expose: false
+    switch.quartomeninas_switch_3:
+      expose: false
+    switch.sacada_switch_1:
+      expose: false
+    switch.sacada_switch_2:
+      expose: false
+    switch.sacada_switch_3:
+      expose: false
+    switch.sacadasala_switch_1:
+      expose: false
+    switch.sacadasala_switch_2:
+      expose: false
+    switch.sacadasala_switch_3:
+      expose: false
+    switch.sala1_switch_1:
+      expose: false
+    switch.sala1_switch_2:
+      expose: false
+    switch.sala1_switch_3:
+      expose: false
+    switch.sala2_switch_1:
+      expose: false
+    switch.sala2_switch_2:
+      expose: false
+    switch.sala2_switch_3:
+      expose: false
+    climate.ac:
+      expose: false
+    switch.ledcozinha_mini:
+      expose: false
+    switch.er_lu_hong_kong_kai_guan_2_interruptor_1:
+      expose: false
+    switch.er_lu_hong_kong_kai_guan_2_interruptor_2:
+      expose: false
+    switch.miniledcozinha_interruptor_1:
+      expose: false
+    switch.miniledcozinha_interruptor_2:
+      expose: false
+    switch.switch1_2:
+      expose: false
+    switch.naousar:
+      expose: false
+        
+    switch.bwc_casal_interruptor_1:
+      expose: false
+    switch.bwcsocial_interruptor_1:
+      expose: false
+    switch.bwcsocial_interruptor_2:
+      expose: false
+    switch.bwcsocial_interruptor_3:
+      expose: false
+    switch.bwc_casal_spot_interruptor_1:
+      expose: false
+    switch.casal_interruptor_1:
+      expose: false
+    switch.casal_interruptor_2:
+      expose: false
+    switch.casal_interruptor_3:
+      expose: false
+    switch.casalparalelo_interruptor_1:
+      expose: false
+    switch.casalparalelo_interruptor_2:
+      expose: false
+    switch.casalparalelo_interruptor_3:
+      expose: false
+    switch.casalparalelo_interruptor_4:
+      expose: false
+    switch.corredor_interruptor_1:
+      expose: false
+    switch.corredor_interruptor_2:
+      expose: false
+    switch.cozinha_interruptor_1:
+      expose: false
+    switch.cozinha_interruptor_2:
+      expose: false
+    switch.cozinha_interruptor_3:
+      expose: false
+    switch.cozinha2_interruptor_1:
+      expose: false
+    switch.cozinha2_interruptor_2:
+      expose: false
+    switch.cozinha2_interruptor_3:
+      expose: false
+    switch.entrada2_interruptor_1:
+      expose: false
+    switch.entrada2_interruptor_2:
+      expose: false
+    switch.entrada2_interruptor_3:
+      expose: false
+    switch.escritorio_interruptor_1:
+      expose: false
+    switch.escritorio_interruptor_2:
+      expose: false
+    switch.escritorio_interruptor_3:
+      expose: false
+    switch.lavabo_interruptor_1:
+      expose: false
+    switch.lavanderia_interruptor_1:
+      expose: false
+    switch.quartomeninas_interruptor_1:
+      expose: false
+    switch.quartomeninas_interruptor_2:
+      expose: false
+    switch.quartomeninas_interruptor_3:
+      expose: false
+    switch.sacada_interruptor_1:
+      expose: false
+    switch.sacada_interruptor_2:
+      expose: false
+    switch.sacada_interruptor_3:
+      expose: false
+    switch.sacadasala_interruptor_1:
+      expose: false
+    switch.sacadasala_interruptor_2:
+      expose: false
+    switch.sacadasala_interruptor_3:
+      expose: false
+    switch.sala1_interruptor_1:
+      expose: false
+    switch.sala1_interruptor_2:
+      expose: false
+    switch.sala1_interruptor_3:
+      expose: false
+    switch.sala2_interruptor_1:
+      expose: false
+    switch.sala2_interruptor_2:
+      expose: false
+    switch.sala2_interruptor_3:
+      expose: false
+    switch.ledtv_mini:
+      expose: false
+      
+    switch.tv_casal_power:
+      expose: false
+    switch.tv_sala_power:
+      expose: false
+    switch.imac_de_cadu:
+      expose: false
+    switch.leitor_tag:
+      expose: false
+    switch.tag_cartao:
+      expose: false
+    switch.sonoff_1000b8a479:
+      expose: false
+    switch.led_cozinha_power:
+      expose: false
+    switch.led_escritorio_power:
+      expose: false
+    switch.intsalacorredor:
+      expose: false
+    light.browser_mod_0d00db49_024ccd56:
+      expose: false
+    light.browser_mod_7f31f537_bf12c68a:
+      expose: false
+    light.browser_mod_50f3f8ed_9593e15d:
+      expose: false
+    light.browser_mod_2646a975_b3314128:
+      expose: false
+    light.browser_mod_7148cfcc_a6b3f9ba:
+      expose: false
+    light.browser_mod_aec21097_e01ca59a:
+      expose: false
+    light.browser_mod_e2e1c426_12fb7210:
+      expose: false
+    light.browser_mod_feed76ca_e94ef175:
+      expose: false
+    light.ledsintligados:
+      expose: false
+    light.leitor_de_tag1_led:
+      expose: false
+    light.tagreader_led:
+      expose: false
+    switch.esp8266_teste_esp8266_teste:
+      expose: false
+    switch.leitor_de_tag1_som_habilitado:
+      expose: false
+    switch.led_lara_liga:
+      expose: false
+    switch.led_lara_ciano:
+      expose: false
+    switch.led_lara_amarelo:
+      expose: false
+    switch.led_lara_rosa:
+      expose: false
+    switch.led_lara_verde:
+      expose: false
+    switch.led_lara_down:
+      expose: false
+    switch.led_lara_up:
+      expose: false
+    switch.leitor_de_tag1_led_habilitado:
+      expose: false
+    light.leitor_tag1_led:
+      expose: false
+    switch.leitor_tag1_som_habilitado:
+      expose: false
+    switch.leitor_tag1_led_habilitado:
+      expose: false
+    switch.nodered_3e86aa3cbb5da4f5:
+      expose: false
+    switch.luz_entrada_jantar:
+      expose: false
+    switch.som_escritorio_power:
+      expose: false
+    switch.tagreader_led_enabled:
+      expose: false
+    switch.tagreader_buzzer_enabled:
+      expose: false
+    switch.led_meninas:
+      expose: false
+    light.lampada_jantar_light:
+      expose: false
+    light.sonoff_1000aca618:
+      expose: false
+
+#    _____ _                 _
+#   / ____| |               | |
+#  | |    | | ___  _   _  __| |
+#  | |    | |/ _ \| | | |/ _` |
+#  | |____| | (_) | |_| | (_| |
+#   \_____|_|\___/ \__,_|\__,_|
+cloud:
+  alexa:
+    filter:
+      include_entities:
+        - input_boolean.checar_luzes
+        - input_boolean.apagar_todas_luzes
+        - input_boolean.alarme_sacada
+        - input_boolean.dar_mama_helena
+        - input_boolean.alarme_sala
+        - binary_sensor.cozinha_pir1
+        - binary_sensor.porta_sala
+        - binary_sensor.porta_sacada
+        - binary_sensor.sonoff_1000e93ff6
+        - input_boolean.visitas
+        - switch.luz_cozinha
+        - switch.ledcozinha
+        - switch.abajurcozinha
+      exclude_domains:
+        - automation
+        - script
+        - input_boolean
+        - group
+        - input_number
+        - media_player
+      exclude_entity_globs:
+        - light.browser_mod*
+        - media_player.browser_mod*
+        - switch.hora_da_festa*
+        - switch.home_theater*
+        - switch.ak001*
+        - switch.todos_echo*
+        - switch.echo_dot*
+        - switch.echo_sala*
+        - switch.echo_show_cozinha*
+        - switch.carlos_s_alexa*
+      exclude_entities:
+        - switch.ledtv_interruptor
+        - switch.ledcozinha_mini
+        - switch.er_lu_hong_kong_kai_guan_2_interruptor_1
+        - switch.er_lu_hong_kong_kai_guan_2_interruptor_2
+        - switch.miniledcozinha_interruptor_1
+        - switch.miniledcozinha_interruptor_2
+        - switch.switch1_2
+        - switch.naousar
+        - switch.led_meninas_acesso_remoto
+        - number.led_meninas_velocidade_do_efeito
+        - camera.blink_camera_frente_2
+        - switch.arescritorio_display_light
+        - switch.armeninas_display_light
+        - sensor.temper_humidity_2
+        - sensor.temper_humidity_temperature_2
+        - button.temper_humidity_identify
+        - switch.luz_entrada_jantar
+        - switch.escritorio_shuffle_switch
+        - binary_sensor.updater
+        - device_tracker.redmi_note_5
+        - device_tracker.iphone_de_cadu
+        - device_tracker.apple_watch_5_de_cadu
+        - person.valsesia
+        - person.fernanda_patricia_batista
+        - switch.echo_dot_de_cadu_do_not_disturb_switch
+        - switch.echo_dot_de_cadu_repeat_switch
+        - switch.echo_dot_de_cadu_shuffle_switch
+        - switch.echo_show_de_carlos_do_not_disturb_switch
+        - switch.echo_show_de_carlos_repeat_switch
+        - switch.echo_show_de_carlos_shuffle_switch
+        - media_player.carlos_s_alexa_apps
+        - switch.carlos_s_alexa_apps_do_not_disturb_switch
+        - media_player.chromecast_sala
+        - switch.intsalacorredor
+        - media_player.echo_dot_de_cadu
+        - media_player.escritorio_som
+        - switch.intentradajantar
+        - media_player.hub_jantar
+        - switch.imac_de_cadu
+        - media_player.jbl_sala
+        - switch.led_cozinha_power
+        - switch.led_escritorio_power
+        - switch.led_lara_amarelo
+        - switch.led_lara_ciano
+        - switch.led_lara_liga
+        - switch.led_lara_rosa
+        - switch.led_lara_verde
+        - switch.led_lara_down
+        - switch.led_lara_up
+        - media_player.sala_de_jantar_som
+        - media_player.som_ambiente
+        - switch.som_ambiente_do_not_disturb_switch
+        - switch.som_ambiente_shuffle_switch
+        - switch.som_ambiente_repeat_switch
+        - switch.sonoff_1000ad1dc8_1
+        - switch.sonoff_1000ad1dc8_2
+        - switch.sonoff_1000ad1dc8_3
+        - switch.sonoff_1000ad2773_1
+        - switch.sonoff_1000ad2773_2
+        - switch.sonoff_1000ad2773_3
+        - switch.sonoff_1000950ecd_1
+        - switch.sonoff_1000950ecd_2
+        - switch.sonoff_1000950ecd_3
+        - switch.sonoff_1000956b97_1
+        - switch.sonoff_1000956b97_2
+        - switch.sonoff_1000956d0c_1
+        - switch.sonoff_1000956d0c_2
+        - switch.sonoff_10009570a8_1
+        - switch.sonoff_10009570a8_2
+        - switch.sonoff_10009585a3
+        - switch.sonoff_100095093e_1
+        - switch.sonoff_100095093e_2
+        - switch.sonoff_100095093e_3
+        - switch.sonoff_1000951276_1
+        - switch.sonoff_1000951276_2
+        - switch.sonoff_1000951276_3
+        - media_player.this_device
+        - switch.this_device_do_not_disturb_switch
+        - media_player.todo_lugar
+        - switch.todo_lugar_do_not_disturb_switch
+        - switch.todo_lugar_shuffle_switch
+        - switch.todo_lugar_repeat_switch
+        - media_player.casa_toda
+        #        - switch.sonoff_1000b5bf8b  ## banheiro casal
+        #        - switch.sonoff_1000b57904  ## banheiro social
+        #        - switch.sonoff_1000b8a479  ## Tomada Bar
+        - switch.sonoff_100084fd7c ## Tomada Servidor
+        - switch.sonoff_1000b57440 ## Tomada Enfeite Escritorio
+        - light.ledjantar
+        - switch.505420022cf4326ce3e5_1
+        - switch.505420022cf4326ce3e5_2
+        - switch.505420022cf4326ce3e5_3
+        - switch.505420022cf4326ce3e5_4
+        - switch.505420022cf4326ce3e5_5
+  google_actions:
+    filter:
+      include_entities:
+        - input_boolean.checar_luzes
+        - input_boolean.apagar_todas_luzes
+        - input_boolean.alarme_sacada
+        - input_boolean.dar_mama_helena
+        - input_boolean.alarme_sala
+        - binary_sensor.cozinha_pir1
+        - binary_sensor.porta_sala
+        - binary_sensor.porta_sacada
+        - binary_sensor.campainha_dw1
+        - binary_sensor.porta_guarda_roupa_dw1
+        - binary_sensor.sonoff_1000e93ff6
+        - input_boolean.visitas
+      exclude_domains:
+        - automation
+        - script
+        - input_boolean
+        - group
+        - binary_sensor
+        - input_number
+      exclude_entity_globs:
+        - light.browser_mod*
+        - media_player.browser_mod*
+        - switch.hora_da_festa*
+        - switch.home_theater*
+        - switch.ak001*
+        - switch.todos_echo*
+        - switch.echo_dot*
+        - switch.echo_sala*
+        - switch.echo_show_cozinha*
+        - switch.carlos_s_alexa*
+      exclude_entities:
+        - binary_sensor.updater
+        - device_tracker.redmi_note_5
+        - device_tracker.iphone_de_cadu
+        - device_tracker.apple_watch_5_de_cadu
+        - person.valsesia
+        - person.fernanda_patricia_batista
+        - switch.echo_dot_de_cadu_do_not_disturb_switch
+        - switch.echo_dot_de_cadu_repeat_switch
+        - switch.echo_dot_de_cadu_shuffle_switch
+        - switch.echo_show_de_carlos_do_not_disturb_switch
+        - switch.echo_show_de_carlos_repeat_switch
+        - switch.echo_show_de_carlos_shuffle_switch
+        - media_player.carlos_s_alexa_apps
+        - switch.carlos_s_alexa_apps_do_not_disturb_switch
+        - media_player.chromecast_sala
+        - switch.intsalacorredor
+        - media_player.echo_dot_de_cadu
+        - media_player.escritorio_som
+        - switch.intentradajantar
+        - media_player.hub_jantar
+        - switch.imac_de_cadu
+        - media_player.jbl_sala
+        - switch.led_cozinha_power
+        - switch.led_escritorio_power
+        - switch.led_lara_amarelo
+        - switch.led_lara_ciano
+        - switch.led_lara_liga
+        - switch.led_lara_rosa
+        - switch.led_lara_verde
+        - switch.led_lara_down
+        - switch.led_lara_up
+        - media_player.sala_de_jantar_som
+        - media_player.som_ambiente
+        - switch.som_ambiente_do_not_disturb_switch
+        - switch.som_ambiente_shuffle_switch
+        - switch.som_ambiente_repeat_switch
+        - media_player.this_device
+        - switch.this_device_do_not_disturb_switch
+        - media_player.todo_lugar
+        - switch.todo_lugar_do_not_disturb_switch
+        - switch.todo_lugar_shuffle_switch
+        - switch.todo_lugar_repeat_switch
+        - media_player.casa_toda
+        - switch.sonoff_100084fd7c ## Tomada Servidor
+        - switch.sonoff_1000b57440 ## Tomada Enfeite Escritorio
+        - light.ledjantar
+        - switch.505420022cf4326ce3e5_1
+        - switch.505420022cf4326ce3e5_2
+        - switch.505420022cf4326ce3e5_3
+        - switch.505420022cf4326ce3e5_4
+        - switch.505420022cf4326ce3e5_5
+
+
+# light:
+#   - platform: template
+#     lights:
+#       ewelink_virtual_light:
+#         turn_on:
+#           service: light.turn_on
+#         turn_off:
+#           service: light.turn_off
+          
+          
+#    _____         _ _       _
+#   / ____|       (_) |     | |
+#  | (_____      ___| |_ ___| |__
+#   \___ \ \ /\ / / | __/ __| '_ \
+#   ____) \ V  V /| | || (__| | | |
+#  |_____/ \_/\_/ |_|\__\___|_| |_|
+switch:
+
+  - platform: wake_on_lan
+    name: "iMac de Cadu"
+    mac: !secret imac_mac_address
+    host: 192.168.5.241
+    turn_off:
+      service: shell_command.macbook_standby ## could be "shell_command.macbook__standby" if you don't want to create a script
+
+
+  - platform: broadlink
+    #    name: quarto_casal
+    #    host: 192.168.5.44
+    mac: "24:DF:A7:31:02:20"
+    #    type: rm4_mini
+    switches:
+      - name: "TV Casal Power"
+        command_on: "JgBoAAABKZUSExEUETgSExITEhMSExEUEjgROREUETkRORE5ETkSNxMSExISExM3EhMSExITERQSOBE5ETkRFBI4EjgSOBE4EgAFLQABKUsRAAxkAAEnTBIADGMAASlLEgAMYwABKEwSAA0F"
+        command_off: "JgBoAAABKZUSExEUETgSExITEhMSExEUEjgROREUETkRORE5ETkSNxMSExISExM3EhMSExITERQSOBE5ETkRFBI4EjgSOBE4EgAFLQABKUsRAAxkAAEnTBIADGMAASlLEgAMYwABKEwSAA0F"
+
+  # - platform: broadlink
+  #   #    name: sala_estar
+  #   #    host: 192.168.5.74
+  #   mac: "A0:43:B0:5E:B1:95"
+  #   #    type: rm4c_mini
+  #   switches:
+  #     - name: "Led Cozinha Power"
+  #       command_on: "JgBYAAABKJQTExMTExMTEhMTExMTExMSEzgSOBM3EzcTExM3EzcTNxM3EzgTEhMTExMTExITExMUEhMTEzcUNhM4EjcTOBM3EgAFRgABLkoTAAxdAAEtShMADQUAAAAAAAAAAAAAAAAAAA=="
+  #       command_off: "JgBYAAABKJQTExMTExITExMTExMSExMTEzcTNxM3EzgSExM3EzcTOBMTEjgTEhMTExMTEhMTExMTNxMTEzcTNxM3EzcTOBI4EwAFRQABLEsTAAxdAAEtSRQADQUAAAAAAAAAAAAAAAAAAA=="
+  #     - name: "TV Sala Power"
+  #       command_on: "JgBGAJKVETkRORA6ERQRFBEUERQRFBE5ETkQOhAVEBUQFREUEBUQOhEUERQRORE5EBURFBA6EBUQOhE5EBUQFRA6EDoRFBEADQUAAA=="
+  #       command_off: "JgBGAJOVEDoQOhA6DxYPFhAVEBUQFRA6ETkROREUERQRFBEUEBUQFREUERQRORE5EBUQFRE5ETkRORE5ERUQFRA6DzsPFhAADQUAAA=="
+  #     - name: "Laser"
+  #       command_on: "JgBIAAABIZEUEBU1EjcUERISFBETEhM1FDYUNRMRFDYUEBQ2FDUTEhMRFDYTERQREzYUEBUQFBEUNRQQFTUUNRMSEzYUNRQ2FAANBQAAAAAAAAAAAAAAAAAA"
+  #       command_off: "JgBQAAABIpAVEBM2FDUVEBMSFBAUERM2FDYTNRQSEjYUERM2FDUVEBQRFDUTEhMRFTUTERQRExITNhMRFDUUNRUQFTQVNRQ1FAAFEgABJkkTAA0FAAAAAAAA"
+
+
+#   ____  _  _                    _
+#  / ___|| |(_) _ __ ___    __ _ | |_   ___
+# | |    | || || '_ ` _ \  / _` || __| / _ \
+# | |___ | || || | | | | || (_| || |_ |  __/
+#  \____||_||_||_| |_| |_| \__,_| \__| \___|
+climate:
+  - platform: smartir
+    name: Ar Casal
+    unique_id: quartocasal_ac
+    device_code: 1063
+    controller_data: remote.quartocasal_remote
+    temperature_sensor: sensor.quartocasal_temperature
+    humidity_sensor: sensor.quartocasal_humidity
+    power_sensor: binary_sensor.casal_power
+
+
+#    _____ _          _ _    _____                                          _
+#   / ____| |        | | |  / ____|                                        | |
+#  | (___ | |__   ___| | | | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| |
+#   \___ \| '_ \ / _ \ | | | |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` |
+#   ____) | | | |  __/ | | | |___| (_) | | | | | | | | | | | (_| | | | | (_| |
+#  |_____/|_| |_|\___|_|_|  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|
+shell_command:
+  #  ha_start: curl GET "http://192.168.5.33:1880/endpoint/hastart"
+  #  macbook_standby: ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no carloseduardovalsesia@iMac-de-Carlos.local 'pmset sleepnow'
+  macbook_standby: ssh -i /config/ssh/id_rsa -o StrictHostKeyChecking=no valsesia@iMac-M1-de-Cadu.local 'pmset sleepnow'
+  
+  pushupdate_to_github: /bin/bash pushupdates.sh
+#depurar errros
+# logger:
+#   default: info
+#   logs:
+#     hass_nabucasa: debug
+#     homeassistant.components.cloud: debug
+# logger:
+#   default: warning
+#   logs:
+#     homeassistant.components.homekit: debug
+#     homeassistant.components.zeroconf: debug
+#     pyhap: debug
+
+# logger:
+#   default: warning
+#   logs:
+#     homeassistant.components.homekit: debug
+#     pyhap: debug
+
+# logger:
+#   default: error
+#   logs:
+#     homeassistant.components.zeroconf: debug
+#     hass_nabucasa: debug
+#     snitub: debug
+#     homeassistant.components.cloud: debug
+#     homeassistant.components.cloud.iot: debug
+
+# descobrindo novos dipositivos
+#discovery:

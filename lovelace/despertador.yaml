@@ -1,0 +1,66 @@
+
+#   _____                            _            _            
+#  |  __ \                          | |          | |           
+#  | |  | | ___  ___ _ __   ___ _ __| |_ __ _  __| | ___  _ __ 
+#  | |  | |/ _ \/ __| '_ \ / _ \ '__| __/ _` |/ _` |/ _ \| '__|
+#  | |__| |  __/\__ \ |_) |  __/ |  | || (_| | (_| | (_) | |   
+#  |_____/ \___||___/ .__/ \___|_|   \__\__,_|\__,_|\___/|_|   
+#                   | |                                        
+#                   |_|                                        
+
+title: Despertadores
+path: despertador
+icon: 'mdi:alarm-multiple'
+cards:
+  - entities:
+      - entity: sensor.despert1_despertar
+      - entity: input_select.despert1_src
+        name: 'Reproduzir em Google Home'
+      - entity: input_number.despert1_hora
+        name: 'Hora'
+      - entity: input_number.despert1_minuto
+        name: 'Minuto'
+      - entity: input_select.despert1_tts
+        name: 'Qual Voz'
+      - entity: input_text.despert1_mensagem
+        name: 'Mensagem'
+      - entity: input_boolean.despert1_tempo
+        name: 'Ouvir Informações do Tempo'
+        icon: 'mdi:weather-partly-snowy-rainy'
+      - entity: input_select.despert1_audio_str
+        name: 'Ouvir Rádio'
+      - entity: input_number.despert1_volume
+        name: 'Volume'
+      - entity: input_boolean.despert1_status
+        name: 'Status'
+    show_header_toggle: false
+    title: Despertador (A)
+    type: entities
+  - entities:
+      - entity: sensor.despert2_despertar
+      - entity: input_select.despert2_src
+        name: 'Reproduzir em Google Home'
+      - entity: input_number.despert2_hora
+        name: 'Hora'
+      - entity: input_number.despert2_minuto
+        name: 'Minuto'
+      - entity: input_select.despert2_tts
+        name: 'Qual Voz'
+      - entity: input_text.despert2_mensagem
+        name: 'Mensagem'
+      - entity: input_boolean.despert2_tempo
+        icon: 'mdi:weather-partly-snowy-rainy'
+        name: 'Ouvir Informações do Tempo'
+      - entity: input_select.despert2_audio_str
+        name: 'Ouvir Rádio'
+      - entity: input_number.despert2_volume
+        name: 'Volume'
+      - entity: input_boolean.despert2_status
+        name: 'Status'
+    show_header_toggle: false
+    title: Despertador (B)
+    type: entities
+  - entity: sensor.time
+    name: Hora
+    type: sensor
+    unit: h

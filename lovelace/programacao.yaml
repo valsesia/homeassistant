@@ -1,0 +1,56 @@
+
+#   _____                            _            _            
+#  |  __ \                          | |          | |           
+#  | |  | | ___  ___ _ __   ___ _ __| |_ __ _  __| | ___  _ __ 
+#  | |  | |/ _ \/ __| '_ \ / _ \ '__| __/ _` |/ _` |/ _ \| '__|
+#  | |__| |  __/\__ \ |_) |  __/ |  | || (_| | (_| | (_) | |   
+#  |_____/ \___||___/ .__/ \___|_|   \__\__,_|\__,_|\___/|_|   
+#                   | |                                        
+#                   |_|                                        
+
+title: Programação
+path: programacao
+icon: 'mdi:coffee'
+cards:
+  - entities:
+      - entity: sensor.tomada1_despertar
+      - entity: input_number.tomada1_hora
+        name: 'Hora'
+      - entity: input_number.tomada1_minuto
+        name: 'Minuto'
+      - entity: input_select.tomada1_pessoas
+        name: 'Enviar mensagem para:'
+      - entity: input_text.tomada1_mensagem
+        name: 'Mensagem'
+      - entity: input_boolean.tomada1_desliga
+        name: 'Desliga Tomada'       
+      - entity: input_select.tomada1_desliga_apos
+        name: 'Desliga Após: '
+      - entity: input_boolean.tomada1_status
+        name: 'Status'
+    show_header_toggle: false
+    title: Tomada Cafeteira
+    type: entities
+  - entities:
+      - entity: sensor.tomada2_despertar
+      - entity: input_number.tomada2_hora
+        name: 'Hora'
+      - entity: input_number.tomada2_minuto
+        name: 'Minuto'
+      - entity: input_select.tomada2_pessoas
+        name: 'Enviar mensagem para:'
+      - entity: input_text.tomada2_mensagem
+        name: 'Mensagem'
+      - entity: input_boolean.tomada2_desliga
+        name: 'Desliga Tomada'       
+      - entity: input_select.tomada2_desliga_apos
+        name: 'Desliga Após: '
+      - entity: input_boolean.tomada2_status
+        name: 'Status'
+    show_header_toggle: false
+    title: Tomada Nespresso
+    type: entities
+  - entity: sensor.time
+    name: Hora
+    type: sensor
+    unit: h

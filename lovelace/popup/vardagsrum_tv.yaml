@@ -1,0 +1,72 @@
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Stäng
+                deviceID: this
+                style:
+                  --ha-card-border-radius: 1em
+                  --more-info-header-color: rgba(255,255,255,0.6)
+                  background: none
+                  box-shadow: none
+                card:
+                  type: entities
+                  title: Vardagsrum Tv
+                  style: |
+                    ha-card {
+                      animation: pop-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: center;
+                      box-shadow: none; border-radius: 1em; padding: 0.3em 1.25em 0.4em 0.5em; 
+                      background: linear-gradient(180deg, rgba(48,52,52,1) 0%, rgba(48,52,52,1) 4.8em, rgba(34,38,39,1) 4.8em, rgba(34,38,39,1) 100%); }
+                    .card-header {
+                      margin: -0.4em 0 1.4em 0.4em; font-family: sf text; letter-spacing: 0.005em; font-size: 1.5em;}
+                    @keyframes pop-in {
+                      0% { transform: scale(0.6); opacity: 0; } 20% { opacity: 0; } 100% { transform: scale(1); opacity: 0.9; }}
+                  show_header_toggle: false
+                  entities:
+
+                    - entity: switch.tv_template
+                      name: Sony Bravia
+                      secondary_info: last-changed
+
+                    - entity: automation.tv_on_lights
+                      name: Tänd lampa bakom tv
+                      icon: mdi:lightbulb-on-outline
+
+                    - entity: input_select.hdmi
+
+                    - type: custom:hui-horizontal-stack-card
+                      style: |
+                        #root { justify-content: space-evenly;
+                        margin: 1.4em -0.7em 0.7em 0; }
+                      cards:
+
+                      - type: custom:button-card
+                        icon: mdi:volume-mute
+                        triggers_update:
+                          ['media_player.sony_bravia_tv']
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_mute
+                          service_data:
+                            entity_id: media_player.sony_bravia_tv
+                            is_volume_muted: >
+                              [[[ if (states['media_player.sony_bravia_tv'].attributes.is_volume_muted === 'false')
+                              return 'true'; else return 'false'; ]]]
+                        template: icon_action
+
+                      - type: custom:button-card
+                        icon: mdi:volume-minus
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_down
+                          service_data:
+                            entity_id: media_player.sony_bravia_tv
+                        template: icon_action
+
+                      - type: custom:button-card
+                        icon: mdi:volume-plus
+                        tap_action:
+                          action: call-service
+                          service: media_player.volume_up
+                          service_data:
+                            entity_id: media_player.sony_bravia_tv
+                        template: icon_action

@@ -1,0 +1,93 @@
+
+ #  _                     _ _               /\/|       
+ # | |                   | (_)             |/\/        
+ # | |     ___   ___ __ _| |_ ______ _  ___ __ _  ___  
+ # | |    / _ \ / __/ _` | | |_  / _` |/ __/ _` |/ _ \ 
+ # | |___| (_) | (_| (_| | | |/ / (_| | (_| (_| | (_) |
+ # |______\___/ \___\__,_|_|_/___\__,_|\___\__,_|\___/ 
+ #                                      )_)            
+                                                     
+title: Localização
+path: localizacao
+icon: 'mdi:map-marker-radius'
+cards:
+  - cards:
+      - cards:
+          - elements:
+              - entity: sensor.status_cadu  
+                style:
+                  color: white
+                  font-size: 1.3em
+                  font-weight: bold
+                  left: 27%
+                  top: 90%
+                type: state-label
+              - entity: sensor.bateria_cadu_1  
+                style:
+                  color: white
+                  font-weight: bold
+                  left: 83%
+                  top: 87%
+                type: state-label
+              - entity: sensor.bateria_status_cadu
+                style:
+                  left: 69%
+                  top: 86%
+                type: state-icon
+              - entity: sensor.bateria_status_cadu
+                style:
+                  color: white
+                  font-size: 11px
+                  left: 78%
+                  top: 96%
+                type: state-label
+              - entity: script.cade_o_cadu
+                icon: 'mdi:map-marker-radius'
+                style:
+                  color: white
+                  font-size: 1.4em
+                  left: 8%
+                  top: 7%
+                type: state-icon
+            image: /local/imgs/cadu2.png
+            type: picture-elements
+          - elements:
+              - entity: sensor.status_fernanda
+                style:
+                  color: white
+                  font-size: 1.3em
+                  font-weight: bold
+                  left: 27%
+                  top: 90%
+                type: state-label
+              - entity: sensor.bateria_fernanda_1
+                style:
+                  color: white
+                  font-weight: bold
+                  left: 82%
+                  top: 87%
+                type: state-label
+              - entity: sensor.bateria_status_fernanda
+                style:
+                  left: 69%
+                  top: 86%
+                type: state-icon
+              - entity: sensor.bateria_status_fernanda
+                style:
+                  color: white
+                  font-size: 11px
+                  left: 80%
+                  top: 96%
+                type: state-label
+              - entity: script.cade_a_fernanda
+                icon: 'mdi:map-marker-radius'
+                style:
+                  color: white
+                  font-size: 1.4em
+                  left: 8%
+                  top: 7%
+                type: state-icon
+            image: /local/imgs/fer1.png
+            type: picture-elements
+        type: horizontal-stack
+    type: vertical-stack

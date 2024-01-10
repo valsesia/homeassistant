@@ -1,0 +1,28 @@
+
+- cal_id: valsesia@gmail.com
+  entities:
+  - device_id: valsesia_gmail_com
+    ignore_availability: true
+    name: valsesia@gmail.com
+    track: true
+
+- cal_id: family15612441329747779660@group.calendar.google.com
+  entities:
+  - device_id: familia_google
+    ignore_availability: true
+    name: Calendario family
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contatos
+    ignore_availability: true
+    name: Contatos
+    track: true
+
+- cal_id: pt.brazilian#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: feriados_no_brazil
+    ignore_availability: true
+    name: Feriados no Brazil
+    track: true

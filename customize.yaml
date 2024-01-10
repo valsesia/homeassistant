@@ -1,0 +1,287 @@
+#    _____          _                  _         
+#   / ____|        | |                (_)        
+#  | |    _   _ ___| |_ ___  _ __ ___  _ _______ 
+#  | |   | | | / __| __/ _ \| '_ ` _ \| |_  / _ \
+#  | |___| |_| \__ \ || (_) | | | | | | |/ /  __/
+#   \_____\__,_|___/\__\___/|_| |_| |_|_/___\___|
+
+# media_player.lg_tv_2:
+#   device_class: tv
+#   source_list:
+#   - TV
+#   - livetv
+#   - youtube
+#   - netflix
+#   - hdmi 1
+#   - AppleTv
+#   - Amazon Prime Video
+person.carlos_eduardo_valsesia:
+  entity_picture: '/local/imgs/cadu2.png'
+ 
+person.fernanda_batista:
+  entity_picture: '/local/imgs/fer1.png'
+
+switch.luz_aquario:
+  friendly_name: Luz do Aquário
+
+sensor.tomada1_despertar:
+  friendly_name: "Agendamento definido para"
+
+sensor.tomada2_despertar:
+  friendly_name: "Agendamento definido para"
+
+climate.arescritorio:
+  friendly_name: Ar do Escritório
+  
+climate.armeninas:
+  friendly_name: Ar Meninas
+
+switch.tomada1_cozinha:
+  friendly_name: Tomada1 da Cozinha
+  icon: mdi:power-socket-ch
+
+switch.tomada2_cozinha:
+  friendly_name: Tomada2 da Cozinha
+  icon: mdi:power-socket-ch
+
+switch.usb_cozinha:
+  friendly_name: USB da Cozinha
+  icon: mdi:usb-port
+  
+switch.usbc_cozinha:
+  friendly_name: USBc da Cozinha
+  icon: mdi:usb
+  
+switch.luz_bwc_casal:
+  friendly_name: Luz do Banheiro de Casal
+  icon: mdi:light-switch
+
+switch.spot_bwc_casal:
+  friendly_name: Spot do Banheiro de Casal
+  icon: mdi:lightbulb
+
+switch.spot_banho:
+  friendly_name: Spot do Banho
+  icon: mdi:lightbulb
+
+switch.luz_casal:
+  friendly_name: Luz Casal
+  icon: mdi:light-switch
+
+switch.luzcasal_paralelo:
+  friendly_name: Luz Casal Paralelo
+  icon: mdi:light-switch
+  
+switch.sanca_casal:
+  friendly_name: Sanca Casal
+  icon: mdi:light-switch
+
+switch.sancacasal_paralelo:
+  friendly_name: Sanca Casal Paralelo
+  icon: mdi:light-switch
+  
+switch.spot_casal:
+  friendly_name: Spot Casal
+  icon: mdi:lightbulb
+
+switch.spotcasal_paralelo:
+  friendly_name: Spot Casal Paralelo
+  icon: mdi:lightbulb
+  
+switch.abajurcasal_paralelo:
+  friendly_name: Abajur Casal Paralelo
+  icon: mdi:lightbulb
+
+switch.abajur_casal:
+  friendly_name: Abajur Casal
+  icon: mdi:lightbulb
+
+switch.luz_corredor:
+  friendly_name: Luz do Corredor
+  icon: mdi:light-switch
+  
+switch.luz_corredor_paralelo:
+  friendly_name: Luz do Corredor Paralelo
+  icon: mdi:light-switch
+
+switch.spot_prateleira:
+  friendly_name: Spot Prateleira
+  icon: mdi:lightbulb
+
+switch.spot_prateleira_paralelo:
+  friendly_name: Spot Prateleira Paralelo
+  icon: mdi:lightbulb
+
+switch.luzmeninas:
+  friendly_name: Luz Meninas
+  icon: mdi:light-switch
+  
+switch.spot_mesa:
+  friendly_name: Spot da Mesa Meninas
+  icon: mdi:lightbulb
+
+switch.spot_beliche:
+  friendly_name: Spot do Beliche
+  icon: mdi:lightbulb
+
+switch.luz_bwc_social:
+  friendly_name: Luz do Banheiro Social
+  icon: mdi:light-switch
+
+switch.spot_bwc_social:
+  friendly_name: Spot do Banheiro Social
+  icon: mdi:lightbulb
+
+switch.tomada_bwc_social:
+  friendly_name: Tomada do Banheiro Social
+  icon: mdi:power-socket-ch
+
+switch.luzsala:
+  friendly_name: Luz da Sala
+  icon: mdi:light-switch
+
+switch.luz_sala_paralelo:
+  friendly_name: Luz da Sala Paralelo
+  icon: mdi:light-switch
+
+switch.spottv:
+  friendly_name: Spot da TV
+  icon: mdi:lightbulb-spot
+
+switch.ledtv:
+  friendly_name: Led da TV
+  icon: mdi:led-strip-variant
+
+switch.luz_estudio:
+  friendly_name: Luz do Estúdio
+  icon: mdi:track-light
+
+switch.ledtv_mini:
+  friendly_name: Led da TV Mini
+  icon: mdi:led-strip-variant
+
+switch.luzbancada:
+  friendly_name: Luz da Bancada
+  icon: mdi:led-strip-variant
+
+switch.luzjantar:
+  friendly_name: Luz Jantar
+  icon: mdi:light-switch
+
+switch.luz_jantar_paralelo:
+  friendly_name: Luz Jantar Paralelo
+  icon: mdi:light-switch
+
+switch.spot_cristaleira:
+  friendly_name: Spot da Cristaleira
+  icon: mdi:lightbulb-spot
+
+switch.spot_cristaleira_paralelo:
+  friendly_name: Spot da Cristaleira Paralelo
+  icon: mdi:lightbulb-spot
+
+switch.luz_cozinha:
+  friendly_name: Luz da Cozinha
+  icon: mdi:light-switch
+
+switch.luzcozinha_paralelo:
+  friendly_name: Luz da Cozinha Paralelo
+  icon: mdi:light-switch
+
+switch.pendente_cozinha:
+  friendly_name: Pendente da Cozinha
+  icon: mdi:globe-light-outline
+  
+switch.ledcozinha_paralelo:
+  friendly_name: Led da Cozinha
+  icon: mdi:led-strip-variant
+
+switch.ledcozinha_mini:
+  friendly_name: Led da Cozinha Mini
+  icon: mdi:led-strip-variant
+
+binary_sensor.movimento_lavabo:
+  friendly_name: Sensor Mov Lavabo
+
+binary_sensor.porta_lavabo:
+  friendly_name: Sensor Porta Lavabo
+
+switch.tomadacozinha:
+  friendly_name: Tomada da Cozinha
+  icon: mdi:power-socket-ch
+
+switch.luz_lavanderia:
+  friendly_name: Luz da Lavanderia
+  icon: mdi:light-switch
+
+switch.lavanderia_paralelo:
+  friendly_name: Luz da Lavanderia Paralelo
+  icon: mdi:light-switch
+
+switch.luzsacada:
+  friendly_name: Luz da Sacada
+  icon: mdi:light-switch
+
+switch.spotsacada:
+  friendly_name: Spot Churrasqueira
+  icon: mdi:lightbulb-spot
+
+switch.spotsacada1:
+  friendly_name: Spot da Sacada
+  icon: mdi:lightbulb-spot
+
+switch.luzchurrasqueira:
+  friendly_name: Luz da Churrasqueira
+  icon: mdi:grill-outline
+
+switch.tomadasacada:
+  friendly_name: Tomada da Sacada
+  icon: mdi:power-socket-ch
+  
+switch.entrada:
+  friendly_name: Luz da Entrada
+  icon: mdi:light-switch
+
+switch.luz_lavabo:
+  friendly_name: Luz do Lavabo
+  icon: mdi:light-switch
+  
+switch.luz_escritorio:
+  friendly_name: Luz do Escritório
+  icon: mdi:light-switch
+
+switch.spot_escritorio:
+  friendly_name: Spot do Escritório
+  icon: mdi:lightbulb-spot
+
+switch.bancada_escritorio:
+  friendly_name: Bancada do Escritório
+  icon: mdi:led-strip-variant
+  
+light.d1_abajur:
+  friendly_name: Abajur Leitura
+  icon: mdi:lightbulb
+
+switch.abajur_absolut:
+  friendly_name: Abajur Absolut
+  icon: mdi:lightbulb
+  
+switch.extensao_micro_socket_1:
+  friendly_name: Tomada Switch Rede
+  icon: mdi:power-socket-ch
+
+switch.extensao_micro_socket_2:
+  friendly_name: Tomada AirPort
+  icon: mdi:power-socket-ch
+  
+switch.extensao_micro_socket_3:
+  friendly_name: Tomada Livre
+  icon: mdi:power-socket-ch
+  
+switch.extensao_micro_socket_4:
+  friendly_name: Tomada LED Bancada
+  icon: mdi:power-socket-ch
+
+switch.extensao_micro_usb_1:
+  friendly_name: USB Filtro Linha
+  icon: mdi:usb-port

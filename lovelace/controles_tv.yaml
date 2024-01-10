@@ -1,0 +1,883 @@
+ #   _____            _             _             _________      __
+ #  / ____|          | |           | |           |__   __\ \    / /
+ # | |     ___  _ __ | |_ _ __ ___ | | ___  ___     | |   \ \  / / 
+ # | |    / _ \| '_ \| __| '__/ _ \| |/ _ \/ __|    | |    \ \/ /  
+ # | |___| (_) | | | | |_| | | (_) | |  __/\__ \    | |     \  /   
+ #  \_____\___/|_| |_|\__|_|  \___/|_|\___||___/    |_|      \/    
+                                                                 
+                                                                                                               
+title: Controles TV
+path: controles_tv
+icon: 'mdi:remote'
+cards:
+  - cards:
+      - cards: null
+        color: var(--secondary-text-color)
+        entity: media_player.lg_tv_quarto
+        icon: 'mdi:television-classic'
+        layout: icon_name_state2nd
+        show_state: true
+        tap_action:
+          action: call-service
+          service: script.tv_quarto_liga_desliga
+        state:
+          - color: var(--secondary-text-color)
+            styles:
+              card:
+                - background-color: var(--paper-card-background-color)
+              state:
+                - color: var(--secondary-text-color)
+            value: 'on'
+        styles:
+          card:
+            - height: 82px
+            - background-color: var(--switch-unchecked-button-color)
+          name:
+            - font-weight: 500
+          state:
+            - font-size: 12px
+        type: 'custom:button-card'
+      - cards:
+          - entity: switch.tv_casal_power
+            icon: 'mdi:power'
+            name: Liga/Desliga
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+              icon:
+                - color: '#FF0000'
+            type: 'custom:button-card'
+          
+          - color_type: blank-card
+            type: 'custom:button-card'
+        
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_quarto_input
+            name: Input
+            icon: 'mdi:distribute-horizontal-center'
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'        
+        type: horizontal-stack 
+        
+      - cards:
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_vol_down
+            name: Vol -
+            icon: 'mdi:volume-minus'
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_mute
+            name: Mute
+            icon: 'mdi:volume-mute'
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_vol_up
+            name: Vol +
+            icon: 'mdi:volume-plus'
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_quarto_settings
+            icon: 'mdi:settings'
+            name: Settings
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_up
+            icon: 'mdi:arrow-up-thick'
+            name: ' '
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_quarto_home
+            show_name: false
+            icon: 'mdi:home-analytics'
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_left
+            icon: 'mdi:arrow-left-bold'
+            name: ' '
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_ok
+            icon: 'mdi:chevron-down-circle-outline'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_right
+            icon: 'mdi:arrow-right-bold'
+            name: ' '
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_back
+            icon: 'mdi:undo-variant'
+            name: Voltar
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_down
+            icon: 'mdi:arrow-down-thick'
+            name: ' '
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_exit
+            name: Exit
+            icon: 'mdi:exit-to-app'
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_netflix
+            icon: 'mdi:netflix'
+            name: Netflix
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_info
+            icon: 'mdi:information-outline'
+            name: 'Info'
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_prime
+            icon: 'mdi:amazon'
+            name: Prime Vídeo
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_red
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#C62828'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_quarto_green
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#2E7D32'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_yellow
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#FDD835'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action:
+              action: call-service
+              service: script.tv_quarto_blue
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#1565C0'
+                - height: 20px
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+ 
+  - cards:
+       - cards: null
+         color: var(--secondary-text-color)
+         name: 'Som Escritório'
+         entity: switch.som_escritorio_power
+         icon: 'mdi:speaker'
+         layout: icon_name_state2nd
+         show_state: true
+         state:
+           - color: var(--secondary-text-color)
+             styles:
+               card:
+                 - background-color: var(--paper-card-background-color)
+               state:
+                 - color: var(--secondary-text-color)
+             value: 'on'
+         styles:
+           card:
+             - height: 82px
+             - background-color: var(--switch-unchecked-button-color)
+           name:
+             - font-weight: 500
+           state:
+             - font-size: 12px
+         type: 'custom:button-card'
+       - cards:
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_vol_down
+             name: Vol -
+             icon: 'mdi:volume-medium'
+             styles:
+               card:
+                 - height: 70px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+             
+           - color_type: blank-card
+             type: 'custom:button-card'
+            
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_vol_up
+             icon: 'mdi:volume-high'
+             name: Vol +
+             styles:
+               card:
+                 - height: 70px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+         type: horizontal-stack
+       - cards:
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_function
+             name: Function
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_turner_band
+             name: Band
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_turner_down
+             icon: 'mdi:playlist-music'
+             name: Memória -
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_turner_up
+             icon: 'mdi:playlist-music'
+             name: Memória +
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+         type: horizontal-stack
+       - cards:
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_skip
+             icon: 'mdi:debug-step-over'
+             name: Disk Skip
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_volta
+             show_name: false
+             icon: 'mdi:skip-backward'
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_avanca
+             show_name: false
+             icon: 'mdi:skip-forward'
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+
+         type: horizontal-stack
+         
+       - cards:
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_play
+             icon: 'mdi:play'
+             show_name: false
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_pause
+             show_name: false
+             icon: 'mdi:pause'
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+           - entity: button-card
+             tap_action:
+               action: call-service
+               service: script.som_cd_stop
+             icon: 'mdi:stop'
+             show_name: false
+             styles:
+               card:
+                 - height: 60px
+               name:
+                 - font-size: 12px
+             type: 'custom:button-card'
+         type: horizontal-stack
+    type: vertical-stack
+ 
+  - cards:
+      - cards: null
+        color: var(--secondary-text-color)
+        entity: media_player.samsung_un50ju6400
+        icon: 'mdi:television-classic'
+        layout: icon_name_state2nd
+        name: Samsung TV
+        show_state: true
+        tap_action:
+          action: call-service
+          service: script.tv_sala_liga_desliga
+        state:
+          - color: var(--secondary-text-color)
+            styles:
+              card:
+                - background-color: var(--paper-card-background-color)
+              state:
+                - color: var(--secondary-text-color)
+            value: 'on'
+        styles:
+          card:
+            - height: 82px
+            - background-color: var(--switch-unchecked-button-color)
+          name:
+            - font-weight: 500
+          state:
+            - font-size: 12px
+        type: 'custom:button-card'
+      - cards:
+          - entity: switch.tv_sala_power
+            icon: 'mdi:power'
+            name: Liga/Desliga
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+              icon:
+                - color: '#FF0000'
+            type: 'custom:button-card'
+          
+          - color_type: blank-card
+            type: 'custom:button-card'
+            
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_input
+            icon: 'mdi:distribute-horizontal-center'
+            name: Input
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_vol_down
+            icon: 'mdi:volume-minus'
+            name: Vol -
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_mute
+            icon: 'mdi:volume-mute'
+            name: Mute
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_vol_up
+            icon: 'mdi:volume-plus'
+            name: Vol +
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_menu
+            icon: 'mdi:dots-horizontal-circle-outline'
+            name: Menu
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_hub
+            icon: 'mdi:cube'
+            name: Hub
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_guide
+            icon: 'mdi:television-guide'
+            name: Guia
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_tools
+            icon: 'mdi:hammer-wrench'
+            name: Tools
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_up
+            icon: 'mdi:arrow-up-thick'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_info
+            icon: 'mdi:information-outline'
+            name: Info
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_left
+            icon: 'mdi:arrow-left-thick'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_ok
+            icon: 'mdi:chevron-down-circle-outline'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_right
+            icon: 'mdi:arrow-right-thick'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_back
+            icon: 'mdi:undo-variant'
+            name: Voltar
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_down
+            icon: 'mdi:arrow-down-thick'
+            show_name: false
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_exit
+            icon: 'mdi:exit-to-app'
+            name: Exit
+            styles:
+              card:
+                - height: 60px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_red
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#C62828'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_green
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#2E7D32'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_yellow
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#FDD835'
+                - height: 20px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.tv_sala_blue
+            show_icon: false
+            show_name: false
+            styles:
+              card:
+                - background-color: '#1565C0'
+                - height: 20px
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack
+ 
+ 
+  - cards:
+      - cards: null
+        color: var(--secondary-text-color)
+        entity: switch.laser
+        icon: 'mdi:track-light'
+        layout: icon_name_state2nd
+        show_state: true
+        state:
+          - color: var(--secondary-text-color)
+            styles:
+              card:
+                - background-color: var(--paper-card-background-color)
+              state:
+                - color: var(--secondary-text-color)
+            value: 'on'
+        styles:
+          card:
+            - height: 82px
+            - background-color: var(--switch-unchecked-button-color)
+          name:
+            - font-weight: 500
+          state:
+            - font-size: 12px
+        type: 'custom:button-card'
+      - cards:
+          - color_type: blank-card
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.laser_speed
+            name: Speed
+            show_icon: false
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - color_type: blank-card
+            type: 'custom:button-card'
+        type: horizontal-stack
+      - cards:
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.laser_pattern
+            name: Pattern
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.laser_auto_music
+            name: Auto Music
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.laser_color
+            name: Color
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+        type: horizontal-stack
+
+      - cards:
+          - color_type: blank-card
+            type: 'custom:button-card'
+          - entity: button-card
+            tap_action: 
+              action: call-service
+              service: script.laser_mode
+            name: Mode
+            styles:
+              card:
+                - height: 70px
+              name:
+                - font-size: 12px
+            type: 'custom:button-card'
+          - color_type: blank-card
+            type: 'custom:button-card'
+        type: horizontal-stack
+    type: vertical-stack

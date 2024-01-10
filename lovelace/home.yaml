@@ -1,0 +1,533 @@
+title: Inicio
+path: inicio
+icon: 'mdi:map-marker-radius'
+cards:
+
+  - cards:  
+  
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Location Info - Cadu
+            column_width: 20%
+            entities:
+              - entity: device_tracker.iphone_de_cadu
+                name: Cadu
+              - entity: sensor.iphone_de_cadu_interval
+                name: Interval
+                icon: mdi:clock-start
+              - entity: sensor.iphone_de_cadu_travel_time
+                name: TravTime
+                icon: mdi:clock-outline
+              - entity: sensor.iphone_de_cadu_zone_distance
+                name: Home
+                icon: mdi:map-marker-distance 
+              - entity: sensor.iphone_de_cadu_next_update
+                name: NextUpdt
+                icon: mdi:update
+
+          - type: glance
+            column_width: 20%
+            entities:
+              - entity: sensor.iphone_de_cadu_waze_distance
+                name: WazeDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.iphone_de_cadu_calc_distance
+                name: CalcDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.iphone_de_cadu_dir_of_travel
+                name: Direction
+                icon: mdi:compass-outline
+              - entity: sensor.iphone_de_cadu_last_located
+                name: Located
+                icon: mdi:map-clock
+              - entity: sensor.iphone_de_cadu_last_update
+                name: LastUpdt
+                icon: mdi:history 
+
+          - type: horizontal-stack
+            cards:
+            - type: entities
+              entities:
+                - entity: sensor.iphone_de_cadu_battery_level
+                  name: Bateria
+                  icon: mdi:information-outline 
+
+
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Location Info - Fernanda
+            column_width: 20%
+            entities:
+              - entity: device_tracker.iphone_de_fernanda_patricia
+                name: Fernanda
+              - entity: sensor.iphone_de_fernanda_patricia_interval
+                name: Interval
+                icon: mdi:clock-start
+              - entity: sensor.iphone_de_fernanda_patricia_travel_time
+                name: TravTime
+                icon: mdi:clock-outline
+              - entity: sensor.iphone_de_fernanda_patricia_zone_distance
+                name: Home
+                icon: mdi:map-marker-distance 
+              - entity: sensor.iphone_de_fernanda_patricia_next_update
+                name: NextUpdt
+                icon: mdi:update
+
+          - type: glance
+            column_width: 20%
+            entities:
+              - entity: sensor.iphone_de_fernanda_patricia_waze_distance
+                name: WazeDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.iphone_de_fernanda_patricia_calc_distance
+                name: CalcDist
+                icon: mdi:map-marker-distance
+              - entity: sensor.iphone_de_fernanda_patricia_dir_of_travel
+                name: Direction
+                icon: mdi:compass-outline
+              - entity: sensor.iphone_de_fernanda_patricia_last_located
+                name: Located
+                icon: mdi:map-clock
+              - entity: sensor.iphone_de_fernanda_patricia_last_update
+                name: LastUpdt
+                icon: mdi:history 
+
+          - type: horizontal-stack
+            cards:
+            - type: entities
+              entities:
+                - entity: sensor.bateria_fernanda_1
+                  name: Bateria
+                  icon: mdi:information-outline 
+         
+      - cards:
+          - type: custom:button-card
+            entity: person.carlos_eduardo_valsesia
+            name: 'Cadu'
+            triggers_update:
+              ['person.carlos_eduardo_valsesia', 'sensor.cadu_last_changed', 'device_tracker.life360_carlos_eduardo_valsesia']
+            state_display: >
+                [[[
+                   return states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.address
+                ]]]
+            show_entity_picture: true
+            state: &button_home_state
+              - value: 'home'
+                styles:
+                  card:
+                    - background-color: rgba(255, 255, 255, 0.8)
+                  name:
+                    - color: rgba(0, 0, 0, 0.6)
+                    - font-size: 18px
+                  state:
+                    - color: rgba(0, 0, 0, 0.6)
+                  custom_fields:
+                    info:
+                      - color: '#959698'
+                    bateria:
+                      - color: '#959698'
+                    passos:
+                      - color: '#959698'
+                    local:
+                      - color: '#959698'
+            styles: &button_home_styles
+              entity_picture:
+                  [clip-path: circle(50% at center), top: 7.5%, left: 11.2%, width: 70px, position: absolute]
+              custom_fields:
+                sensor: [top: 8.5%, left: 56.2%, width: 80px, position: absolute, letter-spacing: 0.70px]
+                bateria: [top: 55%, left: 65%, position: absolute, letter-spacing: 0.70px]
+                passos: [top: 68%, left: 65%, position: absolute, letter-spacing: 0.70px]
+                local: [top: 85%, left: 5%, position: absolute, letter-spacing: 0.70px, font-size: 12px]
+            style:
+              top: 64.5%
+              left: 80.05%
+              width: 10%
+            tap_action: !include popup/hemma_mattias.yaml
+            hold_action: !include popup/hemma_mattias.yaml
+            custom_fields:
+              sensor: >
+                [[[ const last_changed = states['sensor.cadu_last_changed'].state; 
+                const stroke_color = entity.state === 'home' ? '#b2b2b2' : '#313638'; 
+                const fill_color = entity.state === 'home' ? 'none' : '#FFFFFF08';
+                return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20.5" stroke="${stroke_color}" stroke-width="1.5" fill="${fill_color}" />
+                <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${last_changed}</text></svg>`; ]]]
+              bateria: >
+                [[[ if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 0 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 10)
+                       return `<ha-icon icon="mdi:battery-10" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 10 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 20)
+                       return `<ha-icon icon="mdi:battery-20" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 20 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 30)
+                       return `<ha-icon icon="mdi:battery-30" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 30 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 40)
+                       return `<ha-icon icon="mdi:battery-40" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 40 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 50)
+                       return `<ha-icon icon="mdi:battery-50" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 50 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 60)
+                       return `<ha-icon icon="mdi:battery-60" style="width: 18px; height: 18px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`;
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 60 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 70)
+                       return `<ha-icon icon="mdi:battery-70" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 70 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 80)
+                       return `<ha-icon icon="mdi:battery-80" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery > 80 && states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery <= 98)
+                       return `<ha-icon icon="mdi:battery-90" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                    else
+                       return `<ha-icon icon="mdi:battery" style="width: 18px; height: 16px; color: green;"></ha-icon>  ${states['device_tracker.life360_carlos_eduardo_valsesia'].attributes.battery}%`; 
+                ]]]
+              passos: >
+                [[[
+                   return `<ha-icon icon="mdi:shoe-print" style="width: 18px; height: 18px; color: #313638;"></ha-icon>  ${states['sensor.iphone_de_cadu_steps'].state}` 
+                ]]]
+              local: >
+                 [[[
+                    return states['sensor.iphone_de_cadu_geocoded_location'].attributes.Name 
+                 ]]]
+            template: switch  
+
+          #################################################
+          #                                               #
+          #                    FER                        #
+          #                                               #
+          #################################################
+        
+          - type: custom:button-card
+            entity: person.fernanda_batista
+            name: 'Fernanda'
+            triggers_update:
+              ['person.fernanda_batista', 'sensor.fer_last_changed', 'device_tracker.life360_fernanda_batista']
+            state_display: >
+                [[[
+                   return states['device_tracker.life360_fernanda_batista'].attributes.address
+                ]]]
+            show_entity_picture: true
+            state: *button_home_state
+            styles: *button_home_styles
+            style:
+              top: 64.5%
+              left: 91.05%
+              width: 10%
+            tap_action: !include popup/hemma_sanja.yaml
+            hold_action: !include popup/hemma_sanja.yaml
+            custom_fields:
+              sensor: >
+                [[[ const last_changed = states['sensor.fer_last_changed'].state; 
+                const stroke_color = entity.state === 'home' ? '#b2b2b2' : '#313638'; 
+                const fill_color = entity.state === 'home' ? 'none' : '#FFFFFF08';
+                return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20.5" stroke="${stroke_color}" stroke-width="1.5" fill="${fill_color}" />
+                <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${last_changed}</text></svg>`; ]]]
+              bateria: >
+                [[[ if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 0 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 10)
+                       return `<ha-icon icon="mdi:battery-10" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 10 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 20)
+                       return `<ha-icon icon="mdi:battery-20" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 20 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 30)
+                       return `<ha-icon icon="mdi:battery-30" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 30 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 40)
+                       return `<ha-icon icon="mdi:battery-40" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 40 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 50)
+                       return `<ha-icon icon="mdi:battery-50" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 50 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 60)
+                       return `<ha-icon icon="mdi:battery-60" style="width: 18px; height: 18px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`;
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 60 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 70)
+                       return `<ha-icon icon="mdi:battery-70" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 70 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 80)
+                       return `<ha-icon icon="mdi:battery-80" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    if (states['device_tracker.life360_fernanda_batista'].attributes.battery > 80 && states['device_tracker.life360_fernanda_batista'].attributes.battery <= 98)
+                       return `<ha-icon icon="mdi:battery-90" style="width: 18px; height: 16px; color: #313638;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                    else
+                       return `<ha-icon icon="mdi:battery" style="width: 18px; height: 16px; color: green;"></ha-icon>  ${states['device_tracker.life360_fernanda_batista'].attributes.battery}%`; 
+                ]]]
+              passos: >
+                [[[
+                  return `<ha-icon icon="mdi:shoe-print" style="width: 18px; height: 18px; color: #313638;"></ha-icon>  ${states['sensor.iphone_de_fernanda_patricia_steps'].state}` 
+                ]]]
+              local: >
+                 [[[
+                    return states['sensor.iphone_de_fernanda_patricia_geocoded_location'].attributes.Name 
+                 ]]]
+            template: switch
+
+        type: horizontal-stack
+
+    type: vertical-stack
+
+#   - cards:
+#       - cards:
+#           - elements:
+#               - entity: sensor.status_cadu  
+#                 style:
+#                   color: white
+#                   font-size: 1.3em
+#                   font-weight: bold
+#                   left: 27%
+#                   top: 90%
+#                 type: state-label
+#               - entity: sensor.bateria_cadu_1  
+#                 style:
+#                   color: white
+#                   font-weight: bold
+#                   left: 83%
+#                   top: 87%
+#                 type: state-label
+#               - entity: sensor.bateria_status_cadu
+#                 style:
+#                   left: 69%
+#                   top: 86%
+#                 type: state-icon
+#               - entity: sensor.bateria_status_cadu
+#                 style:
+#                   color: white
+#                   font-size: 11px
+#                   left: 78%
+#                   top: 96%
+#                 type: state-label
+#               - entity: script.cade_o_cadu
+#                 icon: 'mdi:map-marker-radius'
+#                 style:
+#                   color: white
+#                   font-size: 1.4em
+#                   left: 8%
+#                   top: 7%
+#                 type: state-icon
+#             image: /local/imgs/cadu2.png
+#             type: picture-elements
+#           - elements:
+#               - entity: sensor.status_fernanda
+#                 style:
+#                   color: white
+#                   font-size: 1.3em
+#                   font-weight: bold
+#                   left: 27%
+#                   top: 90%
+#                 type: state-label
+#               - entity: sensor.bateria_fernanda_1
+#                 style:
+#                   color: white
+#                   font-weight: bold
+#                   left: 82%
+#                   top: 87%
+#                 type: state-label
+#               - entity: sensor.bateria_status_fernanda
+#                 style:
+#                   left: 69%
+#                   top: 86%
+#                 type: state-icon
+#               - entity: sensor.bateria_status_fernanda
+#                 style:
+#                   color: white
+#                   font-size: 11px
+#                   left: 80%
+#                   top: 96%
+#                 type: state-label
+#               - entity: script.cade_a_fernanda
+#                 icon: 'mdi:map-marker-radius'
+#                 style:
+#                   color: white
+#                   font-size: 1.4em
+#                   left: 8%
+#                   top: 7%
+#                 type: state-icon
+#             image: /local/imgs/fer1.png
+#             type: picture-elements
+#         type: horizontal-stack
+#     type: vertical-stack
+
+  
+  
+  
+  
+  
+  
+    
+#   - type: picture-elements
+#     image: /local/background.png
+#     style:
+#       .: |
+#         /* Global */
+  
+#         #root > hui-icon-element {color: rgba(255, 255, 255, 0.1) !important; transition: 0.4s;}
+#         #root > hui-icon-element:hover {color: rgba(255, 255, 255, 0.25) !important; transition: none;}
+#         #root > hui-icon-element:active {color: rgba(255, 255, 255, 0.35) !important; transition: none;}
+    
+#       "#root > hui-image":
+#         $: |
+#           #image {pointer-events: none;}
+  
+#       "#root > hui-markdown-card, #key1":
+#         $: |
+#           ha-card > ha-markdown {padding: 0 !important;}
+  
+#       "#root > hui-markdown-card, #key2":
+#         $:
+#           "ha-card > ha-markdown":
+#             $: |
+#               ha-markdown-element > font > ha-icon {vertical-align: 3%; opacity: 0.6;}
+#               ha-markdown-element > p > span {font-family: SF Text; font-size: 5vw; 
+#               font-weight: 200; margin-left: -0.3vw; letter-spacing: -0.05vw;}
+    
+#       "#root > hui-state-label-element":
+#         $: |
+#           div {padding: 0 !important;}
+  
+#       "#root > hui-conditional-element:nth-child(11) > button-card":
+#         $: |
+#           #card { background-color: #202a2f90; }
+#           #card:hover, #card:active { filter: brightness(140%); transition: none; }
+    
+#     elements:  
+
+
+#       - type: custom:button-card
+#         entity: switch.sonoff_1000b57904
+#         style:
+#           top: 64.5%
+#           left: 55.18%
+#           width: 10%
+#         custom_fields:
+#           icon_bathroom: >
+#             [[[ const state = entity.state==='on' ? 'animate_on' : 'animate_off'; 
+#             return `<svg viewBox="0 0 50 50" fill="var(--button-card-light-color-no-temperature)"><style>@keyframes animate_on{0%{transform: rotateZ(0deg) translate(0%, 0%);}100%{transform: rotateZ(-90deg) translate(-1.5%, 0%);}}@keyframes animate_off{0%{transform: rotateZ(-90deg) translate(-1.5%, 0%);}45%{transform: rotateZ(-40deg);}55%{transform: rotateZ(0deg);}65%{transform: rotateZ(-15deg);}75%{transform: rotateZ(0deg);}85%{transform: rotateZ(-5deg);}95%{transform: rotateZ(0deg);}}.animate_on{animation: animate_on 0.4s; animation-fill-mode: forwards; transform-origin: 45% 41%; transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);}.animate_off{animation: animate_off 1.05s linear; animation-delay: 0.05s; animation-fill-mode: both; transform-origin: 45% 41%;}</style>
+#             <path d="M12.9 1.2h2.5c1.6 0 2.9 1.3 2.9 2.9v18.6c0 1.4 1.1 2.5 2.4 2.5h20.5c.5 0 1 .4.9 1-.1 2.6-1.2 9.6-10.2 11v7.6c0 .2.2.4.4.4h1.5a1.58 1.58 0 0 1 1.6 1.6v.3a1.58 1.58 0 0 1-1.6 1.6H11a1.58 1.58 0 0 1-1.6-1.6v-.3a1.58 1.58 0 0 1 1.6-1.6h1.6c.2 0 .4-.2.4-.4v-7.6s-5.2-.3-5.2-5.9V4.2c0-1.6 1.3-2.9 2.9-2.9l2.2-.1c0 .1 0 0 0 0z"/><path class="${state}" d="M22.3 18.8h18.3a1.58 1.58 0 0 1 1.6 1.6v.6a1.58 1.58 0 0 1-1.6 1.6h-19c-.4 0-.7-.3-.8-.7v-2.3c0-.4.3-.7.7-.8h.8z"/></svg>`;]]]
+#         styles:
+#           custom_fields:
+#             icon_bathroom:
+#               [top: 11%, left: 6.5%, width: 40px, position: absolute]
+#         template: light
+
+
+#       - type: custom:button-card
+#         entity: switch.sonoff_1000b57904
+#         state_display: Auto
+#         style:
+#           top: 82.1%
+#           left: 80.05%
+#           width: 10%
+#         tap_action:
+#           action: toggle
+#         hold_action:
+#           action: none
+#         custom_fields:
+#           icon_bathroom: >
+#             [[[ const state = entity.state==='on' ? 'animate_on' : 'animate_off'; 
+#             return `<svg viewBox="0 0 50 50" fill="var(--button-card-light-color-no-temperature)"><style>@keyframes animate_on{0%{transform: rotateZ(0deg) translate(0%, 0%);}100%{transform: rotateZ(-90deg) translate(-1.5%, 0%);}}@keyframes animate_off{0%{transform: rotateZ(-90deg) translate(-1.5%, 0%);}45%{transform: rotateZ(-40deg);}55%{transform: rotateZ(0deg);}65%{transform: rotateZ(-15deg);}75%{transform: rotateZ(0deg);}85%{transform: rotateZ(-5deg);}95%{transform: rotateZ(0deg);}}.animate_on{animation: animate_on 0.4s; animation-fill-mode: forwards; transform-origin: 45% 41%; transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);}.animate_off{animation: animate_off 1.05s linear; animation-delay: 0.05s; animation-fill-mode: both; transform-origin: 45% 41%;}</style>
+#             <path d="M12.9 1.2h2.5c1.6 0 2.9 1.3 2.9 2.9v18.6c0 1.4 1.1 2.5 2.4 2.5h20.5c.5 0 1 .4.9 1-.1 2.6-1.2 9.6-10.2 11v7.6c0 .2.2.4.4.4h1.5a1.58 1.58 0 0 1 1.6 1.6v.3a1.58 1.58 0 0 1-1.6 1.6H11a1.58 1.58 0 0 1-1.6-1.6v-.3a1.58 1.58 0 0 1 1.6-1.6h1.6c.2 0 .4-.2.4-.4v-7.6s-5.2-.3-5.2-5.9V4.2c0-1.6 1.3-2.9 2.9-2.9l2.2-.1c0 .1 0 0 0 0z"/><path class="${state}" d="M22.3 18.8h18.3a1.58 1.58 0 0 1 1.6 1.6v.6a1.58 1.58 0 0 1-1.6 1.6h-19c-.4 0-.7-.3-.8-.7v-2.3c0-.4.3-.7.7-.8h.8z"/></svg>`;]]]
+#         styles:
+#           card: [transition: all 0.3s ease-out]
+#           custom_fields:
+#             icon_bathroom:
+#               [top: 11%, left: 6.5%, width: 3vw, position: absolute,
+#               fill: "[[[ return entity.state === 'on' ? '#516d82' : '#9da0a2'; ]]]"]
+#         template: switch            
+            
+#       - type: custom:button-card
+#         entity: light.sonoff_1000aca618
+#         style:
+#           top: 20.1%
+#           left: 55.18%
+#           width: 10%
+#         custom_fields:
+#           icon_closet: >
+#             [[[ const state = entity.state === 'on' ? 'door' : 'door reverse'; const opacity = entity.state === 'on' ? 'room' : 'room reverse';
+#             return `<svg viewBox="0 0 50 50"> <style>.door{animation: door 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;}.room{animation: room 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;}.reverse{animation-direction: reverse;}@keyframes door{0%{transform: none; fill: #9da0a2;}100%{transform: skewY(10deg) translate(4.5%, -3.9%) scaleX(0.8); fill: #b68349;}}@keyframes room{0%{opacity: 0;}100%{opacity: 1;}}</style>
+#             <path class="${opacity}" d="M11.4,1.4h27.2v43.1H11.4V1.4z" fill="#bcbcbc"/><path class="${state}" d="M11.4 1.4v43.1h27.2V1.4H11.4zm23 23.4c0 1.1-.9 1.9-1.9 1.9h0c-1.1 0-1.9-.9-1.9-1.9V21c0-1.1.9-1.9 1.9-1.9h0c1.1 0 1.9.9 1.9 1.9v3.8z"/></svg>`; ]]]
+#         styles:
+#           custom_fields:
+#             icon_closet:
+#               [top: 11%, left: 4.1%, width: 3.2vw, position: absolute]
+#         template: light
+
+#       - prefix: Casa
+#         entity: sensor.placeholder
+#         tap_action:
+#           action: none
+#         hold_action:
+#           action: none
+#         type: state-label         
+#         style:
+#           top: 53.4%
+#           left: 75.1%
+#           color: '#bcbebf'
+#           font-family: SF Text
+#           font-size: 2vw
+#           font-weight: 500
+#           max-width: 1px
+#           cursor: default
+    
+#       #################################################
+#       #                                               #
+#       #                    CADU                       #
+#       #                                               #
+#       #################################################
+    
+#       - type: custom:button-card
+#         entity: person.carlos_eduardo_valsesia
+#         name: 'Cadu'
+#         triggers_update:
+#           ['person.carlos_eduardo_valsesia', 'sensor.cadu_last_changed']
+#         state_display: >
+#           [[[ return entity.state === 'home' ? 'Sim' : 'Não'; ]]] 
+#         show_entity_picture: true
+#         state: 
+#           - value: 'home'
+#             styles:
+#               card:
+#                 - background-color: rgba(255, 255, 255, 0.8)
+#               name:
+#                 - color: rgba(0, 0, 0, 0.6)
+#               state:
+#                 - color: rgba(0, 0, 0, 0.6)
+#               custom_fields:
+#                 info:
+#                   - color: '#959698'
+#         styles: 
+#           entity_picture:
+#               [clip-path: circle(50% at center), top: 7.5%, left: 11.2%, width: 3vw, position: absolute]
+#           custom_fields:
+#             sensor: [top: 8.5%, left: 56.2%, width: 3.5vw, position: absolute, letter-spacing: 0.03vw]
+#         style:
+#           top: 64.5%
+#           left: 80.05%
+#           width: 10%
+#         tap_action: !include popup/hemma_mattias.yaml
+#         hold_action: !include popup/hemma_mattias.yaml
+#         custom_fields:
+#           sensor: >
+#             [[[ const last_changed = states['sensor.cadu_last_changed'].state; 
+#             const stroke_color = entity.state === 'home' ? '#b2b2b2' : '#313638'; 
+#             const fill_color = entity.state === 'home' ? 'none' : '#FFFFFF08';
+#             return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20.5" stroke="${stroke_color}" stroke-width="1.5" fill="${fill_color}" />
+#             <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${last_changed}</text></svg>`; ]]]
+#         template: switch
+
+#       #################################################
+#       #                                               #
+#       #                    FER                        #
+#       #                                               #
+#       #################################################
+    
+#       - type: custom:button-card
+#         entity: person.fernanda_batista
+#         name: 'Fernanda'
+#         triggers_update:
+#           ['person.fernanda_batista', 'sensor.fer_last_changed']
+#         state_display: *button_home_state_display
+#         show_entity_picture: true
+#         state: *button_home_state
+#         styles: *button_home_styles
+#         style:
+#           top: 64.5%
+#           left: 91.05%
+#           width: 10%
+#         tap_action: !include popup/hemma_sanja.yaml
+#         hold_action: !include popup/hemma_sanja.yaml
+#         custom_fields:
+#           sensor: >
+#             [[[ const last_changed = states['sensor.fer_last_changed'].state; 
+#             const stroke_color = entity.state === 'home' ? '#b2b2b2' : '#313638'; 
+#             const fill_color = entity.state === 'home' ? 'none' : '#FFFFFF08';
+#             return `<svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20.5" stroke="${stroke_color}" stroke-width="1.5" fill="${fill_color}" />
+#             <text x="50%" y="54%" fill="#8d8e90" font-size="14" text-anchor="middle" alignment-baseline="middle">${last_changed}</text></svg>`; ]]]
+#         template: switch
+        
+# type: vertical-stack
